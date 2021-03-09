@@ -1,0 +1,208 @@
+//created on: 14-Apr-2019
+package thesistimetableplanning.solver;
+	dialect "java"
+
+//list any import classes here.
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
+import thesistimetableplanning.domain.Defense;
+
+
+
+global HardSoftScoreHolder scoreHolder;
+
+
+
+rule "Commission at least three members"
+
+    when
+        $defense : Defense(setCommission(),
+        			!enoughCommiteeMembers())
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Author prerequisites done"
+    when
+        $defense : Defense(!authorHasPreconditionsDone())
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Defense on authors unavailable timeslot"
+	when
+		$defense : Defense(isAuthorsUnavailableTimeslot())
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Defense on authors unavailable timeslot tag"
+	when
+		$defense : Defense(isAuthorsUnavailableTimeslotTag())
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Closed defenses at start or end day or at before or after lunch"
+    when
+       	$defense : Defense(!isClosedDefenseTimeslot(),
+        			!happensOnClosedTimes())
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -1);
+end
+rule "Defense on commission members unavailable timeslot"
+	when
+		$defense : Defense($count : isCommissionMembersUnavailableTimeslot() > 0)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on commission members unavailable timeslot tag"
+	when
+		$defense : Defense($count : isCommissionMembersUnavailableTimeslotTag() > 0)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense grouped by same thesis theme"
+    //include attributes such as "salience" here...
+    //
+    //	Kas siin punktide ära võtmise asemel annab + punkte juurde?
+    //
+    when
+        //conditions
+        $defense1 : Defense(timeslot != null,
+        			$ThesisTheme : ThesisTheme,
+        			$id1 : id)
+        $defense2 : Defense(timeslot != null,
+        			ThesisTheme == $ThesisTheme,
+        			id > $id1)
+    then
+        //actions
+        scoreHolder.addSoftConstraintMatch(kcontext, 1);
+        //scoreHolder.penalize(kcontext, $defense2.sameThesisTypeTagCount($defense1);
+end
+
+rule "Defense has one chairman"
+    when
+        $defense : Defense(!hasChairmanAmongCommitee())
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Defense on authors not preferred timeslot"
+	when
+		$defense : Defense(isAuthorsNotPreferredTimeslot())
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, -1);
+end
+
+rule "Defense on authors not preferred timeslot tag"
+	when
+		$defense : Defense(isAuthorsNotPreferredTimeslotTag())
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, -1);
+end
+
+rule "Defense on authors preferred timeslot"
+	when
+		$defense : Defense(isAuthorsPreferredTimeslot())
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, 1);
+end
+
+rule "Defense on authors preferred timeslot tag"
+	when
+		$defense : Defense(isAuthorsPreferredTimeslotTag())
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, 1);
+end
+
+rule "Defense on authors supervisors not preferred timeslot"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsNotPreferredTimeslot() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on authors supervisors not preferred timeslot tag"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsNotPreferredTimeslotTag() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on authors supervisors preferred timeslot"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsPreferredTimeslot() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+end
+
+rule "Defense on authors supervisors preferred timeslot tag"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsPreferredTimeslotTag() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+end
+
+rule "Defense on authors supervisors unavailable timeslot"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsUnavailableTimeslot() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on authors supervisors unavailable timeslot tag"
+	when
+		$defense : Defense($count : isAuthorsSupervisorsUnavailableTimeslotTag() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on commission members not preferred timeslot"
+	when
+		$defense : Defense($count : isCommissionMembersNotPreferredTimeslot() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on commission members not preferred timeslot tag"
+	when
+		$defense : Defense($count : isCommissionMembersNotPreferredTimeslotTag() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+end
+
+rule "Defense on commission members preferred timeslot"
+	when
+		$defense : Defense($count : isCommissionMembersPreferredTimeslot() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+end
+
+rule "Defense on commission members preferred timeslot tag"
+	when
+		$defense : Defense($count : isCommissionMembersPreferredTimeslotTag() > 0)
+	then
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+end
+
+
+rule "Defense authors grouped by common supervisor"
+    //include attributes such as "salience" here...
+    //
+    //	Kas võrrelda ainult peamisi juhendajaid, või vaja võrrelda kaasjuhendajaid ka?
+    //
+    when
+        //conditions
+        $defense1 : Defense(timeslot != null,
+        			$similarThesisSupervisor : getPrimarySupervisor(),
+        			$id1 : id)
+        $defense2 : Defense(timeslot != null,
+        			getPrimarySupervisor() == $similarThesisSupervisor,
+        			id > $id1)
+    then
+        //actions
+        scoreHolder.addSoftConstraintMatch(kcontext, 1);
+        //scoreHolder.penalize(kcontext, $defense2.sameSupervisorTagCount($defense1);
+end
