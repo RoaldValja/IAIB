@@ -51,9 +51,16 @@ public class Commitee extends AbstractPersistable{
 	public boolean getChairman(){
 		return chairman;
 	}
-	
+	/*
 	public void setChairmanType(String chairmanType){
 		this.chairmanType = chairmanType;
+	}
+	*/
+	public void setChairmanType(String chairmanType){
+		this.chairmanType = chairmanType;
+		if(chairmanType == "Esimees" || chairmanType == "Aseesimees") {
+			isChairman();
+		}
 	}
 	
 	public String getChairmanType(){

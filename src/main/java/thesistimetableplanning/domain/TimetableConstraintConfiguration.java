@@ -39,15 +39,17 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public static final String DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT_TAG = "Defense not on authors supervisors not preferred timeslot tag";
 	public static final String DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT_TAG = "Defense not on authors supervisors unavailable timeslot tag";
 	
+	public static final String COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY = "Commission member does not swap with a new member on the same day";
+
 
 	@ConstraintWeight(COMMISSION_AT_LEAST_THREE_MEMBERS)
 	private HardSoftScore commissionAtLeastThreeMembers = HardSoftScore.ofHard(10);
 	@ConstraintWeight(AUTHOR_PREREQUISITES_DONE)
 	private HardSoftScore authorPrerequisitesDone = HardSoftScore.ofHard(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_UNAVAILABLE_TIMESLOT)
-	private HardSoftScore defenseOnAuthorsUnavailableTimeslot = HardSoftScore.ofHard(10);
-	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT)
-	private HardSoftScore defenseOnCommissionMembersUnavailableTimeslot = HardSoftScore.ofHard(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_UNAVAILABLE_TIMESLOT)
+	private HardSoftScore defenseNotOnAuthorsUnavailableTimeslot = HardSoftScore.ofHard(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT)
+	private HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslot = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_HAS_ONE_CHAIRMAN)
 	private HardSoftScore defenseHasOneChairman = HardSoftScore.ofHard(10);
 	
@@ -60,37 +62,40 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_PREFERRED_TIMESLOT)
 	private HardSoftScore defenseOnAuthorsPreferredTimeslot = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_NOT_PREFERRED_TIMESLOT)
-	private HardSoftScore defenseOnAuthorsNotPreferredTimeslot = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_NOT_PREFERRED_TIMESLOT)
+	private HardSoftScore defenseNotOnAuthorsNotPreferredTimeslot = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_PREFERRED_TIMESLOT)
 	private HardSoftScore defenseOnCommissionMembersPreferredTimeslot = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_NOT_PREFERRED_TIMESLOT)
-	private HardSoftScore defenseOnCommissionMembersNotPreferredTimeslot = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_NOT_PREFERRED_TIMESLOT)
+	private HardSoftScore defenseNotOnCommissionMembersNotPreferredTimeslot = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_PREFERRED_TIMESLOT)
 	private HardSoftScore defenseOnAuthorsSupervisorsPreferredTimeslot = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT)
-	private HardSoftScore defenseOnAuthorsSupervisorsNotPreferredTimeslot = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT)
-	private HardSoftScore defenseOnAuthorsSupervisorsUnavailableTimeslot = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT)
+	private HardSoftScore defenseNotOnAuthorsSupervisorsNotPreferredTimeslot = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT)
+	private HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslot = HardSoftScore.ofSoft(10);
 	
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseOnAuthorsPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_NOT_PREFERRED_TIMESLOT_TAG)
-	private HardSoftScore defenseOnAuthorsNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_UNAVAILABLE_TIMESLOT_TAG)
-	private HardSoftScore defenseOnAuthorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_NOT_PREFERRED_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnAuthorsNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_UNAVAILABLE_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnAuthorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseOnCommissionMembersPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_NOT_PREFERRED_TIMESLOT_TAG)
-	private HardSoftScore defenseOnCommissionMembersNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT_TAG)
-	private HardSoftScore defenseOnCommissionMembersUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_NOT_PREFERRED_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnCommissionMembersNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseOnAuthorsSupervisorsPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT_TAG)
-	private HardSoftScore defenseOnAuthorsSupervisorsNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT_TAG)
-	private HardSoftScore defenseOnAuthorsSupervisorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
+	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT_TAG)
+	private HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	
+	@ConstraintWeight(COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY)
+	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberOnTheSameDay = HardSoftScore.ofSoft(10);
 	
 	public TimetableConstraintConfiguration(){
 		
@@ -120,20 +125,20 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.authorPrerequisitesDone = authorPrerequisitesDone;
 	}
 
-	public HardSoftScore getDefenseOnAuthorsUnavailableTimeslot() {
-		return defenseOnAuthorsUnavailableTimeslot;
+	public HardSoftScore getDefenseNotOnAuthorsUnavailableTimeslot() {
+		return defenseNotOnAuthorsUnavailableTimeslot;
 	}
 	
-	public void setDefenseOnAuthorsUnavailableTimeslot(HardSoftScore defenseOnAuthorsUnavailableTimeslot) {
-		this.defenseOnAuthorsUnavailableTimeslot = defenseOnAuthorsUnavailableTimeslot;
+	public void setDefenseNotOnAuthorsUnavailableTimeslot(HardSoftScore defenseNotOnAuthorsUnavailableTimeslot) {
+		this.defenseNotOnAuthorsUnavailableTimeslot = defenseNotOnAuthorsUnavailableTimeslot;
 	}
 
-	public HardSoftScore getDefenseOnCommissionMembersUnavailableTimeslot() {
-		return defenseOnCommissionMembersUnavailableTimeslot;
+	public HardSoftScore getDefenseNotOnCommissionMembersUnavailableTimeslot() {
+		return defenseNotOnCommissionMembersUnavailableTimeslot;
 	}
 	
-	public void setDefenseOnCommissionMembersUnavailableTimeslot(HardSoftScore defenseOnCommissionMembersUnavailableTimeslot) {
-		this.defenseOnCommissionMembersUnavailableTimeslot = defenseOnCommissionMembersUnavailableTimeslot;
+	public void setDefenseNotOnCommissionMembersUnavailableTimeslot(HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslot) {
+		this.defenseNotOnCommissionMembersUnavailableTimeslot = defenseNotOnCommissionMembersUnavailableTimeslot;
 	}
 	
 	public HardSoftScore getDefenseHasOneChairman(){
@@ -180,12 +185,12 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnAuthorsPreferredTimeslot = defenseOnAuthorsPreferredTimeslot;
 	}
 
-	public HardSoftScore getDefenseOnAuthorsNotPreferredTimeslot() {
-		return defenseOnAuthorsNotPreferredTimeslot;
+	public HardSoftScore getDefenseNotOnAuthorsNotPreferredTimeslot() {
+		return defenseNotOnAuthorsNotPreferredTimeslot;
 	}
 	
-	public void setDefenseOnAuthorsNotPreferredTimeslot(HardSoftScore defenseOnAuthorsNotPreferredTimeslot) {
-		this.defenseOnAuthorsNotPreferredTimeslot = defenseOnAuthorsNotPreferredTimeslot;
+	public void setDefenseNotOnAuthorsNotPreferredTimeslot(HardSoftScore defenseNotOnAuthorsNotPreferredTimeslot) {
+		this.defenseNotOnAuthorsNotPreferredTimeslot = defenseNotOnAuthorsNotPreferredTimeslot;
 	}
 
 	public HardSoftScore getDefenseOnCommissionMembersPreferredTimeslot() {
@@ -196,12 +201,12 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnCommissionMembersPreferredTimeslot = defenseOnCommissionMembersPreferredTimeslot;
 	}
 
-	public HardSoftScore getDefenseOnCommissionMembersNotPreferredTimeslot() {
-		return defenseOnCommissionMembersNotPreferredTimeslot;
+	public HardSoftScore getDefenseNotOnCommissionMembersNotPreferredTimeslot() {
+		return defenseNotOnCommissionMembersNotPreferredTimeslot;
 	}
 	
-	public void setDefenseOnCommissionMembersNotPreferredTimeslot(HardSoftScore defenseOnCommissionMembersNotPreferredTimeslot) {
-		this.defenseOnCommissionMembersNotPreferredTimeslot = defenseOnCommissionMembersNotPreferredTimeslot;
+	public void setDefenseNotOnCommissionMembersNotPreferredTimeslot(HardSoftScore defenseNotOnCommissionMembersNotPreferredTimeslot) {
+		this.defenseNotOnCommissionMembersNotPreferredTimeslot = defenseNotOnCommissionMembersNotPreferredTimeslot;
 	}
 
 	public HardSoftScore getDefenseOnAuthorsSupervisorsPreferredTimeslot() {
@@ -212,20 +217,20 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnAuthorsSupervisorsPreferredTimeslot = defenseOnAuthorsSupervisorsPreferredTimeslot;
 	}
 
-	public HardSoftScore getDefenseOnAuthorsSupervisorsNotPreferredTimeslot() {
-		return defenseOnAuthorsSupervisorsNotPreferredTimeslot;
+	public HardSoftScore getDefenseNotOnAuthorsSupervisorsNotPreferredTimeslot() {
+		return defenseNotOnAuthorsSupervisorsNotPreferredTimeslot;
 	}
 	
-	public void setDefenseOnAuthorsSupervisorsNotPreferredTimeslot(HardSoftScore defenseOnAuthorsSupervisorsNotPreferredTimeslot) {
-		this.defenseOnAuthorsSupervisorsNotPreferredTimeslot = defenseOnAuthorsSupervisorsNotPreferredTimeslot;
+	public void setDefenseNotOnAuthorsSupervisorsNotPreferredTimeslot(HardSoftScore defenseNotOnAuthorsSupervisorsNotPreferredTimeslot) {
+		this.defenseNotOnAuthorsSupervisorsNotPreferredTimeslot = defenseNotOnAuthorsSupervisorsNotPreferredTimeslot;
 	}
 
-	public HardSoftScore getDefenseOnAuthorsSupervisorsUnavailableTimeslot() {
-		return defenseOnAuthorsSupervisorsUnavailableTimeslot;
+	public HardSoftScore getDefenseNotOnAuthorsSupervisorsUnavailableTimeslot() {
+		return defenseNotOnAuthorsSupervisorsUnavailableTimeslot;
 	}
 	
-	public void setDefenseOnAuthorsSupervisorsUnavailableTimeslot(HardSoftScore defenseOnAuthorsSupervisorsUnavailableTimeslot) {
-		this.defenseOnAuthorsSupervisorsUnavailableTimeslot = defenseOnAuthorsSupervisorsUnavailableTimeslot;
+	public void setDefenseNotOnAuthorsSupervisorsUnavailableTimeslot(HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslot) {
+		this.defenseNotOnAuthorsSupervisorsUnavailableTimeslot = defenseNotOnAuthorsSupervisorsUnavailableTimeslot;
 	}
 	
 	
@@ -238,20 +243,20 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnAuthorsPreferredTimeslotTag = defenseOnAuthorsPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnAuthorsNotPreferredTimeslotTag(){
-		return defenseOnAuthorsNotPreferredTimeslotTag;
+	public HardSoftScore getDefenseNotOnAuthorsNotPreferredTimeslotTag(){
+		return defenseNotOnAuthorsNotPreferredTimeslotTag;
 	}
 	
-	public void setDefenseOnAuthorsNotPreferredTimeslotTag(HardSoftScore defenseOnAuthorsNotPreferredTimeslotTag){
-		this.defenseOnAuthorsNotPreferredTimeslotTag = defenseOnAuthorsNotPreferredTimeslotTag;
+	public void setDefenseNotOnAuthorsNotPreferredTimeslotTag(HardSoftScore defenseNotOnAuthorsNotPreferredTimeslotTag){
+		this.defenseNotOnAuthorsNotPreferredTimeslotTag = defenseNotOnAuthorsNotPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnAuthorsUnavailableTimeslotTag(){
-		return defenseOnAuthorsUnavailableTimeslotTag;
+	public HardSoftScore getDefenseNotOnAuthorsUnavailableTimeslotTag(){
+		return defenseNotOnAuthorsUnavailableTimeslotTag;
 	}
 	
-	public void setDefenseOnAuthorsUnavailableTimeslotTag(HardSoftScore defenseOnAuthorsUnavailableTimeslotTag){
-		this.defenseOnAuthorsUnavailableTimeslotTag = defenseOnAuthorsUnavailableTimeslotTag;
+	public void setDefenseNotOnAuthorsUnavailableTimeslotTag(HardSoftScore defenseNotOnAuthorsUnavailableTimeslotTag){
+		this.defenseNotOnAuthorsUnavailableTimeslotTag = defenseNotOnAuthorsUnavailableTimeslotTag;
 	}
 	
 	public HardSoftScore getDefenseOnCommissionMembersPreferredTimeslotTag(){
@@ -262,20 +267,20 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnCommissionMembersPreferredTimeslotTag = defenseOnCommissionMembersPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnCommissionMembersNotPreferredTimeslotTag(){
-		return defenseOnCommissionMembersNotPreferredTimeslotTag;
+	public HardSoftScore getDefenseNotOnCommissionMembersNotPreferredTimeslotTag(){
+		return defenseNotOnCommissionMembersNotPreferredTimeslotTag;
 	}
 	
-	public void setDefenseOnCommissionMembersNotPreferredTimeslotTag(HardSoftScore defenseOnCommissionMembersNotPreferredTimeslotTag){
-		this.defenseOnCommissionMembersNotPreferredTimeslotTag = defenseOnCommissionMembersNotPreferredTimeslotTag;
+	public void setDefenseNotOnCommissionMembersNotPreferredTimeslotTag(HardSoftScore defenseNotOnCommissionMembersNotPreferredTimeslotTag){
+		this.defenseNotOnCommissionMembersNotPreferredTimeslotTag = defenseNotOnCommissionMembersNotPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnCommissionMembersUnavailableTimeslotTag(){
-		return defenseOnCommissionMembersUnavailableTimeslotTag;
+	public HardSoftScore getDefenseNotOnCommissionMembersUnavailableTimeslotTag(){
+		return defenseNotOnCommissionMembersUnavailableTimeslotTag;
 	}
 	
-	public void setDefenseOnCommissionMembersUnavailableTimeslotTag(HardSoftScore defenseOnCommissionMembersUnavailableTimeslotTag){
-		this.defenseOnCommissionMembersUnavailableTimeslotTag = defenseOnCommissionMembersUnavailableTimeslotTag;
+	public void setDefenseNotOnCommissionMembersUnavailableTimeslotTag(HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslotTag){
+		this.defenseNotOnCommissionMembersUnavailableTimeslotTag = defenseNotOnCommissionMembersUnavailableTimeslotTag;
 	}
 	
 	public HardSoftScore getDefenseOnAuthorsSupervisorsPreferredTimeslotTag(){
@@ -286,20 +291,28 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseOnAuthorsSupervisorsPreferredTimeslotTag = defenseOnAuthorsSupervisorsPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag(){
-		return defenseOnAuthorsSupervisorsNotPreferredTimeslotTag;
+	public HardSoftScore getDefenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag(){
+		return defenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag;
 	}
 	
-	public void setDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag(HardSoftScore defenseOnAuthorsSupervisorsNotPreferredTimeslotTag){
-		this.defenseOnAuthorsSupervisorsNotPreferredTimeslotTag = defenseOnAuthorsSupervisorsNotPreferredTimeslotTag;
+	public void setDefenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag(HardSoftScore defenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag){
+		this.defenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag = defenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag;
 	}
 	
-	public HardSoftScore getDefenseOnAuthorsSupervisorsUnavailableTimeslotTag(){
-		return defenseOnAuthorsSupervisorsUnavailableTimeslotTag;
+	public HardSoftScore getDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(){
+		return defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag;
 	}
 	
-	public void setDefenseOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore defenseOnAuthorsSupervisorsUnavailableTimeslotTag){
-		this.defenseOnAuthorsSupervisorsUnavailableTimeslotTag = defenseOnAuthorsSupervisorsUnavailableTimeslotTag;
+	public void setDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag){
+		this.defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag = defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag;
+	}
+	
+	public HardSoftScore getCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(){
+		return commissionMemberDoesNotSwapWithANewMemberOnTheSameDay;
+	}
+	
+	public void setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore commissionMemberDoesNotSwapWithANewMemberOnTheSameDay){
+		this.commissionMemberDoesNotSwapWithANewMemberOnTheSameDay = commissionMemberDoesNotSwapWithANewMemberOnTheSameDay;
 	}
     
 }

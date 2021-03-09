@@ -1,6 +1,8 @@
 package thesistimetableplanning.domain;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +28,9 @@ public class Defense extends AbstractPersistable{
 	private String roomNumber;
 	private int roomCapacity;
 	
-	private Commitee[] commissionArray;
+	private Commitee[] commissionArray; // kustutada võibolla
+	private List<Commitee> currentCommissionMembersList;
+	private List<Commission> commissionsList = new ArrayList<Commission>();
 	
 	
 	private Set<String> preferredTimeslotTagSet;
@@ -381,7 +385,7 @@ public class Defense extends AbstractPersistable{
 	// võibolla täiendada meetodit, kus algul lisatakse liikmed, kellele täitsa sobivad need kellaajad ning kui pole
 	// piisav arv liikmeid, siis lisatakse neid, kes ei eelista seda aega.
 	
-	public void setCommission(){
+	public void vanaSetCommission(){
 		commissionArray = new Commitee[commissionSize];
 		int addedToList = 0;
 		for(int i = 0; i < commiteeList.size(); i++){
@@ -394,6 +398,139 @@ public class Defense extends AbstractPersistable{
 		}
 	}
 	
+	public void fillCommissionMembersList(int addedMembers, List<Commitee> chairmanList) {
+		while(currentCommissionMembersList.size() < commissionSize) {
+			if(addedMembers == 0) {
+				int rand = (int)(Math.random() * chairmanList.size());
+				currentCommissionMembersList.add(chairmanList.get(rand));
+				addedMembers++;
+			} else {
+				int rand = (int)(Math.random() * commiteeList.size());
+				Commitee chosenCommitee = commiteeList.get(rand);
+				if(!currentCommissionMembersList.contains(chosenCommitee)) {
+					currentCommissionMembersList.add(chosenCommitee);
+				}
+			}
+		}
+	}
+	
+	public void setCommission() {
+		int addedMembers = 0;
+		boolean foundSession = false;
+		currentCommissionMembersList = new ArrayList<Commitee>();
+		List<Commitee> chairmanList = new ArrayList<Commitee>();
+		for(int i = 0; i < commiteeList.size(); i++) {
+			if(commiteeList.get(i).getChairman()) {
+				chairmanList.add(commiteeList.get(i));
+			}
+		}
+		if(commissionsList.size() != 0) {
+			for(int i = 0; i < commissionsList.size(); i++) {
+				if(commissionsList.get(i).getSession() == timeslot.getSession()) {
+					currentCommissionMembersList = commissionsList.get(i).getCommissionList();
+					foundSession = true;
+				}
+			}
+			if(!foundSession) {
+				fillCommissionMembersList(addedMembers, chairmanList);
+				/*
+				while(currentCommissionMembersList.size() < commissionSize) {
+					if(addedMembers == 0) {
+						int rand = (int)(Math.random() * chairmanList.size());
+						currentCommissionMembersList.add(chairmanList.get(rand));
+						addedMembers++;
+					} else {
+						int rand = (int)(Math.random() * commiteeList.size());
+						Commitee chosenCommitee = commiteeList.get(rand);
+						if(!currentCommissionMembersList.contains(chosenCommitee)) {
+							currentCommissionMembersList.add(chosenCommitee);
+						}
+					}
+				}*/
+				Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
+				commissionsList.add(commission);
+			}
+		} else {
+			fillCommissionMembersList(addedMembers, chairmanList);
+			/*
+			while(currentCommissionMembersList.size() < commissionSize) {
+				if(addedMembers == 0) {
+					int rand = (int)(Math.random() * chairmanList.size());
+					currentCommissionMembersList.add(chairmanList.get(rand));
+					addedMembers++;
+				} else {
+					int rand = (int)(Math.random() * commiteeList.size());
+					Commitee chosenCommitee = commiteeList.get(rand);
+					if(!currentCommissionMembersList.contains(chosenCommitee)) {
+						currentCommissionMembersList.add(chosenCommitee);
+					}
+				}
+			}*/
+			Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
+			commissionsList.add(commission);
+		}
+	}
+	// ------------------------------------------------------------------------------------------------------------
+	List<SessionCommission> sessionCommissionList = new ArrayList<SessionCommission>();
+	
+	public void insertChairman(Commitee[] commission) {
+		while(true) {
+			int rand = (int)(Math.random() * commiteeList.size());
+			System.out.println(rand);
+			if(commiteeList.get(rand).getChairman() == true) {
+				commission[0] = commiteeList.get(rand);
+				return;
+			}
+		}
+	}
+	
+	public void insertCommiteeMembers(Commitee[] commission) {
+		int addedMembers = 0;
+		while(true) {
+			if(addedMembers == commissionSize-1) {
+				return;
+			}
+			int rand = (int)(Math.random() * commiteeList.size());
+			if(commiteeList.get(rand).getChairman() == false) {
+				if(!Arrays.asList(commission).contains(commiteeList.get(rand))) {
+					commission[++addedMembers] = commiteeList.get(rand);
+				}
+			}
+		}
+	}
+	
+	public void setCommission3() {
+		Commitee[] newCommission = new Commitee[commissionSize];	
+		if(SessionCommission.getCommission(timeslot.getSession()) == null) {
+			insertChairman(newCommission);
+			insertCommiteeMembers(newCommission);
+			SessionCommission.putCommission(timeslot.getSession(), newCommission);
+		}
+	}
+	
+	public Commitee[] getCommission3() {
+		return SessionCommission.getCommission(timeslot.getSession());
+	}
+	
+	/*
+	public void setCommission2() {
+		SessionCommission sessionCommission;
+		Commitee[] newCommission = new Commitee[commissionSize];
+		if(sessionCommissionList.size() == 0) {
+			insertChairman(newCommission);
+			insertCommiteeMembers(newCommission);
+			sessionCommission = new SessionCommission(timeslot.getSession(), newCommission);
+			sessionCommissionList.add(sessionCommission);
+		} else {
+			for(SessionCommission commission: sessionCommissionList) {
+				if(commission.getSession() == timeslot.getSession()) {
+					return;
+				}
+			}
+		}
+		
+	}
+	*/
 	public Commitee[] getCommission(){
 		return commissionArray;
 	}
@@ -403,6 +540,9 @@ public class Defense extends AbstractPersistable{
 			if(commissionArray[i] == null){
 				return false;
 			}
+		}
+		if(currentCommissionMembersList.size() != commissionSize) {
+			return false;
 		}
 		return true;
 	}

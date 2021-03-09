@@ -16,12 +16,32 @@ public class Timeslot extends AbstractPersistable{
     private int session;
     private int durationInMinutes;
     private Set<String> tagSet;
+    private DefenseType defenseType;
+    private boolean isBreakTime;
 	public Timeslot(){
 		
 	}
 	
 	public Timeslot(long id){
 		super(id);
+	}
+	
+	public DefenseType getDefenseType() {
+		return defenseType;
+	}
+	
+	public void setDefenseType(DefenseType defenseType) {
+		this.defenseType = defenseType;
+		if(defenseType.getType() == "") {
+			isBreakTime = true;
+		} else {
+			isBreakTime = false;
+		}
+	}
+	
+	// Kasutada seda et teada kas seda timesloti võib kasutada kaitsmiseks.
+	public boolean getIsBreakTime() {
+		return isBreakTime;
 	}
 	
 	public Set<String> getTagSet(){

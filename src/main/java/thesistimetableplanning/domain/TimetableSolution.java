@@ -48,7 +48,7 @@ public class TimetableSolution extends AbstractPersistable{
     public void setDefenseList(List<Defense> defenseList){
     	this.defenseList = defenseList;
     }
-    
+
     public List<DefenseType> getDefenseTypeList(){
     	return defenseTypeList;
     }
