@@ -8,7 +8,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import thesistimetableplanning.common.AbstractPersistable;
 
-@ConstraintConfiguration(constraintPackage = "timetableplanning.solver")
+@ConstraintConfiguration(constraintPackage = "thesistimetableplanning.solver")
 public class TimetableConstraintConfiguration extends AbstractPersistable{
 
 	public static final String COMMISSION_AT_LEAST_THREE_MEMBERS = "Commission at least three members";

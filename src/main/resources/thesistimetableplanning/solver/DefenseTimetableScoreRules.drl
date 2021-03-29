@@ -11,16 +11,25 @@ import thesistimetableplanning.domain.Defense;
 global HardSoftScoreHolder scoreHolder;
 
 
+rule "Commission member does not swap with a new member on the same day"
+	when
+	then
+end
 
+rule "Commission at least three members"
+    when
+    then
+end
+/*
 rule "Commission at least three members"
 
     when
-        $defense : Defense(setCommission(),
+        $defense : Defense(setCommission3(),
         			!enoughCommiteeMembers())
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
-
+*/
 rule "Author prerequisites done"
     when
         $defense : Defense(!authorHasPreconditionsDone())
@@ -28,14 +37,14 @@ rule "Author prerequisites done"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "Defense on authors unavailable timeslot"
+rule "Defense not on authors unavailable timeslot"
 	when
 		$defense : Defense(isAuthorsUnavailableTimeslot())
 	then
 		scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "Defense on authors unavailable timeslot tag"
+rule "Defense not on authors unavailable timeslot tag"
 	when
 		$defense : Defense(isAuthorsUnavailableTimeslotTag())
 	then
@@ -44,23 +53,23 @@ end
 
 rule "Closed defenses at start or end day or at before or after lunch"
     when
-       	$defense : Defense(!isClosedDefenseTimeslot(),
-        			!happensOnClosedTimes())
+//       	$defense : Defense(!isClosedDefenseTimeslot(),
+//        			!happensOnClosedTimes())
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -1);
+//        scoreHolder.addSoftConstraintMatch(kcontext, -1);
 end
-rule "Defense on commission members unavailable timeslot"
+rule "Defense not on commission members unavailable timeslot"
 	when
-		$defense : Defense($count : isCommissionMembersUnavailableTimeslot() > 0)
+//		$defense : Defense($count : isCommissionMembersUnavailableTimeslot() > 0)
 	then
-		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+//		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
 end
 
-rule "Defense on commission members unavailable timeslot tag"
+rule "Defense not on commission members unavailable timeslot tag"
 	when
-		$defense : Defense($count : isCommissionMembersUnavailableTimeslotTag() > 0)
+//		$defense : Defense($count : isCommissionMembersUnavailableTimeslotTag() > 0)
 	then
-		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+//		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
 end
 
 rule "Defense grouped by same thesis theme"
@@ -84,19 +93,19 @@ end
 
 rule "Defense has one chairman"
     when
-        $defense : Defense(!hasChairmanAmongCommitee())
+//        $defense : Defense(!hasChairmanAmongCommitee())
     then
-        scoreHolder.addHardConstraintMatch(kcontext, -1);
+//        scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "Defense on authors not preferred timeslot"
+rule "Defense not on authors not preferred timeslot"
 	when
 		$defense : Defense(isAuthorsNotPreferredTimeslot())
 	then
 		scoreHolder.addSoftConstraintMatch(kcontext, -1);
 end
 
-rule "Defense on authors not preferred timeslot tag"
+rule "Defense not on authors not preferred timeslot tag"
 	when
 		$defense : Defense(isAuthorsNotPreferredTimeslotTag())
 	then
@@ -117,14 +126,14 @@ rule "Defense on authors preferred timeslot tag"
 		scoreHolder.addSoftConstraintMatch(kcontext, 1);
 end
 
-rule "Defense on authors supervisors not preferred timeslot"
+rule "Defense not on authors supervisors not preferred timeslot"
 	when
 		$defense : Defense($count : isAuthorsSupervisorsNotPreferredTimeslot() > 0)
 	then
 		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
 end
 
-rule "Defense on authors supervisors not preferred timeslot tag"
+rule "Defense not on authors supervisors not preferred timeslot tag"
 	when
 		$defense : Defense($count : isAuthorsSupervisorsNotPreferredTimeslotTag() > 0)
 	then
@@ -145,46 +154,46 @@ rule "Defense on authors supervisors preferred timeslot tag"
 		scoreHolder.addSoftConstraintMatch(kcontext, $count);
 end
 
-rule "Defense on authors supervisors unavailable timeslot"
+rule "Defense not on authors supervisors unavailable timeslot"
 	when
 		$defense : Defense($count : isAuthorsSupervisorsUnavailableTimeslot() > 0)
 	then
 		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
 end
 
-rule "Defense on authors supervisors unavailable timeslot tag"
+rule "Defense not on authors supervisors unavailable timeslot tag"
 	when
 		$defense : Defense($count : isAuthorsSupervisorsUnavailableTimeslotTag() > 0)
 	then
 		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
 end
 
-rule "Defense on commission members not preferred timeslot"
+rule "Defense not on commission members not preferred timeslot"
 	when
-		$defense : Defense($count : isCommissionMembersNotPreferredTimeslot() > 0)
+//		$defense : Defense($count : isCommissionMembersNotPreferredTimeslot() > 0)
 	then
-		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+//		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
 end
 
-rule "Defense on commission members not preferred timeslot tag"
+rule "Defense not on commission members not preferred timeslot tag"
 	when
-		$defense : Defense($count : isCommissionMembersNotPreferredTimeslotTag() > 0)
+//		$defense : Defense($count : isCommissionMembersNotPreferredTimeslotTag() > 0)
 	then
-		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+//		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
 end
 
 rule "Defense on commission members preferred timeslot"
 	when
-		$defense : Defense($count : isCommissionMembersPreferredTimeslot() > 0)
+//		$defense : Defense($count : isCommissionMembersPreferredTimeslot() > 0)
 	then
-		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+//		scoreHolder.addSoftConstraintMatch(kcontext, $count);
 end
 
 rule "Defense on commission members preferred timeslot tag"
 	when
-		$defense : Defense($count : isCommissionMembersPreferredTimeslotTag() > 0)
+//		$defense : Defense($count : isCommissionMembersPreferredTimeslotTag() > 0)
 	then
-		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+//		scoreHolder.addSoftConstraintMatch(kcontext, $count);
 end
 
 

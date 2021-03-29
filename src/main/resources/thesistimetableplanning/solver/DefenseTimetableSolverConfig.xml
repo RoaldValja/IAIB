@@ -10,17 +10,18 @@
     <scoreDrl>thesistimetableplanning/solver/defenseTimetableScoreRules.drl</scoreDrl>
   </scoreDirectorFactory>
 
-  <!--<termination>-->
-    <!--<minutesSpentLimit>5</minutesSpentLimit>-->
-  <!--</termination>-->
+  <termination>
+    <!--<minutesSpentLimit>1</minutesSpentLimit>-->
+    <secondsSpentLimit>1</secondsSpentLimit>
+  </termination>
 
   <!-- Tabu Search performs much better than Late Acceptance (default algo) on this use case -->
   <!-- <constructionHeuristic>
       
   </constructionHeuristic>
   -->
-  <constructionHeuristic/>
-  <localSearch>
+  <!--<constructionHeuristic/>-->
+<!--   <localSearch>
     <localSearchType>TABU_SEARCH</localSearchType>
-  </localSearch>
+  </localSearch> -->
 </solver>

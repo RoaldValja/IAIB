@@ -134,7 +134,7 @@ public class Reader {
 		
 		readDefenseList();
 		
-		return null;
+		return solution;
 		
 	}
 	
@@ -273,10 +273,14 @@ public class Reader {
 			//String preference = supervisorDataList.get(i+l).get(3);
 			
 			String preference = fixDottedLetters(dataList.get(loopIndex+l).get(3));
-			
+			/*
 			LocalDate preferredDay = dayList.get(l-5);
 			LocalTime preferredStartTime = startTimeList.get(l-5);
 			LocalTime preferredEndTime = endTimeList.get(l-5);
+			*/
+			LocalDate preferredDay = dayList.get(l-lowerLimit);
+			LocalTime preferredStartTime = startTimeList.get(l-lowerLimit);
+			LocalTime preferredEndTime = endTimeList.get(l-lowerLimit);
 			for(int o = 0; o < solution.getTimeslotList().size(); o++){
 				Timeslot preferredTimeslot = solution.getTimeslotList().get(o);
 				if(preferredTimeslot.getDate().isEqual(preferredDay) 
@@ -517,9 +521,9 @@ public class Reader {
 			if(i == rowLength){
 				titleCheck(name, "Nimi");
 				titleCheck(role, "Roll");
-				titleCheck(preferred, "Eelistatud Märksõnad");
-				titleCheck(notPreferred, "Mitte-eelistatud Märksõnad");
-				titleCheck(unavailable, "Sobimatud Märksõnad");
+				titleCheck(preferred, "Eelistatud märksõnad");
+				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
+				titleCheck(unavailable, "Sobimatud märksõnad");
 				/*
 				for(int k = 5; k < rowLength; k++){
 					String time = supervisorDataList.get(rowLength+k).get(3);
@@ -634,9 +638,9 @@ public class Reader {
 				titleCheck(name, "Nimi");
 				titleCheck(prerequisite, "Eeldused on täidetud");
 				titleCheck(supervisorNames, "Juhendajad");
-				titleCheck(preferred, "Eelistatud Märksõnad");
-				titleCheck(notPreferred, "Mitte-eelistatud Märksõnad");
-				titleCheck(unavailable, "Sobimatud Märksõnad");
+				titleCheck(preferred, "Eelistatud märksõnad");
+				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
+				titleCheck(unavailable, "Sobimatud märksõnad");
 				/*
 				for(int k = 6; k < rowLength; k++){
 					String time = authorDataList.get(rowLength+k).get(3);
@@ -756,9 +760,9 @@ public class Reader {
 				titleCheck(name, "Nimi");
 				titleCheck(degree, "Kraad");
 				titleCheck(chairman, "Esimees");
-				titleCheck(preferred, "Eelistatud Märksõnad");
-				titleCheck(notPreferred, "Mitte-eelistatud Märksõnad");
-				titleCheck(unavailable, "Sobimatud Märksõnad");
+				titleCheck(preferred, "Eelistatud märksõnad");
+				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
+				titleCheck(unavailable, "Sobimatud märksõnad");
 				/*
 				for(int k = 6; k < rowLength; k++){
 					String time = commiteeDataList.get(rowLength+k).get(3);

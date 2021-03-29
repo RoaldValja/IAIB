@@ -30,7 +30,7 @@ public class Defense extends AbstractPersistable{
 	
 	private Commitee[] commissionArray; // kustutada võibolla
 	private List<Commitee> currentCommissionMembersList;
-	private List<Commission> commissionsList = new ArrayList<Commission>();
+	//private List<Commission> commissionsList = new ArrayList<Commission>();
 	
 	
 	private Set<String> preferredTimeslotTagSet;
@@ -413,7 +413,7 @@ public class Defense extends AbstractPersistable{
 			}
 		}
 	}
-	
+/*	
 	public void setCommission() {
 		int addedMembers = 0;
 		boolean foundSession = false;
@@ -433,7 +433,7 @@ public class Defense extends AbstractPersistable{
 			}
 			if(!foundSession) {
 				fillCommissionMembersList(addedMembers, chairmanList);
-				/*
+*/				/*
 				while(currentCommissionMembersList.size() < commissionSize) {
 					if(addedMembers == 0) {
 						int rand = (int)(Math.random() * chairmanList.size());
@@ -447,12 +447,12 @@ public class Defense extends AbstractPersistable{
 						}
 					}
 				}*/
-				Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
+/*				Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
 				commissionsList.add(commission);
 			}
 		} else {
 			fillCommissionMembersList(addedMembers, chairmanList);
-			/*
+*/			/*
 			while(currentCommissionMembersList.size() < commissionSize) {
 				if(addedMembers == 0) {
 					int rand = (int)(Math.random() * chairmanList.size());
@@ -466,10 +466,11 @@ public class Defense extends AbstractPersistable{
 					}
 				}
 			}*/
-			Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
+/*			Commission commission = new Commission(timeslot.getSession(), currentCommissionMembersList);
 			commissionsList.add(commission);
 		}
 	}
+*/
 	// ------------------------------------------------------------------------------------------------------------
 	List<SessionCommission> sessionCommissionList = new ArrayList<SessionCommission>();
 	
