@@ -3,8 +3,10 @@ package thesistimetableplanning.domain;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -500,8 +502,9 @@ public class Defense extends AbstractPersistable{
 		}
 	}
 	
-	public void setCommission3() {
-		Commitee[] newCommission = new Commitee[commissionSize];	
+	public void setCommission() {
+		Commitee[] newCommission = new Commitee[commissionSize];
+		System.out.println("teeb comisjoni " + timeslot);
 		if(SessionCommission.getCommission(timeslot.getSession()) == null) {
 			insertChairman(newCommission);
 			insertCommiteeMembers(newCommission);
@@ -509,8 +512,39 @@ public class Defense extends AbstractPersistable{
 		}
 	}
 	
-	public Commitee[] getCommission3() {
+	public Commitee[] getCommission() {
 		return SessionCommission.getCommission(timeslot.getSession());
+	}
+	
+	public void setCommission2() {
+		Commitee[] newCommission = new Commitee[commissionSize];
+		Set<Integer> members = new HashSet<Integer>();
+		int max = commiteeList.size();
+		int commitee = 0;
+		while(true) {
+			Random random = new Random();
+			commitee = random.nextInt(max - 0);
+			if(commiteeList.get(commitee).getChairman()) {
+				newCommission[0] = commiteeList.get(commitee);
+				members.add(commitee);
+				break;
+			}
+		}
+		for(int i = 1; i < newCommission.length; i++) {
+			Random random = new Random();
+			commitee = random.nextInt(max - 0);
+			if(members.contains(commitee)) {
+				i--;
+				continue;
+			}
+			newCommission[i] = commiteeList.get(commitee);
+			members.add(commitee);
+		}
+		commissionArray = newCommission;
+	}
+	
+	public Commitee[] getCommission2() {
+		return commissionArray;
 	}
 	
 	/*
@@ -532,9 +566,9 @@ public class Defense extends AbstractPersistable{
 		
 	}
 	*/
-	public Commitee[] getCommission(){
+	/*public Commitee[] getCommission(){
 		return commissionArray;
-	}
+	}*/
 	
 	public boolean enoughCommiteeMembers(){
 		for(int i = 0; i < commissionSize; i++){

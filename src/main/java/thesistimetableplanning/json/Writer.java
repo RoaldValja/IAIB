@@ -3,6 +3,7 @@ package thesistimetableplanning.json;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import thesistimetableplanning.domain.Commitee;
 import thesistimetableplanning.domain.Defense;
 import thesistimetableplanning.domain.ThesisSupervisor;
 import thesistimetableplanning.domain.TimetableSolution;
@@ -37,7 +38,7 @@ public class Writer {
 		JSONArray defenseTitleList = new JSONArray();
 		JSONArray defenseAuthorList = new JSONArray();
 		JSONArray defenseAuthorsSupervisorsList = new JSONArray();
-		//JSONArray defenseCommiteeList = new JSONArray();
+		JSONArray defenseCommiteeList = new JSONArray();
 		JSONArray defenseSimilarThemeList = new JSONArray();
 		JSONArray defenseRoomNumberList = new JSONArray();
 		for(Defense defense : defenses) {
@@ -49,7 +50,7 @@ public class Writer {
 			defenseTitleList.add(getDefenseTitle(defense));
 			defenseAuthorList.add(getDefenseAuthor(defense));
 			defenseAuthorsSupervisorsList.add(getDefenseAuthorsSupervisors(defense));
-			//defenseCommiteeList.add(getDefenseCommitee(defense));
+			defenseCommiteeList.add(getDefenseCommitee(defense));
 			defenseSimilarThemeList.add(getDefenseSimilarTheme(defense));
 			defenseRoomNumberList.add(getDefenseRoomNumber(defense));
 		}
@@ -61,7 +62,7 @@ public class Writer {
 		table.put("defenseTitleList", defenseTitleList);
 		table.put("defenseAuthorList", defenseAuthorList);
 		table.put("defenseAuthorsSupervisorsList", defenseAuthorsSupervisorsList);
-		//table.put("defenseCommiteeList", defenseCommiteeList);
+		table.put("defenseCommiteeList", defenseCommiteeList);
 		table.put("defenseSimilarThemeList", defenseSimilarThemeList);
 		table.put("defenseRoomNumberList", defenseRoomNumberList);
 		try(FileWriter file = new FileWriter("plannedData.json")){
@@ -127,7 +128,15 @@ public class Writer {
 	}
 	
 	public JSONObject getDefenseCommitee(Defense defense) {
-		return null;
+		JSONObject defenseCommitee = new JSONObject();
+		Commitee[] commiteeArray = defense.getCommission2();
+		String commiteeNames = "";
+		for(Commitee commiteeMember : commiteeArray) {
+			commiteeNames += commiteeMember.getName() + ", ";
+		}
+		commiteeNames = commiteeNames.substring(0, commiteeNames.length() - 2);
+		defenseCommitee.put("defense commitee members", commiteeNames);
+		return defenseCommitee;
 	}
 	
 	public JSONObject getDefenseSimilarTheme(Defense defense) {

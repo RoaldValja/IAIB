@@ -939,6 +939,7 @@ public class Reader {
 						defense.setThesisAuthor(thesisAuthor);
 					}
 				}
+				defense.setCommission2();
 				defenseList.add(defense);
 			}
 		}
