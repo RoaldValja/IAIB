@@ -172,7 +172,8 @@ public class Reader {
 		} else {
 			for(int j = 0; j < countCommas; j++){
 				String getTag = timeTag.substring(0, timeTag.indexOf(","));
-				String leftover = timeTag.substring(timeTag.indexOf(",")+2);
+				//String leftover = timeTag.substring(timeTag.indexOf(",")+2);
+				String leftover = timeTag.substring(timeTag.indexOf(",")+1);
 				timeTag = leftover;
 				timeTagList.add(getTag);
 				if(j+1 == countCommas){
@@ -661,10 +662,14 @@ public class Reader {
 				if(prerequisite.equals("Jah")){
 					thesisAuthor.hasPreconditionsFulfilled();
 				}
+				//System.out.println("authoris supervisorid listis on mitu: " + thesisSupervisorNameList.size());
 				for(int o = 0; o < solution.getThesisSupervisorList().size(); o++){
 					ThesisSupervisor thesisSupervisor = solution.getThesisSupervisorList().get(o);
+					//System.out.println("size ja supervisor listis: " + solution.getThesisSupervisorList().size() + " - " + solution.getThesisSupervisorList().get(o).getName());
 					for(int k = 0; k < thesisSupervisorNameList.size(); k++){
+						//System.out.println("supervisor uues listis: " + thesisSupervisorNameList.get(k) + " - vanas: " + thesisSupervisor.getName());
 						if(thesisSupervisorNameList.get(k).equals(thesisSupervisor.getName())){
+							//System.out.println("Lisati supervisor: " + thesisSupervisor.getName());
 							supervisorsSet.add(thesisSupervisor);
 						}
 					}
