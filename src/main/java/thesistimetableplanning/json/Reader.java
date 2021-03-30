@@ -133,6 +133,10 @@ public class Reader {
 		readCommiteeList();
 		
 		readDefenseList();
+		/*
+		for(int i = 0; i < solution.getTimeslotList().size(); i++) {
+			System.out.println("timeslot listis: " + solution.getTimeslotList().get(i).getDate() + " - " + solution.getTimeslotList().get(i).getStartTime() + " - " + solution.getTimeslotList().get(i).getEndTime());
+		}*/
 		
 		return solution;
 		
@@ -346,6 +350,9 @@ public class Reader {
 				case "Defense has one chairman":
 					constraintConfiguration.setDefenseHasOneChairman(HardSoftScore.ofHard(constraintWeight));
 					break;
+				case "Defense timeslot only for single author":
+					constraintConfiguration.setDefenseTimeslotOnlyForSingleAuthor(HardSoftScore.ofHard(constraintWeight));
+					break;
 				case "Defense grouped by same thesis theme":
 					constraintConfiguration.setDefenseGroupedBySameThesisTheme(HardSoftScore.ofSoft(constraintWeight));
 					break;
@@ -462,6 +469,9 @@ public class Reader {
 			timeslot.setDate(day);
 			timeslot.setStartTime(startTime);
 			timeslot.setEndTime(endTime);
+			
+			//System.out.println("Lisatud timeslot on: " + timeslot.getDate() + " - " + timeslot.getStartTime() + " - " + timeslot.getEndTime());
+			
 			DefenseType defenseType = totalDefenseTypeMap.get(defenseTypeName);
 			if(defenseType == null){
 				defenseType = new DefenseType(defenseTypeId);
@@ -708,6 +718,12 @@ public class Reader {
 				thesisAuthor.setPreferredTimeslotSet(preferredTimeslotSet);
 				thesisAuthor.setNotPreferredTimeslotSet(notPreferredTimeslotSet);
 				thesisAuthor.setUnavailableTimeslotSet(unavailableTimeslotSet);
+				
+				//System.out.println("author: " + thesisAuthor.getName());
+				//System.out.println("authori preferred timeslotid: " + thesisAuthor.getPreferredTimeslotSet());
+				//System.out.println("authori not preferred timeslotid: " + thesisAuthor.getNotPreferredTimeslotSet());
+				//System.out.println("authori unavailable timeslotid: " + thesisAuthor.getUnavailableTimeslotSet());
+				
 				/*
 				String tagPreferred = authorDataList.get(i+3).get(3);
 				String tagNotPreferred = authorDataList.get(i+4).get(3);

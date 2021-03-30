@@ -897,6 +897,10 @@ public class Defense extends AbstractPersistable{
 		}
 		return count;
 	}
+	
+	public boolean overlapsTimeslot(Defense other) {
+		return timeslot == other.getTimeslot();
+	}
 
 	/**
 	 * with methods

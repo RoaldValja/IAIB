@@ -30,6 +30,17 @@ rule "Commission at least three members"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 */
+rule "Defense timeslot only for single author"
+	when
+		$defense1 : Defense(timeslot != null,
+					$id1 : id)
+		$defense2 : Defense(timeslot != null,
+					overlapsTimeslot($defense1),
+					id > $id1)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
 rule "Author prerequisites done"
     when
         $defense : Defense(!authorHasPreconditionsDone())
