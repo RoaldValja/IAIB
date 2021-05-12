@@ -12,7 +12,7 @@
 
   <termination>
     <!--<minutesSpentLimit>1</minutesSpentLimit>-->
-    <secondsSpentLimit>10</secondsSpentLimit>
+    <secondsSpentLimit>300</secondsSpentLimit>
   </termination>
 
   <!-- Tabu Search performs much better than Late Acceptance (default algo) on this use case -->

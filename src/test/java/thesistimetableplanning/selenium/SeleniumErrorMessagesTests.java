@@ -32,7 +32,7 @@ public class SeleniumErrorMessagesTests {
 		System.out.println("Running: tearDown");
 		seleniumTableButtons.closeWindow();
 	}
-
+/*
 	@Test
 	public void testMessageAddRow() {
 		seleniumTableButtons.clickAddRow();
@@ -82,7 +82,7 @@ public class SeleniumErrorMessagesTests {
 		assertTrue(message);
 		assertTrue(button);
 	}
-	
+	*/
 	// Vaja lisada testMessageRemoveTab, kus peab tegema lipiku aktiivseks, mille error puudub
 	
 	// Vaja lisada testMessageCreateNewProject, kus peab sisestama nime, mille error puudub

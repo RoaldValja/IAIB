@@ -1,0 +1,425 @@
+body {
+	background-color: black;
+	margin: 0px;
+	padding: 0px;
+}
+
+.tableRowClass {
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	width: 50px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+#tableRows {
+	background-color: #eaede8;
+}
+
+#content {
+	background-color: #eaede8;
+}
+
+.tab {
+	background-color: #9ea3a2;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	height: 100%;
+	display:inline-block;
+	white-space: nowrap;
+	position: relative;
+	cursor: pointer;
+}
+
+.tab:hover {
+	background-color: #949998;
+}
+
+.tab:active {
+	background-color: #9ca1a0;
+}
+
+.tab2 {
+	background-color: yellow;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	height: 100%;
+	display:inline-block;
+	cursor: pointer;
+	position: relative;
+	white-space: nowrap;
+}
+
+.tab2:hover {
+	background-color: #949998;
+}
+
+.tab2:active {
+	background-color: #9ca1a0;
+}
+
+#tabArea {
+	width:95%; 
+	height:40%; 
+	background-color: gray; 
+	float:left; 
+	margin-left:2%; 
+	margin-right:3%;
+}
+
+#tabs {
+	width: 40%; 
+	height: 100%; 
+	background-color: #d4d6d0; 
+	float: left;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+#tabs2 {
+	width: 40%; 
+	height: 100%; 
+	background-color: yellow; 
+	float: left;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+#addTab {
+	width: 25%;
+	height: 95%;
+}
+
+#tabName {
+	width: 97.5%; 
+	height: 86%;
+}
+
+#planProject {
+	width: 5.8%; 
+	height: 76.5%;
+}
+
+#saveButton {
+	width: 5.8%;
+	height: 76.5%;
+}
+
+#inputFile {
+	width: 9.8%; 
+	height: 80%;
+	/*margin-left: 2%;*/
+}
+
+#addRow {
+	width: 9.7%; 
+	height: 50%;
+}
+
+#addColumn {
+	width: 9.7%; 
+	height: 50%; 
+}
+
+#generateTable {
+	width: 33%;
+	height: 100%; 
+}
+
+#generateTemplateTable {
+	width: 14.6%; 
+	height: 50%;
+}
+
+#generateExampleTable {
+	width: 14.6%; 
+	height: 50%;
+}
+
+#newProject {
+	width: 10%; 
+	height: 50%;
+}
+
+.menuButtonTable {
+	width: 20.85%;
+	float: left;
+	background-color: #a5a8ad;
+	/*background-color: #575956;*/
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 0px;
+	font-size: 90%;
+	cursor: pointer;
+	text-align: center;
+	line-height: 100%;
+	height: 100%;
+}
+
+.menuButtonTable:hover {
+	background-color: #8f9296;
+}
+.plus {
+	background-color: #a5a8ad;
+}
+.plus:hover{
+	background-color: #8f9296;
+}
+
+.menuButtonTable:active {
+	background-color: #969a9e;
+}
+
+.menuButtonEnding {
+	width: 45.85%;
+	float: left;
+	background-color: #a5a8ad;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 0px;
+	font-size: 90%;
+	cursor: pointer;
+	text-align: center;
+	line-height: 100%;
+	height: 100%;
+}
+
+.menuButtonEnding:hover {
+	background-color: #8f9296;
+}
+
+.menuButtonEnding:active {
+	background-color: #969a9e;
+}
+
+.menuButtonExtra {
+	width: 45.85%;
+	float: left;
+	background-color: #d3d6db;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 0px;
+	font-size: 90%;
+	cursor: pointer;
+	text-align: center;
+	line-height: 100%;
+	height: 100%;
+}
+
+.menuButtonExtra:hover {
+	background-color: #c4c7cc;
+}
+
+.menuButtonExtra:active {
+	background-color: #cbcdd1;
+}
+
+.menuButtonInput {
+	width: 100%;
+	float: left;
+	background-color: #a5a8ad;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 0px;
+	font-size: 90%;
+	text-align: center;
+	line-height: 100%;
+	height: 100%;
+}
+
+#input-excel {
+	cursor: pointer;
+}
+
+span.singleLine {
+	position: relative;
+	top: 30%;
+	transform: translateY(-30%);
+}
+
+span.singleLineLarge {
+	position: relative;
+	top: 35%;
+	transform: translateY(-35%);
+}
+
+span.multiLine {
+	position: relative;
+	top: 15%;
+	transform: translateY(-15%);
+}
+
+span.inputLine {
+	position: relative;
+	top: 20%;
+	transform: translateY(-20%);
+}
+
+span#projectNameSpan {
+	-webkit-user-modify: read-write;
+	-moz-user-modify: read-write;
+	user-modify: read-write;
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+
+#tableRows {
+	overflow-x: scroll;
+	background-color: #eaede8;
+}
+
+#tableArea {
+	overflow-y: scroll;
+}
+
+.table {
+	white-space: nowrap;
+}
+
+.tableInput {
+	font-size: 75%;
+}
+
+#saveSheetJSButton {
+	width: 5.8%;
+	height: 76.5%;
+}
+
+.dropbtn {
+	background-color: #3498DB;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: #2980B9;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	overflow: auto;
+	box-shadow: 0px, 8px, 16px, 0px, rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown-content2 {
+	display: none;
+	position: absolute;
+	right: 100%;
+	background-color: #d3d6db;
+	/*min-width: 160px;*/
+	overflow: auto;
+	box-shadow: 0px, 8px, 16px, 0px, rgba(0,0,0,0.2);
+	z-index: 1;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	text-align: center;
+}
+
+.helpMenuClass {
+	display: none;
+	position: absolute;
+	right: 1500%;
+	top: 200%;
+	width: 1000%;
+	height: 1000%;
+	background-color: red;
+}
+
+.helpButton {
+	background-color: gray;
+}
+
+.helpButton:hover {
+	cursor: pointer;
+	background-color: #c4c7cc;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.languageChoice:hover {
+	/*background-color: #f1f1f1;*/
+	background-color: #c4c7cc;
+	cursor: pointer;
+	
+}
+/*
+#languageEstonian:hover {
+	background-color: #f1f1f1;
+}
+#languageEnglish:hover {
+	background-color: #;
+}
+*/
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+#tutorialButtonCSS { background-color: red;}
+
+.errorMessage {
+	color: red;
+	text-align: center;
+	float: left;
+	width: 100%;
+	cursor: pointer;
+}
+
+.errorMessage:hover {
+	background-color: #f2ddd8;
+}
+
+.errorMessageSeperator {
+	text-align: center;
+	float: left;
+	width: 100%;
+}
+
+#errorMessageArea {
+	position: relative;
+}
+
+.errorresizable {
+	background-color: cyan;
+	position: relative;
+}
+
+#errorMessageArea .resizer {
+	width:10px;
+	height:10px;
+	background-color: blue;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	cursor: se-resize;
+}

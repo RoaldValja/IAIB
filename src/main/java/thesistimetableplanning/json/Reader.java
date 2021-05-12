@@ -51,6 +51,9 @@ public class Reader {
 	private Set<String> totalTimeslotTagSet;
 	private Map<String, ThesisSupervisor> totalThesisSupervisorMap;
 
+	private List<Commitee> commiteesList = new ArrayList<Commitee>();
+	private List<Commitee[]> commiteeArrays = new ArrayList<Commitee[]>();
+	
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
 		// TODO Auto-generated method stub
 		System.out.println("hello world2");
@@ -132,12 +135,59 @@ public class Reader {
 		
 		readCommiteeList();
 		
+		Commitee[] e = new Commitee[3];
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(2);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(3);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(2);
+		e[1] = commiteesList.get(3);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(2);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(0);
+		e[1] = commiteesList.get(3);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(2);
+		e[1] = commiteesList.get(3);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(2);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(1);
+		e[1] = commiteesList.get(3);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		e[1] = commiteesList.get(2);
+		e[1] = commiteesList.get(3);
+		e[1] = commiteesList.get(4);
+		commiteeArrays.add(e);
+		
 		readDefenseList();
-		/*
+		/*LocalDate date = LocalDate.now();
 		for(int i = 0; i < solution.getTimeslotList().size(); i++) {
 			System.out.println("timeslot listis: " + solution.getTimeslotList().get(i).getDate() + " - " + solution.getTimeslotList().get(i).getStartTime() + " - " + solution.getTimeslotList().get(i).getEndTime());
-		}*/
-		
+			if(date.isBefore(solution.getTimeslotList().get(i).getDate())) {
+				System.out.println("On suurem kuupäev");
+			}
+			date = solution.getTimeslotList().get(i).getDate();
+		}
+		*/
+		//solution.setCommiteeArraysList(commiteeArrays);
 		return solution;
 		
 	}
@@ -413,6 +463,12 @@ public class Reader {
 				case "Commission member does not swap with a new member on the same day":
 					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore.ofSoft(constraintWeight));
 					break;
+				case "Commission member does not swap with a new member in the same session":
+					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(HardSoftScore.ofHard(constraintWeight));
+					break;
+				case "Defense timeslots grouped by common session and have no holes between them":
+					constraintConfiguration.setDefenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem(HardSoftScore.ofSoft(constraintWeight));
+					break;
 			}
 		}
 		solution.setConstraintConfiguration(constraintConfiguration);
@@ -470,7 +526,7 @@ public class Reader {
 			timeslot.setStartTime(startTime);
 			timeslot.setEndTime(endTime);
 			
-			//System.out.println("Lisatud timeslot on: " + timeslot.getDate() + " - " + timeslot.getStartTime() + " - " + timeslot.getEndTime());
+			System.out.println("Lisatud timeslot on: " + timeslot.getDate() + " - " + timeslot.getStartTime() + " - " + timeslot.getEndTime() + " - " + timeslot);
 			
 			DefenseType defenseType = totalDefenseTypeMap.get(defenseTypeName);
 			if(defenseType == null){
@@ -857,6 +913,7 @@ public class Reader {
 				commitee.setNotPreferredTimeslotTagSet(seperateCommasSet(notPreferred));
 				commitee.setUnavailableTimeslotTagSet(seperateCommasSet(unavailable));
 				commiteeList.add(commitee);
+				commiteesList.add(commitee);
 			}
 		}
 		solution.setCommiteeList(commiteeList);
@@ -939,7 +996,8 @@ public class Reader {
 						defense.setThesisAuthor(thesisAuthor);
 					}
 				}
-				defense.setCommission2();
+				//defense.setCommission2();
+				//defense.setCommiteeArrays(commiteeArrays);
 				defenseList.add(defense);
 			}
 		}

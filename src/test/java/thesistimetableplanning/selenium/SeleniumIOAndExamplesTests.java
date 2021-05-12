@@ -29,13 +29,13 @@ public class SeleniumIOAndExamplesTests {
 		System.out.println("Running: tearDown");
 		seleniumIOAndExamples.closeWindow();
 	}
-
+	/*
 	@Test
 	public void testAddTabButton() {
 		//seleniumIOAndExamples.clickAddTab("test");
 		//boolean actualTab = seleniumIOAndExamples.getTab("test");
 		//assertTrue(actualTab);
 	}
-	
+	*/
 	
 }

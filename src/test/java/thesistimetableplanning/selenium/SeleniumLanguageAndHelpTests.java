@@ -30,6 +30,7 @@ public class SeleniumLanguageAndHelpTests {
 		seleniumLanguageAndHelp.closeWindow();
 	}
 
+	/*
 	@Test
 	public void testCheckEnglishLanguage() {
 		seleniumLanguageAndHelp.clickLanguageButton();
@@ -187,4 +188,5 @@ public class SeleniumLanguageAndHelpTests {
 		boolean check = seleniumLanguageAndHelp.checkTutorialColour("deleteRow", "rgb(195, 228, 247)");
 		assertTrue(check);
 	}
+	*/
 }

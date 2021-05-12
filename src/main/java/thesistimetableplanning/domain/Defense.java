@@ -1,15 +1,18 @@
 package thesistimetableplanning.domain;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
@@ -17,7 +20,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import thesistimetableplanning.common.AbstractPersistable;
 
 @PlanningEntity
-public class Defense extends AbstractPersistable{
+public class Defense extends AbstractPersistable {
 
 	private String code;
 	private String degree;
@@ -39,6 +42,34 @@ public class Defense extends AbstractPersistable{
 	private Set<String> notPreferredTimeslotTagSet;
 	private Set<String> unavailableTimeslotTagSet;
 	
+	private List<Commitee[]> commiteeArrays;
+	
+
+	private Set<String> droolsCommentsAuthor = new LinkedHashSet<>();
+	private Set<String> droolsCommentsSupervisor = new LinkedHashSet<>();
+	private Set<String> droolsCommentsCommission = new LinkedHashSet<>();
+	private Set<String> droolsCommentsUnique = new LinkedHashSet<>();
+	
+	public Set<String> getDroolsCommentsAuthorList(){
+		return droolsCommentsAuthor;
+	}
+	
+	public Set<String> getDroolsCommentsSupervisorList(){
+		return droolsCommentsSupervisor;
+	}
+	
+	public Set<String> getDroolsCommentsCommissionList(){
+		return droolsCommentsCommission;
+	}
+	
+	public Set<String> getDroolsCommentsUniqueList(){
+		return droolsCommentsUnique;
+	}
+	
+	public void setCommiteeArrays(List<Commitee[]> commiteeArrays) {
+		this.commiteeArrays = commiteeArrays;
+	}
+	
 	@PlanningVariable(valueRangeProviderRefs = "timeslotRange")
 	private Timeslot timeslot;
 
@@ -49,12 +80,75 @@ public class Defense extends AbstractPersistable{
 	public Defense(long id){
 		super(id);
 	}
+	
+	@Override
+	public int compareTo(Defense other) {
+		//LocalDateTime dateTime = LocalDateTime.of(date, time);
+		
+		return 0;
+    }
 
 	@ValueRangeProvider(id = "timeslotRange")
 	public Set<Timeslot> getTimeslotRange(){
+		setCommission2();
+		for(Commitee commiteeMember : commissionArray) {
+			//System.out.println(this + " " + commiteeMember);
+		}
+		droolsCommentsAuthor = new LinkedHashSet<>();
+		droolsCommentsAuthor.clear();
+		droolsCommentsSupervisor = new LinkedHashSet<>();
+		droolsCommentsSupervisor.clear();
+		droolsCommentsCommission = new LinkedHashSet<>();
+		droolsCommentsCommission.clear();
+		droolsCommentsUnique = new LinkedHashSet<>();
+		droolsCommentsUnique.clear();
 		return defenseType.getCompatibleTimeslotSet();
 	}
 	
+	public boolean hasSameCommiteeOnSameSession(Defense other) {
+		int sameMembers = 0;
+		if(timeslot.getSession() != other.getTimeslot().getSession()) {
+			return true;
+		}
+		Commitee[] otherCommission = other.getCommission2();
+		for(Commitee commiteeMember : commissionArray) {
+			for(Commitee otherMember : otherCommission) {
+				if(commiteeMember == otherMember) {
+					sameMembers++;
+				}
+			}
+		}
+		if(sameMembers == commissionSize) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasSameCommiteeOnSameDate(Defense other) {
+		int sameMembers = 0;
+		if(timeslot.getDate() != other.getTimeslot().getDate()) {
+			return true;
+		}
+		Commitee[] otherCommission = other.getCommission2();
+		for(Commitee commiteeMember : commissionArray) {
+			for(Commitee otherMember : otherCommission) {
+				if(commiteeMember == otherMember) {
+					sameMembers++;
+				}
+			}
+		}
+		if(sameMembers == commissionSize) {
+			return true;
+		}
+		return false;
+	}
+	
+	// proov lahendus
+/*	@ValueRangeProvider(id = "commiteeArrayRange")
+	public List<Commitee[]> getCommiteeArrayRange(){
+		return commiteeArrays;
+	}
+*/	
 	
     ////// Example code
     //////------------------------------------------
@@ -521,19 +615,25 @@ public class Defense extends AbstractPersistable{
 		Set<Integer> members = new HashSet<Integer>();
 		int max = commiteeList.size();
 		int commitee = 0;
+		int searched = 0;
 		while(true) {
 			Random random = new Random();
 			commitee = random.nextInt(max - 0);
+			System.out.println("otsib esimeest: " + commiteeList.get(commitee));
 			if(commiteeList.get(commitee).getChairman()) {
 				newCommission[0] = commiteeList.get(commitee);
 				members.add(commitee);
+				break;
+			}
+			searched++;
+			if(searched >= 100) {
 				break;
 			}
 		}
 		for(int i = 1; i < newCommission.length; i++) {
 			Random random = new Random();
 			commitee = random.nextInt(max - 0);
-			if(members.contains(commitee)) {
+			if(members.contains(commitee) || commiteeList.get(commitee).getChairman()) {
 				i--;
 				continue;
 			}
@@ -544,6 +644,7 @@ public class Defense extends AbstractPersistable{
 	}
 	
 	public Commitee[] getCommission2() {
+		//return commissionArray;
 		return commissionArray;
 	}
 	
@@ -613,7 +714,7 @@ public class Defense extends AbstractPersistable{
 	
 	public boolean isAuthorsUnavailableTimeslot() {
 		if(timeslot == null) {
-			return false;
+			return true;
 		}
 		return checkWholeSetTimeslot(thesisAuthor.getUnavailableTimeslotSet());
 	}
@@ -631,10 +732,11 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++) {
-			if(commissionArray[i] == null) {
+			//System.out.println("komisjoni liige: " + commiteeArray[i].getName() + " defense: " + this);
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslot(commissionArray[i].getUnavailableTimeslotSet())) {
+			if(checkWholeSetTimeslot(getCommission2()[i].getUnavailableTimeslotSet())) {
 				count++;
 			}
 		}
@@ -647,10 +749,10 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++) {
-			if(commissionArray[i] == null) {
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslot(commissionArray[i].getPreferredTimeslotSet())) {
+			if(checkWholeSetTimeslot(getCommission2()[i].getPreferredTimeslotSet())) {
 				count++;
 			}
 		}
@@ -667,6 +769,7 @@ public class Defense extends AbstractPersistable{
 				chairmanCount++;
 			}
 		}
+		System.out.println("Chairmane on komisjonis: " + chairmanCount);
 		if(chairmanCount == 1){
 			return true;
 		} else {
@@ -750,20 +853,24 @@ public class Defense extends AbstractPersistable{
 		ThesisSupervisor supervisor = null;
 		if(!thesisAuthor.getThesisSupervisorSet().isEmpty()){
 			Iterator<ThesisSupervisor> supervisorIterator = thesisAuthor.getThesisSupervisorSet().iterator();
-			while(supervisorIterator.hasNext()){
+			if(supervisorIterator.hasNext()) {
+				supervisor = supervisorIterator.next();
+			}
+			
+			/*while(supervisorIterator.hasNext()){
 				supervisor = supervisorIterator.next();
 				if(supervisor.getRole().equals("Peajuhendaja")){
 					break;
 				}
 				supervisor = null;
-			}
+			}*/
 		}
 		return supervisor;
 	}
 	
 	public boolean isAuthorsNotPreferredTimeslot() {
 		if(timeslot == null) {
-			return false;
+			return true;
 		}
 		return checkWholeSetTimeslot(thesisAuthor.getNotPreferredTimeslotSet());
 	}
@@ -774,10 +881,10 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++) {
-			if(commissionArray[i] == null) {
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslot(commissionArray[i].getNotPreferredTimeslotSet())) {
+			if(checkWholeSetTimeslot(getCommission2()[i].getNotPreferredTimeslotSet())) {
 				count++;
 			}
 		}
@@ -804,6 +911,7 @@ public class Defense extends AbstractPersistable{
 		Iterator<String> timeslotTagIterator = timeslot.getTagSet().iterator();
 		String checkedTag = "";
 		String timeslotTag = "";
+		/*
 		while(checkedTagIterator.hasNext()){
 			checkedTag = checkedTagIterator.next();
 			while(timeslotTagIterator.hasNext()){
@@ -811,6 +919,14 @@ public class Defense extends AbstractPersistable{
 				if(checkedTag.equals(timeslotTag)){
 					return true;
 				}
+			}
+		}*/
+		while(timeslotTagIterator.hasNext()) {
+			timeslotTag = timeslotTagIterator.next();
+			//System.out.println("timeslotil on tag : " + timeslotTag);
+			if(tagSet.contains(timeslotTag) && timeslotTag != "") {
+				System.out.println("Leiti tag : " + timeslotTag);
+				return true;
 			}
 		}
 		return false;
@@ -825,14 +941,14 @@ public class Defense extends AbstractPersistable{
 	
 	public boolean isAuthorsNotPreferredTimeslotTag(){
 		if(timeslot == null){
-			return false;
+			return true;
 		}
 		return checkWholeSetTimeslotTag(thesisAuthor.getNotPreferredTimeslotTagSet());
 	}
 	
 	public boolean isAuthorsUnavailableTimeslotTag(){
 		if(timeslot == null){
-			return false;
+			return true;
 		}
 		return checkWholeSetTimeslotTag(thesisAuthor.getUnavailableTimeslotTagSet());
 	}
@@ -843,10 +959,10 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++){
-			if(commissionArray[i] == null) {
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslotTag(commissionArray[i].getPreferredTimeslotTagSet())){
+			if(checkWholeSetTimeslotTag(getCommission2()[i].getPreferredTimeslotTagSet())){
 				count++;
 			}
 		}
@@ -859,10 +975,10 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++){
-			if(commissionArray[i] == null) {
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslotTag(commissionArray[i].getNotPreferredTimeslotTagSet())){
+			if(checkWholeSetTimeslotTag(getCommission2()[i].getNotPreferredTimeslotTagSet())){
 				count++;
 			}
 		}
@@ -876,10 +992,10 @@ public class Defense extends AbstractPersistable{
 		}
 		int count = 0;
 		for(int i = 0; i < commissionSize; i++){
-			if(commissionArray[i] == null) {
+			if(getCommission2()[i] == null) {
 				break;
 			}
-			if(checkWholeSetTimeslotTag(commissionArray[i].getUnavailableTimeslotTagSet())){
+			if(checkWholeSetTimeslotTag(getCommission2()[i].getUnavailableTimeslotTagSet())){
 				count++;
 			}
 		}
@@ -934,6 +1050,204 @@ public class Defense extends AbstractPersistable{
 	
 	public boolean overlapsTimeslot(Defense other) {
 		return timeslot == other.getTimeslot();
+	}
+	
+	
+	public void addAuthorPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse preferred");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " eelistas " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addAuthorNotPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse not preferred");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " ei eelistanud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addAuthorUnavailableConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse unavailable");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " ei sobinud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addNotUniqueTimeslotConstraint(Timeslot checkedTimeslot, Defense defense1, Defense defense2) {
+		System.out.println("Lisatakse mitte unikaalne timeslot");
+		droolsCommentsUnique.add(defense1.getThesisTitle() + "jagab oma aega kaitsmisega " + defense2.getThesisTitle() + " _ " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addAuthorUnavailableTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse unavailable tag");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " ei sobinud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addAuthorNotPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse not preferred tag");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " ei eelistanud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addAuthorPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse preferred tag");
+		droolsCommentsAuthor.add(thesisAuthor.getName() + " eelistatud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate());
+	}
+	
+	public void addSupervisorUnavailableConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor unavailable");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getUnavailableTimeslotSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " ei sobinud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addSupervisorPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor preferred");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getPreferredTimeslotSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " eelistas " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addSupervisorNotPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor not preferred");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getNotPreferredTimeslotSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " ei eelistanud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addSupervisorUnavailableTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor unavailable tag");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getUnavailableTimeslotTagSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " ei sobinud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addSupervisorPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor preferred tag");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getPreferredTimeslotTagSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " eelistas võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addSupervisorNotPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse supervisor not preferred tag");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		while(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			if(supervisor.getNotPreferredTimeslotTagSet().contains(checkedTimeslot)) {
+				supervisorComment += supervisor.getName() + " ei eelistanud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addCommonSupervisorsConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse common supervisors");
+		Set<ThesisSupervisor> thesisSupervisorSet = thesisAuthor.getThesisSupervisorSet();
+		Iterator<ThesisSupervisor> thesisSupervisorSetIterator = thesisSupervisorSet.iterator();
+		String supervisorComment = "";
+		if(thesisSupervisorSetIterator.hasNext()) {
+			ThesisSupervisor supervisor = thesisSupervisorSetIterator.next();
+			supervisorComment = supervisor.getName() + " on grupeeritud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate();
+		}
+		droolsCommentsSupervisor.add(supervisorComment);
+	}
+	
+	public void addCommissionUnavailableConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission unavailable");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getUnavailableTimeslotSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " ei sobinud " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
+	}
+	
+	public void addCommissionPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission preferred");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getPreferredTimeslotSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " eelistab " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
+	}
+	
+	public void addCommissionNotPreferredConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission not preferred");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getNotPreferredTimeslotSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " ei eelista " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
+	}
+	
+	public void addCommissionUnavailableTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission unavailable tag");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getUnavailableTimeslotTagSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " ei sobinud võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
+	}
+	
+	public void addCommissionPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission preferred tag");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getPreferredTimeslotTagSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " eelistab võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
+	}
+	
+	public void addCommissionNotPreferredTagConstraint(Timeslot checkedTimeslot) {
+		System.out.println("Lisatakse commission not preferred tag");
+		String commissionComment = "";
+		for(Commitee commitee : commissionArray) {
+			if(commitee.getNotPreferredTimeslotTagSet().contains(checkedTimeslot)) {
+				commissionComment += commitee.getName() + " ei eelista võtmesõna " + checkedTimeslot.getStartTime() + "-" + checkedTimeslot.getEndTime() + " / " + checkedTimeslot.getDate() + "; ";
+			}
+		}
+		droolsCommentsCommission.add(commissionComment);
 	}
 
 	/**

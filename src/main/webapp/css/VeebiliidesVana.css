@@ -1,0 +1,148 @@
+body {
+	background-color: black;
+	margin: 0px;
+	padding: 0px;
+}
+
+.tableRowClass {
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	width: 50px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+#tableRows {
+	background-color: #eaede8;
+}
+
+#content {
+	background-color: #eaede8;
+}
+
+.tab {
+	background-color: #9ea3a2;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	height: 100%;
+	display:inline-block;
+}
+
+.tab2 {
+	background-color: yellow;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	height: 100%;
+	display:inline-block;
+}
+
+#tabArea {
+	width:95%; 
+	height:40%; 
+	background-color: gray; 
+	float:left; 
+	margin-left:2%; 
+	margin-right:3%;
+}
+
+#tabs {
+	width: 40%; 
+	height: 100%; 
+	background-color: #d4d6d0; 
+	float: left;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+#tabs2 {
+	width: 40%; 
+	height: 100%; 
+	background-color: yellow; 
+	float: left;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+#addTab {
+	width: 25%;
+	height: 95%;
+}
+
+#tabName {
+	width: 97.5%; 
+	height: 86%;
+}
+
+#planProject {
+	width: 5.8%; 
+	height: 76.5%;
+}
+
+#saveButton {
+	width: 5.8%;
+	height: 76.5%;
+}
+
+#inputFile {
+	width: 9.8%; 
+	height: 80%;
+	/*margin-left: 2%;*/
+}
+
+#addRow {
+	width: 9.7%; 
+	height: 50%;
+}
+
+#addColumn {
+	width: 9.7%; 
+	height: 50%; 
+}
+
+#generateTable {
+	width: 33%;
+	height: 100%; 
+}
+
+#generateTemplateTable {
+	width: 14.6%; 
+	height: 50%;
+}
+
+#generateExampleTable {
+	width: 14.6%; 
+	height: 50%;
+}
+
+#newProject {
+	width: 10%; 
+	height: 50%;
+}
+
+.menuButton {
+	float: left;
+	background-color: #575956;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+#saveSheetJSButton {
+	width: 5.8%;
+	height: 76.5%;
+}

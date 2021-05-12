@@ -8,6 +8,7 @@ import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.ProblemFactCollectionProperty;
+import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import thesistimetableplanning.common.AbstractPersistable;
@@ -30,11 +31,22 @@ public class TimetableSolution extends AbstractPersistable{
 	@ProblemFactCollectionProperty
 	private List<ThesisSupervisor> thesisSupervisorList;
 	
+	private static int totalSolutions = 0;
+	private int solutionNr;
+	
+	public int getTotalSolutions() {
+		return totalSolutions;
+	}
+	public int getSolutionNr() {
+		return solutionNr;
+	}
+	
 	@PlanningScore
 	private HardSoftScore score = null;
 	
 	public TimetableSolution(){
-		
+		totalSolutions++;
+		solutionNr = totalSolutions;
 	}
 	
 	public TimetableSolution(long id){

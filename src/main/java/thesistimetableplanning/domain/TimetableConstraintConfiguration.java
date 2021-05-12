@@ -17,6 +17,8 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public static final String DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT = "Defense not on commission members unavailable timeslot";
 	public static final String DEFENSE_HAS_ONE_CHAIRMAN = "Defense has one chairman";
 	public static final String DEFENSE_TIMESLOT_ONLY_FOR_SINGLE_AUTHOR = "Defense timeslot only for single author";
+	public static final String COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_IN_THE_SAME_SESSION = "Commission member does not swap with a new member in the same session";
+	public static final String DEFENSE_TIMESLOTS_GROUPED_BY_COMMON_SESSION_AND_HAVE_NO_HOLES_BETWEEN_THEM = "Defense timeslots grouped by common session and have no holes between them";
 	
 	public static final String DEFENSE_GROUPED_BY_SAME_THESIS_THEME = "Defense grouped by same thesis theme";
 	public static final String DEFENSE_AUTHORS_GROUPED_BY_COMMON_SUPERVISOR = "Defense authors grouped by common supervisor";
@@ -55,6 +57,10 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	private HardSoftScore defenseHasOneChairman = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_TIMESLOT_ONLY_FOR_SINGLE_AUTHOR)
 	private HardSoftScore defenseTimeslotOnlyForSingleAuthor = HardSoftScore.ofHard(10);
+	@ConstraintWeight(COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_IN_THE_SAME_SESSION)
+	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberInTheSameSession = HardSoftScore.ofHard(10);
+	@ConstraintWeight(DEFENSE_TIMESLOTS_GROUPED_BY_COMMON_SESSION_AND_HAVE_NO_HOLES_BETWEEN_THEM)
+	private HardSoftScore defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem = HardSoftScore.ofSoft(10);
 	
 	@ConstraintWeight(DEFENSE_GROUPED_BY_SAME_THESIS_THEME)
 	private HardSoftScore defenseGroupedBySameThesisTheme = HardSoftScore.ofSoft(10);
@@ -159,7 +165,22 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseTimeslotOnlyForSingleAuthor(HardSoftScore defenseTimeslotOnlyForSingleAuthor) {
 		this.defenseTimeslotOnlyForSingleAuthor = defenseTimeslotOnlyForSingleAuthor;
 	}
+
+	public HardSoftScore getCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(){
+		return commissionMemberDoesNotSwapWithANewMemberInTheSameSession;
+	}
 	
+	public void setCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(HardSoftScore commissionMemberDoesNotSwapWithANewMemberInTheSameSession){
+		this.commissionMemberDoesNotSwapWithANewMemberInTheSameSession = commissionMemberDoesNotSwapWithANewMemberInTheSameSession;
+	}
+	
+	public HardSoftScore getDefenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem() {
+		return defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem;
+	}
+	
+	public void setDefenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem(HardSoftScore defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem) {
+		this.defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem = defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem;
+	}
 
 	
 	public HardSoftScore getDefenseGroupedBySameThesisTheme(){

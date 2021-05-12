@@ -14,6 +14,10 @@ import thesistimetableplanning.json.Writer;
 public class TimetablePlanningApp {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
+		TimetablePlanningApp.runApp();
+	}
+	
+	public static void runApp() throws FileNotFoundException, IOException, ParseException {
 		SolverFactory<TimetableSolution> solverFactory = SolverFactory.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverConfig.xml");
 		Solver<TimetableSolution> solver = solverFactory.buildSolver();
 		
@@ -21,7 +25,7 @@ public class TimetablePlanningApp {
 		TimetableSolution unsolvedTimetable = reader.read("planData.json");
 		
 		TimetableSolution solvedTimetable = solver.solve(unsolvedTimetable);
-		
+/*		
 		System.out.println(solvedTimetable.getScore());
 		System.out.println(solvedTimetable.getDefenseList().get(0).getCode());
 		System.out.println(solvedTimetable.getDefenseList().get(0).getTimeslot());
@@ -71,7 +75,7 @@ public class TimetablePlanningApp {
 		System.out.println(solvedTimetable.getDefenseList().get(7).getTimeslot().getStartTime() + " - " + solvedTimetable.getDefenseList().get(0).getTimeslot().getEndTime());
 		System.out.println(solvedTimetable.getDefenseList().get(7).getThesisAuthor().getName());
 		System.out.println(solvedTimetable.getDefenseList().get(7).getDefenseType().getType());
-
+*/
 		Writer writer = new Writer();
 		writer.write(solvedTimetable);
 		//System.out.println("\n solver solving \n"

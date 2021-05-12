@@ -42,17 +42,17 @@ public class TimetableConstraintConfigurationTests {
 
 	@Test
 	public void testGetDefenseOnAuthorsUnavailableTimeslot() {
-		System.out.println("Running: testGetDefenseOnAuthorsUnavailableTimeslot");
-		timetableConstraintConfiguration.setDefenseOnAuthorsUnavailableTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsUnavailableTimeslot();
+		System.out.println("Running: testGetDefenseNotOnAuthorsUnavailableTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsUnavailableTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 
 	@Test
 	public void testGetDefenseOnCommissionMembersUnavailableTimeslot() {
-		System.out.println("Running: testGetDefenseOnCommissionMembersUnavailableTimeslot");
-		timetableConstraintConfiguration.setDefenseOnCommissionMembersUnavailableTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnCommissionMembersUnavailableTimeslot();
+		System.out.println("Running: testGetDefenseNotOnCommissionMembersUnavailableTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnCommissionMembersUnavailableTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
@@ -102,9 +102,9 @@ public class TimetableConstraintConfigurationTests {
 
 	@Test
 	public void testGetDefenseOnAuthorsNotPreferredTimeslot() {
-		System.out.println("Running: testGetDefenseOnAuthorsNotPreferredTimeslot");
-		timetableConstraintConfiguration.setDefenseOnAuthorsNotPreferredTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsNotPreferredTimeslot();
+		System.out.println("Running: testGetDefenseNotOnAuthorsNotPreferredTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsNotPreferredTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsNotPreferredTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 
@@ -118,9 +118,9 @@ public class TimetableConstraintConfigurationTests {
 
 	@Test
 	public void testGetDefenseOnCommissionMembersNotPreferredTimeslot() {
-		System.out.println("Running: testGetDefenseOnCommissionMembersNotPreferredTimeslot");
-		timetableConstraintConfiguration.setDefenseOnCommissionMembersNotPreferredTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnCommissionMembersNotPreferredTimeslot();
+		System.out.println("Running: testGetDefenseNotOnCommissionMembersNotPreferredTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnCommissionMembersNotPreferredTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnCommissionMembersNotPreferredTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 
@@ -134,17 +134,17 @@ public class TimetableConstraintConfigurationTests {
 
 	@Test
 	public void testGetDefenseOnAuthorsSupervisorsNotPreferredTimeslot() {
-		System.out.println("Running: testGetDefenseOnAuthorsSupervisorsNotPreferredTimeslot");
-		timetableConstraintConfiguration.setDefenseOnAuthorsSupervisorsNotPreferredTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsSupervisorsNotPreferredTimeslot();
+		System.out.println("Running: testGetDefenseNotOnAuthorsSupervisorsNotPreferredTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsSupervisorsNotPreferredTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsSupervisorsNotPreferredTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 
 	@Test
 	public void testGetDefenseOnAuthorsSupervisorsUnavailableTimeslot() {
-		System.out.println("Running: testGetDefenseOnAuthorsSupervisorsUnavailableTimeslot");
-		timetableConstraintConfiguration.setDefenseOnAuthorsSupervisorsUnavailableTimeslot(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsSupervisorsUnavailableTimeslot();
+		System.out.println("Running: testGetDefenseNotOnAuthorsSupervisorsUnavailableTimeslot");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsSupervisorsUnavailableTimeslot(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsSupervisorsUnavailableTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
@@ -160,17 +160,17 @@ public class TimetableConstraintConfigurationTests {
 	
 	@Test
 	public void testGetDefenseOnAuthorsNotPreferredTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnAuthorsNotPreferredTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnAuthorsNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsNotPreferredTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnAuthorsNotPreferredTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsNotPreferredTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
 	@Test
 	public void testGetDefenseOnAuthorsUnavailableTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnAuthorsUnavailableTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnAuthorsUnavailableTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsUnavailableTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnAuthorsUnavailableTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsUnavailableTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 
@@ -184,17 +184,17 @@ public class TimetableConstraintConfigurationTests {
 	
 	@Test
 	public void testGetDefenseOnCommissionMembersNotPreferredTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnCommissionMembersNotPreferredTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnCommissionMembersNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnCommissionMembersNotPreferredTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnCommissionMembersNotPreferredTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnCommissionMembersNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnCommissionMembersNotPreferredTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
 	@Test
 	public void testGetDefenseOnCommissionMembersUnavailableTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnCommissionMembersUnavailableTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnCommissionMembersUnavailableTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnCommissionMembersUnavailableTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnCommissionMembersUnavailableTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnCommissionMembersUnavailableTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
@@ -208,17 +208,17 @@ public class TimetableConstraintConfigurationTests {
 	
 	@Test
 	public void testGetDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsSupervisorsNotPreferredTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsSupervisorsNotPreferredTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	
 	@Test
 	public void testGetDefenseOnAuthorsSupervisorsUnavailableTimeslotTag() {
-		System.out.println("Running: testGetDefenseOnAuthorsSupervisorsUnavailableTimeslotTag");
-		timetableConstraintConfiguration.setDefenseOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore.ofHard(10));
-		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseOnAuthorsSupervisorsUnavailableTimeslotTag();
+		System.out.println("Running: testGetDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag");
+		timetableConstraintConfiguration.setDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore.ofHard(10));
+		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
 	

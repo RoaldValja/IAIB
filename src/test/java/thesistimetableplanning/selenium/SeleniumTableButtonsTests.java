@@ -28,7 +28,7 @@ public class SeleniumTableButtonsTests {
 		System.out.println("Running: tearDown");
 		seleniumTableButtons.closeWindow();
 	}
-
+/*
 	@Test
 	public void testAddTabButton() {
 		seleniumTableButtons.clickAddTab("test");
@@ -149,6 +149,7 @@ public class SeleniumTableButtonsTests {
 		boolean actualTable = seleniumTableButtons.checkRow("4-1");
 		assertFalse(actualTable);
 	}
+*/
 	/*
 	@Test
 	public void testRemoveFirstRow() {
@@ -160,6 +161,7 @@ public class SeleniumTableButtonsTests {
 		assertFalse(actualTable);
 	}
 	*/
+/*
 	@Test
 	public void testAddRowThenRemoveRow() {
 		seleniumTableButtons.clickAddTab("test");
@@ -199,6 +201,7 @@ public class SeleniumTableButtonsTests {
 		boolean actualTable = seleniumTableButtons.checkRow("1-5");
 		assertFalse(actualTable);
 	}
+*/
 	/*
 	@Test
 	public void testRemoveFirstColumn() {
@@ -210,6 +213,7 @@ public class SeleniumTableButtonsTests {
 		assertFalse(actualTable);
 	}
 	*/
+/*
 	@Test
 	public void testAddColumnThenRemoveColumn() {
 		seleniumTableButtons.clickAddTab("test");
@@ -238,5 +242,5 @@ public class SeleniumTableButtonsTests {
 		boolean actualTable = seleniumTableButtons.checkTab("test");
 		assertFalse(actualTable);
 	}
-	
+*/
 }

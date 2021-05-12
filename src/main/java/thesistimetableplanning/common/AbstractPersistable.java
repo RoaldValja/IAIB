@@ -22,6 +22,8 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.score.constraint.ConstraintMatch;
 
+import thesistimetableplanning.domain.Defense;
+
 public abstract class AbstractPersistable implements Serializable, Comparable<AbstractPersistable> {
 
     protected Long id;
@@ -85,5 +87,10 @@ public abstract class AbstractPersistable implements Serializable, Comparable<Ab
     public String toString() {
         return getClass().getName().replaceAll(".*\\.", "") + "-" + id;
     }
+
+	public int compareTo(Defense other) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

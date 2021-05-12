@@ -5,15 +5,30 @@
  * For more details take a look at the Java Libraries chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.0/userguide/java_library_plugin.html
  */
+ 
+ 
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.gretty:gretty:+'
+	}
+}
+ 
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'eclipse'
     id 'java'
+    id 'war'
+	id 'org.gretty' version '3.0.3'
+	id 'eclipse-wtp'
+	id 'application'
 }
 
-sourceCompatibility = 15
-targetCompatibility = 15
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     // Use jcenter for resolving dependencies.
@@ -70,7 +85,7 @@ dependencies {
 	//testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
 	//testImplementation('org.mockito:mockito-core:3.3.3')
 	// https://mvnrepository.com/artifact/org.mockito/mockito-core
-	testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.8.0'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
 	
 	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
@@ -80,11 +95,36 @@ dependencies {
 
     // Use JUnit test framework
     //testImplementation 'junit:junit:4.12'
+    
+    
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    runtime 'javax.servlet:jstl:1.1.2'
+    
+    implementation 'com.google.guava:guava:30.0-jre'
+    
+    
+    testCompile "junit:junit:4.13.2"
+    testImplementation 'junit:junit:4.13.2'
 }
 
+
+gretty {
+	httpPort = 8080
+	contextPath = '/'
+	servletContainer = 'tomcat9'
+}
+
+
 test {
-	useJUnitPlatform()
+	useJUnit()
+	//useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
 	}
 }
+
+mainClassName = 'thesistimetableplanning.app.TimetablePlanningApp'
+
+//application {
+//    mainClass = 'thesistimetableplanning.app.TimetablePlanningApp'
+//}
