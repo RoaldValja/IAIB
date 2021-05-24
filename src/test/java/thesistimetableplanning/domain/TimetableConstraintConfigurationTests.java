@@ -23,7 +23,7 @@ public class TimetableConstraintConfigurationTests {
 		timetableConstraintConfiguration = null;
 		assertNull(timetableConstraintConfiguration);
 	}
-
+/*
 	@Test
 	public void testGetCommissionAtLeastThreeMembers() {
 		System.out.println("Running: testGetCommissionAtLeastThreeMembers");
@@ -31,7 +31,8 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getCommissionAtLeastThreeMembers();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-	
+*/
+/*	
 	@Test
 	public void testGetAuthorPrerequisitesDone() {
 		System.out.println("Running: testGetAuthorPrerequisitesDone");
@@ -39,7 +40,7 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getAuthorPrerequisitesDone();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-
+*/
 	@Test
 	public void testGetDefenseOnAuthorsUnavailableTimeslot() {
 		System.out.println("Running: testGetDefenseNotOnAuthorsUnavailableTimeslot");
@@ -55,7 +56,7 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseNotOnCommissionMembersUnavailableTimeslot();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-	
+/*	
 	@Test
 	public void testGetDefenseHasOneChairman() {
 		System.out.println("Running: testGetDefenseHasOneChairman");
@@ -63,9 +64,9 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseHasOneChairman();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
+*/	
 	
-	
-	
+/*	
 	@Test
 	public void testGetDefenseGroupedBySameThesisTheme() {
 		System.out.println("Running: testGetDefenseGroupedBySameThesisTheme");
@@ -73,7 +74,7 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseGroupedBySameThesisTheme();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-
+*/
 	@Test
 	public void testGetDefenseAuthorsGroupedByCommonSupervisor() {
 		System.out.println("Running: testGetDefenseAuthorsGroupedByCommonSupervisor");
@@ -81,7 +82,7 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getDefenseAuthorsGroupedByCommonSupervisor();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-	
+	/*
 	@Test
 	public void testGetClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch() {
 		System.out.println("Running: testGetClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch");
@@ -89,7 +90,7 @@ public class TimetableConstraintConfigurationTests {
 		HardSoftScore constraintScore = timetableConstraintConfiguration.getClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch();
 		assertEquals(constraintScore, HardSoftScore.ofHard(10));
 	}
-
+*/
 	
 	
 	@Test

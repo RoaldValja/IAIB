@@ -385,33 +385,33 @@ public class Reader {
 			System.out.println("weight on :" + constraintWeight);
 			
 			switch (constraintName) {
-				case "Commission at least three members":
-					constraintConfiguration.setCommissionAtLeastThreeMembers(HardSoftScore.ofHard(constraintWeight));
-					break;
-				case "Author prerequisites done":
-					constraintConfiguration.setAuthorPrerequisitesDone(HardSoftScore.ofHard(constraintWeight));
-					break;
+		//		case "Commission at least three members":
+		//			constraintConfiguration.setCommissionAtLeastThreeMembers(HardSoftScore.ofHard(constraintWeight));
+		//			break;
+		//		case "Author prerequisites done":
+		//			constraintConfiguration.setAuthorPrerequisitesDone(HardSoftScore.ofHard(constraintWeight));
+		//			break;
 				case "Defense not on authors unavailable timeslot":
 					constraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslot(HardSoftScore.ofHard(constraintWeight));
 					break;
 				case "Defense not on commission members unavailable timeslot":
 					constraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslot(HardSoftScore.ofHard(constraintWeight));
 					break;
-				case "Defense has one chairman":
-					constraintConfiguration.setDefenseHasOneChairman(HardSoftScore.ofHard(constraintWeight));
-					break;
+		//		case "Defense has one chairman":
+		//			constraintConfiguration.setDefenseHasOneChairman(HardSoftScore.ofHard(constraintWeight));
+		//			break;
 				case "Defense timeslot only for single author":
 					constraintConfiguration.setDefenseTimeslotOnlyForSingleAuthor(HardSoftScore.ofHard(constraintWeight));
 					break;
-				case "Defense grouped by same thesis theme":
-					constraintConfiguration.setDefenseGroupedBySameThesisTheme(HardSoftScore.ofSoft(constraintWeight));
-					break;
+		//		case "Defense grouped by same thesis theme":
+		//			constraintConfiguration.setDefenseGroupedBySameThesisTheme(HardSoftScore.ofSoft(constraintWeight));
+		//			break;
 				case "Defense authors grouped by common supervisor":
 					constraintConfiguration.setDefenseAuthorsGroupedByCommonSupervisor(HardSoftScore.ofSoft(constraintWeight));
 					break;
-				case "Closed defenses at start or end day or at before or after lunch":
-					constraintConfiguration.setClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch(HardSoftScore.ofSoft(constraintWeight));
-					break;
+		//		case "Closed defenses at start or end day or at before or after lunch":
+		//			constraintConfiguration.setClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch(HardSoftScore.ofSoft(constraintWeight));
+		//			break;
 				case "Defense on authors preferred timeslot":
 					constraintConfiguration.setDefenseOnAuthorsPreferredTimeslot(HardSoftScore.ofSoft(constraintWeight));
 					break;
@@ -440,7 +440,7 @@ public class Reader {
 					constraintConfiguration.setDefenseNotOnAuthorsNotPreferredTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
 					break;
 				case "Defense not on authors unavailable timeslot tag":
-					constraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
+					constraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslotTag(HardSoftScore.ofHard(constraintWeight));
 					break;
 				case "Defense on commission members preferred timeslot tag":
 					constraintConfiguration.setDefenseOnCommissionMembersPreferredTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
@@ -449,7 +449,7 @@ public class Reader {
 					constraintConfiguration.setDefenseNotOnCommissionMembersNotPreferredTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
 					break;
 				case "Defense not on commission members unavailable timeslot tag":
-					constraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
+					constraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslotTag(HardSoftScore.ofHard(constraintWeight));
 					break;
 				case "Defense on authors supervisors preferred timeslot tag":
 					constraintConfiguration.setDefenseOnAuthorsSupervisorsPreferredTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
@@ -460,11 +460,11 @@ public class Reader {
 				case "Defense not on authors supervisors unavailable timeslot tag":
 					constraintConfiguration.setDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
 					break;
-				case "Commission member does not swap with a new member on the same day":
-					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore.ofSoft(constraintWeight));
-					break;
+	//			case "Commission member does not swap with a new member on the same day":
+	//				constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore.ofSoft(constraintWeight));
+	//				break;
 				case "Commission member does not swap with a new member in the same session":
-					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(HardSoftScore.ofHard(constraintWeight));
+					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(HardSoftScore.ofSoft(constraintWeight));
 					break;
 				case "Defense timeslots grouped by common session and have no holes between them":
 					constraintConfiguration.setDefenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem(HardSoftScore.ofSoft(constraintWeight));
@@ -1033,6 +1033,22 @@ public class Reader {
         		addToTableList(tableDataSlotList);
         	}
         }
+	}
+	
+	public String readJSONConfig(String fileName) throws FileNotFoundException,
+    IOException, ParseException{
+		
+		JSONParser parser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) parser.parse(
+				new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8")));
+        String hours = (String) jsonObject.get("hours");
+        String minutes = (String) jsonObject.get("minutes");
+        String seconds = (String) jsonObject.get("seconds");
+        String algorithm = (String) jsonObject.get("algorithm");
+        int time = Integer.parseInt(hours)*3600 + Integer.parseInt(minutes)*60 + Integer.parseInt(seconds);
+        
+        String output = time + "-" + algorithm;
+        return output;
 	}
 	
 	public void addToTableList(ArrayList<String> list){

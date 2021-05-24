@@ -324,7 +324,7 @@ public class ReaderTests {
 			assertEquals("PlanDataTest.jsona (The system cannot find the file specified)", e.getMessage());
 		}
 	}
-	
+	/*
 	@Test
 	public void testReadConfigurationCommissionThreeMembers() {
 		System.out.println("Running: testReadConfigurationCommissionThreeMembers");
@@ -333,7 +333,8 @@ public class ReaderTests {
 		HardSoftScore score = test.getCommissionAtLeastThreeMembers();
 		assertEquals(HardSoftScore.ofHard(5), score);
 	}
-	
+	*/
+	/*
 	@Test
 	public void testReadConfigurationAuthorPrerequisitesDone() {
 		System.out.println("Running: testReadConfigurationAuthorPrerequisitesDone");
@@ -342,6 +343,7 @@ public class ReaderTests {
 		HardSoftScore score = test.getAuthorPrerequisitesDone();
 		assertEquals(HardSoftScore.ofHard(12), score);
 	}
+	*/
 	/*
 	@Test
 	public void testReadConfigurationDefenseOnAuthorsUnavailableTimeslot() {
@@ -362,6 +364,7 @@ public class ReaderTests {
 		assertEquals(HardSoftScore.ofHard(7), score);
 	}
 	*/
+	/*
 	@Test
 	public void testReadConfigurationDefenseHasOneChairman() {
 		System.out.println("Running: testReadConfigurationDefenseHasOneChairman");
@@ -370,7 +373,8 @@ public class ReaderTests {
 		HardSoftScore score = test.getDefenseHasOneChairman();
 		assertEquals(HardSoftScore.ofHard(18), score);
 	}
-	
+	*/
+	/*
 	@Test
 	public void testReadConfigurationDefenseGroupedBySameThesisTheme() {
 		System.out.println("Running: testReadConfigurationDefenseGroupedBySameThesisTheme");
@@ -379,6 +383,7 @@ public class ReaderTests {
 		HardSoftScore score = test.getDefenseGroupedBySameThesisTheme();
 		assertEquals(HardSoftScore.ofSoft(10), score);
 	}
+	*/
 	/*
 	@Test
 	public void testReadConfigurationDefenseAuthorsGroupedByCommonSupervisor() {
@@ -389,6 +394,7 @@ public class ReaderTests {
 		assertEquals(HardSoftScore.ofSoft(78), score);
 	}
 	*/
+	/*
 	@Test
 	public void testReadConfigurationClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch() {
 		System.out.println("Running: testReadConfigurationClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch");
@@ -397,6 +403,7 @@ public class ReaderTests {
 		HardSoftScore score = test.getClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch();
 		assertEquals(HardSoftScore.ofSoft(750), score);
 	}
+	*/
 	/*
 	@Test
 	public void testReadConfigurationDefenseOnAuthorsPreferredTimeslot() {

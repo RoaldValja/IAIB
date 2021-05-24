@@ -9,20 +9,22 @@
 	<script src="js/xlsx.core.min.js"></script>
 	<script src="js/FileSaver.js"></script>
 	<script src="js/tableexport.js"></script>
+<!--	<script data-main="js/Veebiliides4.js" src="js/require.js"></script>  -->
 	<script src="js/Veebiliides4.js" defer></script>
 	<script src="js/Examples3.js" defer></script>
 	
 </head>
-<body style="height:100%;">
+<body style="height:100%; background-color: gray; overflow: hidden;">
 	<div id="menu" style="width:100%; height:10%; background-color: gray; float:left;">
 		<div id="topLeftCorner" class="emptySpace" style="width:2%; height:100%; background-color: gray; float:left;">
 		</div>
-		<div id="menuArea" style="width:96%; height:100%; background-color: brown; float:left;">
+		<div id="menuArea" style="width:96%; height:100%; background-color: gray; float:left;">
 			
 			<div id="inputMenuArea" style="width:10%; height:100%; float:left;">
 				<div id="menuTopInput" class="emptySpace" style="width:100%; height:20%; background-color: gray; float:left;">
 				</div>
-				<div id="inputFileArea" style="width:100%; height:80%; background-color: green; float:left;">
+				<div class="menuObject" id="inputFileArea" style="width:100%; height:80%; background-color: green; float:left;">
+					<span class="tooltipText">Nupp, millega saad laadida peale planeerija andmed Excel failist.</span>
 					<div class="menuButtonInput" id="inputFile" style="width:100%; height:100%;" onclick="getInputFile()">
 						<div id="inputTopArea" style="width:100%; height:40%;">
 							<span class="inputLine" id="spanInputFile">Sisendfail</span>
@@ -35,123 +37,113 @@
 			</div>
 			<div id="buttonEmptyArea1" class="emptySpace" style="width:3%; height:100%; background-color: gray; float:left;">
 			</div>
-			<div id="projectButtonsArea" style="width:25%; height:100%; background-color: red; float:left;">
+			<div id="projectButtonsArea" style="width:25%; height:100%; background-color: gray; float:left;">
 				<div id="projectButtonsTopArea" style="width:100%; height:45%; background-color: gray; float:left;">
 					<div id="topMostEmptyArea" class="emptySpace" style="width:100%; height:10%; float:left;">
 					</div>
-					<div id="projectNameArea" style="width:100%; height:80%; background-color: white; float:left;">
+					<div class="menuObject" id="projectNameArea" style="width:100%; height:80%; background-color: gray; float:left;">
+						<span class="tooltipText">Planeerija projekti nimi, mida kasutatakse faili loomisel.</span>
 						<div id="preProjectNameArea" style="width:30%; height:100%; float:left; background-color: #d4d6d0; text-align: center; line-height:100%">
 							<span id="spanProjectName" style="width:100%; height:100%; position:relative; top:15%; transform:translateY(-15%); font-weight: bold;">Projekti nimi:</span>
 						</div>
-						<div id="projectName" style="width:70%; height:100%; float:left;">
+						<div id="projectName" style="width:69.3%; height:100%; float:left;">
 							<input type="text" id="inputProjectName" class="tableInput" name="getProjectName" placeholder="Projekti nimi" style="width:97.5%; height:80%">
 						</div>
 					</div>
 					<div id="belowProjectNameArea" class="emptySpace" style="width:100%; height:10%; float:left;">
 					</div>
 				</div>
-				<div id="projectButtonsBottomArea" style="width:100%; height:55%; background-color: red; float:left;">
-					<div class="menuButtonTable" id="newProject" style="width:28.85%; height:100%;" onclick="newProject('tab')">
-						<span class="singleLine" id="spanCreateNewProject">Loo uus projekt</span>
+				<div id="projectButtonsBottomArea" style="width:100%; height:55%; background-color: gray; float:left;">
+					<div class="menuButtonTable" id="newProject" style="width:30.8%; height:100%; border-left: 1px solid black; padding-left:1%; padding-right:1%;" onclick="newProject('tab')">
+						<span class="singleLine" id="spanCreateNewProject">Kustuta projekt</span>
+						<span class="tooltipText">Kustutab olemasoleva projekti tabelid ja lipikud.</span>
 					</div>
-		<!--			<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-					<div class="menuButtonTable" id="deleteProject" style="width:20.85%; height:100%;" onclick="deleteProject()">
-						<span class="multiLine">Kustuta projekt</span>
-					</div>		-->
-					<div class="buttonBorder" style="width:0.25%; height:100%; background-color: black; float:left;"></div>
-					<div class="menuButtonTable" id="generateExampleTable" style="width:29.8%; height:100%;" onclick="generateExampleTable2()">
+					<div class="menuButtonTable" id="generateExampleTable" style="width:31%; height:100%; border-left: 1px solid black; padding-left:1%; padding-right:1%;" onclick="generateExampleTable2()">
 						<span class="singleLine" id="spanCreateExampleTables">Loo näidistabelid</span>
+						<span class="tooltipText">Loob näidistabelid planeerija jaoks.</span>
 					</div>
-					<div class="buttonBorder" style="width:0.25%; height:100%; background-color: black; float:left;"></div>
-					<div class="menuButtonTable" id="generateTemplateTable" style="width:28.85%; height:100%;" onclick="generateTemplateTable()">
-						<span class="multiLine" id="spanCreateTableTemplates">Loo tabelite mallid</span>
+					<div class="menuButtonTable" id="generateTemplateTable" style="width:30.8%; height:100%; border-left: 1px solid black; border-right: 1px solid black; padding-left:1%; padding-right:1%;" onclick="generateTemplateTable()">
+						<span class="singleLine" id="spanCreateTableTemplates" style="top:12%">Loo tabelite<br>mallid</span>
+						<span class="tooltipText">Loob tabelite mallid planeerija jaoks.</span>
 					</div>
 				</div>
 			</div>
-			<div id="buttonEmptyArea2" class="emptySpace" style="width:4%; height:100%; background-color: gray; float:left;">
+			<div id="buttonEmptyArea2" class="emptySpace" style="width:3%; height:100%; background-color: gray; float:left;">
 			</div>
-			<div id="tableEditing" style="width:35%; height:100%; float:left;">
+			<div id="tableEditing" style="width:11%;height:100%; float:left;">
 				<div id="menuTopEditing" class="emptySpace" style="width:100%; height:20%; background-color: gray; float:left;">
 				</div>
-				<div id="tableInputArea" style="width:28%; height:80%; background-color: gray; float:left;">
-					<div style="width:50%; height:50%; float:left;">
+				<div id="tableInputArea" style="height:80%; background-color: gray; float:left;">
+					<div class="tableInputArea" style="width:96.5%; height:50%; float:left;">
 						<input type="text" class="tableInput" id="tableRow" name="getTableRow" placeholder="Tabeli rida" style="width:97.5%; height:87%">
+						<span class="tooltipText">Siia kirjuta mitu tabeli rida tahad korraga luua. Seda sisendit kasutavad nupud "lisa rida" ja "lisa tabel".</span>
 					</div>
-					<div style="width:50%; height:50%; float:left;">
-						<input type="text" class="tableInput" id="tableColumn" name="getTableColumn" placeholder="Tabeli veerg" style="width:97.5%; height:87%">
+					<br>
+					<div class="menuButtonTable" id="addRow" style="width:48.7%; height:50%; border-left: 1px solid black; padding-left:0%; padding-right:0%; float:left;" onclick="addRow()">
+						<span class="singleLine" id="spanAddRow">Lisa rida</span>
+						<span class="tooltipText">Selle nupuga saad lisada aktiivsele tabelile ridu juurde.</span>
 					</div>
-					<div style="width:100%; height:50%; float:left;">
-						<input type="text" id="tabName" class="tableInput" name="tabName" placeholder="Tabeli nimi">
-					</div>
-				</div>
-				<div id="tableEditArea" style="width:72%; height:80%; background-color: blue; float:left;">
-					<div id="tableEditTopArea" style="width:100%; height:49.3%; background-color: gray; float:left;">
-						<div class="menuButtonTable" id="addRow" style="width:18.85%; height:100%;" onclick="addRow()">
-							<span class="singleLine" id="spanAddRow">Lisa rida</span>
-						</div>
-						<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonTable" id="addColumn" style="width:18.85%; height:100%;" onclick="addColumn()">
-							<span class="singleLine" id="spanAddColumn">Lisa veerg</span>
-						</div>
-						<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonTable" id="deleteRow" style="width:22.85%; height:100%;" onclick="removeRow()">
-							<span class="singleLine" id="spanDeleteRow">Kustuta rida</span>
-						</div>
-						<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonTable" id="deleteColumn" style="width:22.85%; height:100%;" onclick="removeColumn()">
-							<span class="singleLine" id="spanDeleteColumn">Kustuta veerg</span>
-						</div>
-					</div>
-					<div class="buttonBottomBorder" style="width:100%; height:1.0%; background-color: black; float:left;">
-					</div>
-					<div id="tableEditBottomArea" style="width:100%; height:49.4%; background-color: gray; float:left;">
-						<div class="menuButtonTable" id="addTable" style="width:28.85%; height:100%;" onclick="generateTable('','','')">
-							<span class="singleLine" id="spanAddTable">Lisa tabel</span>
-						</div>
-						<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonTable" id="addTab" style="width:29.85%; height:100%;" onclick="addTab('', 'tabs')">
-							<span class="singleLine" id="spanAddTab">Lisa lipik</span>
-						</div>
-						<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonTable" id="deleteTab" style="width:28.85%; height:100%;" onclick="deleteTab()">
-							<span class="singleLine" id="spanDeleteTab">Kustuta lipik</span>
-						</div>
+					<div class="menuButtonTable" id="deleteRow" style="width:48.7%; height:50%; border-left: 1px solid black; border-right: 1px solid black; padding-left:0%; padding-right:0%; float:left;" onclick="removeRow()">
+						<span class="singleLine" id="spanDeleteRow">Kustuta rida</span>
+						<span class="tooltipText">Selle nupuga saad kustutada aktiivselt tabelilt ühe rea korraga.</span>
 					</div>
 				</div>
 			</div>
 			<div id="buttonEmptyArea3" class="emptySpace" style="width:3%; height:100%; background-color: gray; float:left;">
 			</div>
-			<div id="endingArea" style="width:20%; height:100%; float:left;">
+			<div id="endingArea" style="width:45%; height:100%; float:left;">
 				<div id="menuTopEnding" class="emptySpace" style="width:100%; height:20%; background-color: gray; float:left;">
 				</div>
-				<div id="finishingButtonsArea" style="width:100%; height:80%; background-color: black; float:left;">
-					<div id="finishingButtonsFrontArea" style="width:79.6%; height:100%; background-color: purple; float:left;">
-						<div class="menuButtonEnding" id="checkProject" style="width:29.10%; height:100%;" onclick="validate()">
-							<span class="singleLineLarge" id="spanSaveProject">Kontrolli projekt</span>
+				<div id="finishingButtonsArea" style="width:100%; height:80%; background-color: gray; float:left;">
+					<div id="finishingButtonsFrontArea" style="width:24%; height:100%; background-color: gray; float:left;">
+						<div class="menuButtonEnding" id="checkProject" style="width:45%; height:100%; border-left:1px solid black;" onclick="validate()">
+							<span class="singleLineLarge" id="spanSaveProject" style="top:20%;">Kontrolli projekt</span>
+							<span class="tooltipText">Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.</span>
 						</div>
-						<div class="buttonBorder" style="width:0.3%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonEnding" id="saveProject" style="width:29.10%; height:100%;" onclick="saveSheetJSProject()"><!-- width oli 45.85%-->
-							<span class="singleLineLarge" id="spanSaveProject">Salvesta projekt</span>
-						</div>
-						<div class="buttonBorder" style="width:0.3%; height:100%; background-color: black; float:left;"></div>
-						<div class="menuButtonEnding" id="planProject" style="width:12%; height:100%;" onclick="planProject()">
-							<span class="singleLineLarge" id="spanPlanProject">Planeeri projekt</span>
-							<!--<div id="languageBox" style="width:100%; height:100%; float:left;">
-								<div id="languageEstonian" style="width:100%; height:49.85%; float:left;">
-									Eesti
-								</div>
-								<div id="languageBorder1" style="width:100%; height:0.2%; background-color: black; float:left;"></div>
-								<div id="languageEnglish" style="width:100%; height:49.85%; float:left;">
-									English
-								</div>
-							</div>-->
-						</div>
-						<div class="menuButtonEnding" id="planProjectAlt" style="width:12%; height:100%; background-color: aliceblue;" onclick="planProjectAlt()">
-							<span class="singleLineLarge" id="spanPlanProject">Planeeri</span>
+						<div class="menuButtonEnding" id="saveProject" style="width:45%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveSheetJSProject()"><!-- width oli 45.85%-->
+							<span class="singleLineLarge" id="spanSaveProject" style="top:20%;">Salvesta projekt</span>
+							<span class="tooltipText">Selle nupuga saad salvestada oma hetkest projekti. Salvestatakse planeeritavad ja planeeritud tabelid.</span>
 						</div>
 					</div>
-					<div class="buttonBorder" style="width:0.2%; height:100%; background-color: black; float:left;"></div>
-					<div id="finishingButtonsBackArea" style="width:19.6%; height:100%; background-color: red; float:left;">
+					<div style="width:4%; height:100%; background-color:gray; float:left;"></div>
+					<div id="finishingButtonsPlanArea" style="width:40%; height:100%; float:left;">
+						<div class="tableInputArea" style="width:15%; height:50%; float:left;">
+							<input type="number" class="tableInput" id="configHours" name="ConfigHours" placeholder="Tunnid" style="width:80%; height:87%; float:left;" value="0" min="0" max="9">
+							<span class="tooltipText">Siia saad kirjutada planeerimise konfigureerimise aja tundides.</span>
+						</div>
+						<div class="tableInputArea" style="width:15%; height:50%; float:left;">
+							<input type="number" class="tableInput" id="configMinutes" name="ConfigMinutes" placeholder="Minutid" style="width:80%; height:87%; float:left;" value="0" min="0" max="59">
+								<option value="TABU_SEARCH">Tabu Search</option>
+							</select>
+							<span class="tooltipText">Siia saad kirjutada planeerimise konfigureerimise aja minutites.</span>
+						</div>
+						<div class="tableInputArea" style="width:15%; height:50%; float:left;">
+							<input type="number" class="tableInput" id="configSeconds" name="ConfigSeconds" placeholder="Sekundid" style="width:80%;height:87%; float:left;" value="0" min="0" max="59">
+								<option value="TABU_SEARCH">Tabu Search</option>
+							</select>
+							<span class="tooltipText">Siia saad kirjutada planeerimise konfigureerimise aja sekundites.</span>
+						</div>
+						<div class="tableInputArea" style="width:55%; height:50%; float:left;">
+							<select id="configAlgorithm" name="ConfigAlgorithm" style="width:100%; height:100%; float:left;">
+								<option value="TABU_SEARCH">Tabu Search</option>
+							</select>
+							<span class="tooltipText">Siit saad valida planeerimise algoritmi.</span>
+						</div>
+						<div class="menuButtonEnding" id="planProject" style="width:100%; height:50%; padding-left:0%; padding-right:0%;" onclick="planProject()">
+							<span class="singleLineLarge" id="spanPlanProject">Planeeri projekt</span>
+							<span class="tooltipText">Selle nupuga paned planeerija tööle.</span>
+						</div>
+					</div>
+					<div style="width:4%; height:100%; background-color:gray; float:left;"></div>
+					<div id="finishingButtonsLoadArea" style="width:12%; height:100%; float:left;">
+						<div class="menuButtonEnding" id="planProjectAlt" style="width:100%; height:100%;" onclick="planProjectAlt()">
+							<span class="singleLineLarge" id="spanPlanProject">Kuva plaan</span>
+							<span class="tooltipText">Selle nupuga kuvad hetkel mälus oleva plaani veebiliidesesse.</span>
+						</div>
+					</div>
+					
+					<div style="width:6%; height:100%; background-color:gray; float:left;"></div>
+					<div id="finishingButtonsBackArea" style="width:10%; height:100%; background-color: gray; float:left;">
 				<!--		<div class="dropdown" style="width: 100%; height: 49.5%;">
 							<button onclick="languageDropdown()" class="dropbtn" style="width: 100%; height: 100%;">Keel</button>
 							<div id="myDropdown" class="dropdown-content">
@@ -162,6 +154,7 @@
 						<div class="languageDropdown" style="width:100%; height:49.3%; float:left; position: relative; display: inline-block;">
 							<div id="languageButton" class="menuButtonExtra" onclick="languageDropdown()" style="width:100%; height:100%; position: relative; display: inline-block;">
 								<span class="singleLine" id="spanLanguage">Keel</span>
+								<span class="tooltipText">Selle nupuga saad valida programmi keele.</span>
 							</div>
 							<div id="roaldDropdown" class="dropdown-content2">
 								<div id="languageEstonian" class="languageChoice" onclick="languageChoice('Estonian')" style="display: block; width:80px; height:40px;">
@@ -180,6 +173,7 @@
 						<div class="helpArea" style="width:100%; height:49.4%; position: relative; display: inline-block">
 							<div id="helpButton" class="menuButtonExtra" onclick="helpTutorial()" style="width:100%; height:100%; position: relative; display: inline-block;">
 								<span class="singleLine" id="spanHelp">Abi</span>
+								<span class="tooltipText">Selle nupuga saad kuvada abiinfot nuppude kohta.</span>
 							</div>
 							<div id="helpMenu" class="helpMenuClass">
 								<div id="helpMenu1" class="tutorial" style="display:block; width:100%; height:100%;">
@@ -274,6 +268,12 @@
 			<div id="errorLeftBorder" style="width:2%; height:99.2%; background-color: black; float:left;">
 			</div>
 			<div id="errorMessageArea" class="errors" style="width:96%; height:99.2%; background-color: white; float:left; overflow-y: scroll; position: relative;">
+				<div id="javaFinished">Pole planeerimisel</div>
+				<div id="javaTimer">
+					<div class="javaTimerSegment" id="javaTimerHours"></div>
+					<div class="javaTimerSegment" id="javaTimerMinutes"></div>
+					<div class="javaTimerSegment" id="javaTimerSeconds"></div>
+				</div>
 				<div id="errorMessageHeader" style="width:100%; height:10%; float:left; text-align: center; line-height: 100%; background-color: white;">
 					<span id="spanErrorMessages" style="width: 100%; height: 100%; color: red; position: relative; top: 35%; transform: translateY(-35%); font-size: 20px; font-weight: bold;">Veateated</span>
 				</div>
@@ -281,8 +281,6 @@
 				</div>
 				<div id="resizeButtonSmall" style="width:100%; height: 20px; float:left; background-color:yellow; display:none;" onclick="resizeErrorAreaSmall()">resize
 				</div>
-				<div id="javaFinished"></div>
-				<div id="javaTimer"></div>
 			</div>
 			<div id="errorRightBorder" style="width:2%; height:99.2%; background-color: black; float:left;">
 			</div>

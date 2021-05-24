@@ -11,18 +11,18 @@ import thesistimetableplanning.common.AbstractPersistable;
 @ConstraintConfiguration(constraintPackage = "thesistimetableplanning.solver")
 public class TimetableConstraintConfiguration extends AbstractPersistable{
 
-	public static final String COMMISSION_AT_LEAST_THREE_MEMBERS = "Commission at least three members";
-	public static final String AUTHOR_PREREQUISITES_DONE = "Author prerequisites done";
+//	public static final String COMMISSION_AT_LEAST_THREE_MEMBERS = "Commission at least three members";
+//	public static final String AUTHOR_PREREQUISITES_DONE = "Author prerequisites done";
 	public static final String DEFENSE_NOT_ON_AUTHORS_UNAVAILABLE_TIMESLOT = "Defense not on authors unavailable timeslot";
 	public static final String DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT = "Defense not on commission members unavailable timeslot";
-	public static final String DEFENSE_HAS_ONE_CHAIRMAN = "Defense has one chairman";
+//	public static final String DEFENSE_HAS_ONE_CHAIRMAN = "Defense has one chairman";
 	public static final String DEFENSE_TIMESLOT_ONLY_FOR_SINGLE_AUTHOR = "Defense timeslot only for single author";
 	public static final String COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_IN_THE_SAME_SESSION = "Commission member does not swap with a new member in the same session";
 	public static final String DEFENSE_TIMESLOTS_GROUPED_BY_COMMON_SESSION_AND_HAVE_NO_HOLES_BETWEEN_THEM = "Defense timeslots grouped by common session and have no holes between them";
 	
-	public static final String DEFENSE_GROUPED_BY_SAME_THESIS_THEME = "Defense grouped by same thesis theme";
+//	public static final String DEFENSE_GROUPED_BY_SAME_THESIS_THEME = "Defense grouped by same thesis theme";
 	public static final String DEFENSE_AUTHORS_GROUPED_BY_COMMON_SUPERVISOR = "Defense authors grouped by common supervisor";
-	public static final String CLOSED_DEFENSES_AT_START_OR_END_DAY_OR_AT_BEFORE_OR_AFTER_LUNCH = "Closed defenses at start or end day or at before or after lunch";	
+//	public static final String CLOSED_DEFENSES_AT_START_OR_END_DAY_OR_AT_BEFORE_OR_AFTER_LUNCH = "Closed defenses at start or end day or at before or after lunch";	
 	
 	public static final String DEFENSE_ON_AUTHORS_PREFERRED_TIMESLOT = "Defense on authors preferred timeslot";
 	public static final String DEFENSE_NOT_ON_AUTHORS_NOT_PREFERRED_TIMESLOT = "Defense not on authors not preferred timeslot";
@@ -42,32 +42,33 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public static final String DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT_TAG = "Defense not on authors supervisors not preferred timeslot tag";
 	public static final String DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT_TAG = "Defense not on authors supervisors unavailable timeslot tag";
 	
-	public static final String COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY = "Commission member does not swap with a new member on the same day";
+//	public static final String COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY = "Commission member does not swap with a new member on the same day";
 
 
-	@ConstraintWeight(COMMISSION_AT_LEAST_THREE_MEMBERS)
-	private HardSoftScore commissionAtLeastThreeMembers = HardSoftScore.ofHard(10);
-	@ConstraintWeight(AUTHOR_PREREQUISITES_DONE)
-	private HardSoftScore authorPrerequisitesDone = HardSoftScore.ofHard(10);
+//	@ConstraintWeight(COMMISSION_AT_LEAST_THREE_MEMBERS)
+//	private HardSoftScore commissionAtLeastThreeMembers = HardSoftScore.ofHard(10);
+//	@ConstraintWeight(AUTHOR_PREREQUISITES_DONE)
+//	private HardSoftScore authorPrerequisitesDone = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_UNAVAILABLE_TIMESLOT)
 	private HardSoftScore defenseNotOnAuthorsUnavailableTimeslot = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT)
 	private HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslot = HardSoftScore.ofHard(10);
-	@ConstraintWeight(DEFENSE_HAS_ONE_CHAIRMAN)
-	private HardSoftScore defenseHasOneChairman = HardSoftScore.ofHard(10);
+//	@ConstraintWeight(DEFENSE_HAS_ONE_CHAIRMAN)
+//	private HardSoftScore defenseHasOneChairman = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_TIMESLOT_ONLY_FOR_SINGLE_AUTHOR)
 	private HardSoftScore defenseTimeslotOnlyForSingleAuthor = HardSoftScore.ofHard(10);
+	
 	@ConstraintWeight(COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_IN_THE_SAME_SESSION)
-	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberInTheSameSession = HardSoftScore.ofHard(10);
+	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberInTheSameSession = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_TIMESLOTS_GROUPED_BY_COMMON_SESSION_AND_HAVE_NO_HOLES_BETWEEN_THEM)
 	private HardSoftScore defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem = HardSoftScore.ofSoft(10);
 	
-	@ConstraintWeight(DEFENSE_GROUPED_BY_SAME_THESIS_THEME)
-	private HardSoftScore defenseGroupedBySameThesisTheme = HardSoftScore.ofSoft(10);
+//	@ConstraintWeight(DEFENSE_GROUPED_BY_SAME_THESIS_THEME)
+//	private HardSoftScore defenseGroupedBySameThesisTheme = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_AUTHORS_GROUPED_BY_COMMON_SUPERVISOR)
 	private HardSoftScore defenseAuthorsGroupedByCommonSupervisor = HardSoftScore.ofSoft(10);
-	@ConstraintWeight(CLOSED_DEFENSES_AT_START_OR_END_DAY_OR_AT_BEFORE_OR_AFTER_LUNCH)
-	private HardSoftScore closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch = HardSoftScore.ofSoft(10);
+//	@ConstraintWeight(CLOSED_DEFENSES_AT_START_OR_END_DAY_OR_AT_BEFORE_OR_AFTER_LUNCH)
+//	private HardSoftScore closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch = HardSoftScore.ofSoft(10);
 	
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_PREFERRED_TIMESLOT)
 	private HardSoftScore defenseOnAuthorsPreferredTimeslot = HardSoftScore.ofSoft(10);
@@ -89,13 +90,13 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_NOT_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseNotOnAuthorsNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_UNAVAILABLE_TIMESLOT_TAG)
-	private HardSoftScore defenseNotOnAuthorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	private HardSoftScore defenseNotOnAuthorsUnavailableTimeslotTag = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_ON_COMMISSION_MEMBERS_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseOnCommissionMembersPreferredTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_NOT_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseNotOnCommissionMembersNotPreferredTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_COMMISSION_MEMBERS_UNAVAILABLE_TIMESLOT_TAG)
-	private HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
+	private HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslotTag = HardSoftScore.ofHard(10);
 	@ConstraintWeight(DEFENSE_ON_AUTHORS_SUPERVISORS_PREFERRED_TIMESLOT_TAG)
 	private HardSoftScore defenseOnAuthorsSupervisorsPreferredTimeslotTag = HardSoftScore.ofSoft(10);
 	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_NOT_PREFERRED_TIMESLOT_TAG)
@@ -103,8 +104,8 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	@ConstraintWeight(DEFENSE_NOT_ON_AUTHORS_SUPERVISORS_UNAVAILABLE_TIMESLOT_TAG)
 	private HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag = HardSoftScore.ofSoft(10);
 	
-	@ConstraintWeight(COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY)
-	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberOnTheSameDay = HardSoftScore.ofSoft(10);
+//	@ConstraintWeight(COMMISSION_MEMBER_DOES_NOT_SWAP_WITH_A_NEW_MEMBER_ON_THE_SAME_DAY)
+//	private HardSoftScore commissionMemberDoesNotSwapWithANewMemberOnTheSameDay = HardSoftScore.ofSoft(10);
 	
 	public TimetableConstraintConfiguration(){
 		
@@ -117,7 +118,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
     // ************************************************************************
     // Simple getters and setters
     // ************************************************************************
-
+/*
 	public HardSoftScore getCommissionAtLeastThreeMembers(){
 		return commissionAtLeastThreeMembers;
 	}
@@ -133,7 +134,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setAuthorPrerequisitesDone(HardSoftScore authorPrerequisitesDone){
 		this.authorPrerequisitesDone = authorPrerequisitesDone;
 	}
-
+*/
 	public HardSoftScore getDefenseNotOnAuthorsUnavailableTimeslot() {
 		return defenseNotOnAuthorsUnavailableTimeslot;
 	}
@@ -149,7 +150,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseNotOnCommissionMembersUnavailableTimeslot(HardSoftScore defenseNotOnCommissionMembersUnavailableTimeslot) {
 		this.defenseNotOnCommissionMembersUnavailableTimeslot = defenseNotOnCommissionMembersUnavailableTimeslot;
 	}
-	
+/*	
 	public HardSoftScore getDefenseHasOneChairman(){
 		return defenseHasOneChairman;
 	}
@@ -157,7 +158,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseHasOneChairman(HardSoftScore defenseHasOneChairman){
 		this.defenseHasOneChairman = defenseHasOneChairman;
 	}
-	
+*/	
 	public HardSoftScore getDefenseTimeslotOnlyForSingleAuthor() {
 		return defenseTimeslotOnlyForSingleAuthor;
 	}
@@ -182,7 +183,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 		this.defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem = defenseTimeslotsGroupedByCommonSessionAndHaveNoHolesBetweenThem;
 	}
 
-	
+/*	
 	public HardSoftScore getDefenseGroupedBySameThesisTheme(){
 		return defenseGroupedBySameThesisTheme;
 	}
@@ -190,7 +191,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseGroupedBySameThesisTheme(HardSoftScore defenseGroupedBySameThesisTheme){
 		this.defenseGroupedBySameThesisTheme = defenseGroupedBySameThesisTheme;
 	}
-
+*/
 	public HardSoftScore getDefenseAuthorsGroupedByCommonSupervisor() {
 		return defenseAuthorsGroupedByCommonSupervisor;
 	}
@@ -198,7 +199,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseAuthorsGroupedByCommonSupervisor(HardSoftScore defenseAuthorsGroupedByCommonSupervisor) {
 		this.defenseAuthorsGroupedByCommonSupervisor = defenseAuthorsGroupedByCommonSupervisor;
 	}
-	
+/*	
 	public HardSoftScore getClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch(){
 		return closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch;
 	}
@@ -206,7 +207,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch(HardSoftScore closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch){
 		this.closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch = closedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch;
 	}
-	
+*/	
 	
 	
 	public HardSoftScore getDefenseOnAuthorsPreferredTimeslot() {
@@ -338,7 +339,7 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag){
 		this.defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag = defenseNotOnAuthorsSupervisorsUnavailableTimeslotTag;
 	}
-	
+/*	
 	public HardSoftScore getCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(){
 		return commissionMemberDoesNotSwapWithANewMemberOnTheSameDay;
 	}
@@ -346,5 +347,5 @@ public class TimetableConstraintConfiguration extends AbstractPersistable{
 	public void setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore commissionMemberDoesNotSwapWithANewMemberOnTheSameDay){
 		this.commissionMemberDoesNotSwapWithANewMemberOnTheSameDay = commissionMemberDoesNotSwapWithANewMemberOnTheSameDay;
 	}
-    
+*/  
 }

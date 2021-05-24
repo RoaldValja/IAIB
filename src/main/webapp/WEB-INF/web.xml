@@ -4,14 +4,23 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
  
   <servlet>
-    <display-name>ServletHello</display-name>
-    <servlet-name>ServletHello</servlet-name>
-    <servlet-class>thesistimetableplanning.servlet.ServletHello</servlet-class>
+    <display-name>ServletPlan</display-name>
+    <servlet-name>ServletPlan</servlet-name>
+    <servlet-class>thesistimetableplanning.servlet.ServletPlan</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>ServletConfig</display-name>
+    <servlet-name>ServletConfig</servlet-name>
+    <servlet-class>thesistimetableplanning.servlet.ServletConfig</servlet-class>
   </servlet>
  
   <servlet-mapping>
-    <servlet-name>ServletHello</servlet-name>
-    <url-pattern>/ServletHello</url-pattern>
+    <servlet-name>ServletPlan</servlet-name>
+    <url-pattern>/ServletPlan</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletConfig</servlet-name>
+    <url-pattern>/ServletConfig</url-pattern>
   </servlet-mapping>
  
 </web-app>

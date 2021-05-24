@@ -51,21 +51,15 @@ end
 
 rule "Commission member does not swap with a new member in the same session"
 	when
-//		$timeslot1 : Timeslot($timeslotId1 : id,
-//							$session1 : session)
-//		$timeslot2 : Timeslot(id > $timeslotId1,
-//							session == $session1)
-//		$defense1 : Defense(timeslot != null,
-//					timeslot == $timeslot1,
-//					$id1 : id)
-//		$defense2 : Defense(timeslot != null,
-//					timeslot == $timeslot2,
-//					!hasSameCommiteeOnSameSession($defense1),
-//					id > $id1)
+		$defense1 : Defense(timeslot != null,
+					$id1 : id)
+		$defense2 : Defense(timeslot != null,
+					!hasSameCommiteeOnSameSession($defense1),
+					id != $id1)
 	then
-//		scoreHolder.addHardConstraintMatch(kcontext, -1);
+		scoreHolder.addSoftConstraintMatch(kcontext, -1);
 end
-
+/*
 rule "Commission member does not swap with a new member on the same day"
 	when
 	//	$defense1 : Defense(timeslot != null,
@@ -76,12 +70,14 @@ rule "Commission member does not swap with a new member on the same day"
 	then
 	//	scoreHolder.addSoftConstraintMatch(kcontext, -1);
 end
-
+*/
+/*
 // Pole vaja seda kitsendust, kuna kood teeb kindlaks, et komisjonis on täpselt nii palju liikmeid, kui on vaja.
 rule "Commission at least three members"
     when
     then
 end
+*/
 /*
 rule "Commission at least three members"
 
@@ -104,19 +100,19 @@ rule "Defense timeslot only for single author"
 					$id1 != id)
 	then
 		scoreHolder.addHardConstraintMatch(kcontext, -1);
-		$defense1.addNotUniqueTimeslotConstraint($timeslot, $defense1, $defense2);
-		$defense2.addNotUniqueTimeslotConstraint($timeslot, $defense1, $defense2);
+//		$defense1.addNotUniqueTimeslotConstraint($timeslot, $defense1, $defense2);
+//		$defense2.addNotUniqueTimeslotConstraint($timeslot, $defense1, $defense2);
 end
 
 
-
+/*
 rule "Author prerequisites done"
     when
     //    $defense : Defense(!authorHasPreconditionsDone())
     then
     //    scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
-
+*/
 rule "Defense not on authors unavailable timeslot"
 	when
 		$defense : Defense(isAuthorsUnavailableTimeslot(),
@@ -136,7 +132,7 @@ rule "Defense not on authors unavailable timeslot tag"
 		scoreHolder.addHardConstraintMatch(kcontext, -1);
 		$defense.addAuthorUnavailableTagConstraint($timeslot);
 end
-
+/*
 rule "Closed defenses at start or end day or at before or after lunch"
     when
 //       	$defense : Defense(!isClosedDefenseTimeslot(),
@@ -144,26 +140,27 @@ rule "Closed defenses at start or end day or at before or after lunch"
     then
 //        scoreHolder.addSoftConstraintMatch(kcontext, -1);
 end
+*/
 rule "Defense not on commission members unavailable timeslot"
 	when
-//		$defense : Defense($count : isCommissionMembersUnavailableTimeslot() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersUnavailableTimeslot() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
-//		$defense.addCommissionUnavailableConstraint($timeslot);
+		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+		$defense.addCommissionUnavailableConstraint($timeslot);
 end
 
 rule "Defense not on commission members unavailable timeslot tag"
 	when
-//		$defense : Defense($count : isCommissionMembersUnavailableTimeslotTag() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersUnavailableTimeslotTag() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
-//		$defense.addCommissionUnavailableTagConstraint($timeslot);
+		scoreHolder.addHardConstraintMatch(kcontext, $count * -1);
+		$defense.addCommissionUnavailableTagConstraint($timeslot);
 end
-
+/*
 rule "Defense grouped by same thesis theme"
     //include attributes such as "salience" here...
     //
@@ -182,7 +179,8 @@ rule "Defense grouped by same thesis theme"
   //      scoreHolder.addSoftConstraintMatch(kcontext, 1);
         //scoreHolder.penalize(kcontext, $defense2.sameThesisTypeTagCount($defense1);
 end
-
+*/
+/*
 // Pole vaja, kuna kood kindlustab, et kaitsmisel on üks esimees.
 rule "Defense has one chairman"
     when
@@ -190,7 +188,7 @@ rule "Defense has one chairman"
     then
 //        scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
-
+*/
 rule "Defense not on authors not preferred timeslot"
 	when
 		$defense : Defense(isAuthorsNotPreferredTimeslot(),
@@ -293,64 +291,51 @@ end
 
 rule "Defense not on commission members not preferred timeslot"
 	when
-//		$defense : Defense($count : isCommissionMembersNotPreferredTimeslot() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersNotPreferredTimeslot() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
-//		$defense.addCommissionNotPreferredConstraint($timeslot);
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+		$defense.addCommissionNotPreferredConstraint($timeslot);
 end
 
 rule "Defense not on commission members not preferred timeslot tag"
 	when
-//		$defense : Defense($count : isCommissionMembersNotPreferredTimeslotTag() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersNotPreferredTimeslotTag() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
-//		$defense.addCommissionNotPreferredTagConstraint($timeslot);
+		scoreHolder.addSoftConstraintMatch(kcontext, $count * -1);
+		$defense.addCommissionNotPreferredTagConstraint($timeslot);
 end
 
 rule "Defense on commission members preferred timeslot"
 	when
-//		$defense : Defense($count : isCommissionMembersPreferredTimeslot() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersPreferredTimeslot() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addSoftConstraintMatch(kcontext, $count);
-//		$defense.addCommissionPreferredConstraint($timeslot);
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+		$defense.addCommissionPreferredConstraint($timeslot);
 end
 
 rule "Defense on commission members preferred timeslot tag"
 	when
-//		$defense : Defense($count : isCommissionMembersPreferredTimeslotTag() > 0,
-//							$timeslot : timeslot,
-//							timeslot != null)
+		$defense : Defense($count : isCommissionMembersPreferredTimeslotTag() > 0,
+							$timeslot : timeslot,
+							timeslot != null)
 	then
-//		scoreHolder.addSoftConstraintMatch(kcontext, $count);
-//		$defense.addCommissionPreferredTagConstraint($timeslot);
+		scoreHolder.addSoftConstraintMatch(kcontext, $count);
+		$defense.addCommissionPreferredTagConstraint($timeslot);
 end
 
 rule "Defense authors grouped by common supervisor"
-    //include attributes such as "salience" here...
-    //
-    //	Kas võrrelda ainult peamisi juhendajaid, või vaja võrrelda kaasjuhendajaid ka?
-    //
     when
-//    	$timeslot1 : Timeslot($timeslotId1 : id,
-//    					$session1 : session)
-//    	$timeslot2 : Timeslot($timeslotId2 : id,
-//    					id > $timeslotId1,
-//    					session == $session1)
-//        $defense1 : Defense(timeslot != null,
-//        				$similarSupervisor : getPrimarySupervisor(),
-//        				$defenseId1 : id,
-//        				timeslot == $timeslot1)
-//        $defense2 : Defense(timeslot != null,
-//       					getPrimarySupervisor() == $similarSupervisor,
-//        				id != $defenseId1,
-//        				timeslot == $timeslot2)
+        $defense1 : Defense(timeslot != null,
+        				$defenseId1 : id)
+        $defense2 : Defense(timeslot != null,
+       					hasSameSupervisorOnSameSession($defense1),
+        				id != $defenseId1)
     then
-//        scoreHolder.addSoftConstraintMatch(kcontext, 1);
-//		$defense1.addCommonSupervisorsConstraint($timeslot1);
+        scoreHolder.addSoftConstraintMatch(kcontext, 1);
 end

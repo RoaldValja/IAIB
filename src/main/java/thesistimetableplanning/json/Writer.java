@@ -10,8 +10,13 @@ import thesistimetableplanning.domain.ThesisSupervisor;
 import thesistimetableplanning.domain.Timeslot;
 import thesistimetableplanning.domain.TimetableSolution;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -72,11 +77,11 @@ public class Writer {
 	
 	List<Defense> defenses;
 	
-	public void write(TimetableSolution solution) {
+	public void write(TimetableSolution solution) throws IOException {
 		defenses = solution.getDefenseList();
 		System.out.println("Lahenduse id on: " + solution + " - " + defenses.size());
 		System.out.println("Lahendusi on : " + solution.getTotalSolutions() + " - lahenduse nr on - " + solution.getSolutionNr());
-		
+		/*
 		for(Defense defense : defenses) {
 			if(defense.getTimeslot() == null) {
 				System.out.println("timeslot puudu");
@@ -84,7 +89,7 @@ public class Writer {
 			}
 			System.out.println(defense.getThesisTitle() + " id: " + defense.getId() + " - " + defense.getTimeslot() + " - " + defense.getTimeslot().getDate() + "/" + defense.getTimeslot().getStartTime() + ":" + defense.getTimeslot().getEndTime());
 		}
-		
+		*/
 		System.out.println("enne sorteerimist");
 		
 		Collections.sort(defenses, (d1, d2) -> {
@@ -101,11 +106,12 @@ public class Writer {
 		int amountOfDefenses = defenses.size();
 		JSONObject table = new JSONObject();
 		System.out.println("kaitsmisi on: " + defenses.size());
-		int k = 0;
+		//int k = 0;
+		/*
 		for(Defense defense : defenses) {
 			k++;
 			System.out.println(k + " kaitsmine: " + defense.getThesisTitle());
-		}
+		}*/
 		for(Defense defense : defenses) {/*
 			dateList.add(defense.getTimeslot().getDate());
 			startTimeList.add(defense.getTimeslot().getStartTime());
@@ -119,8 +125,8 @@ public class Writer {
 			similarThemeList.add(defense.getThesisTheme());
 			roomNumberList.add(defense.getRoomNumber());
 			*/
-			k++;
-			System.out.println(k + " paneb tabeli: " + defense.getThesisTitle() + " timeslot: " + defense.getTimeslot());
+		//	k++;
+		//	System.out.println(k + " paneb tabeli: " + defense.getThesisTitle() + " timeslot: " + defense.getTimeslot());
 			defenseDateList.add(getDate(defense));
 			defenseStartTimeList.add(getStartTime(defense));
 			defenseEndTimeList.add(getEndTime(defense));
@@ -223,12 +229,19 @@ public class Writer {
 		} catch (IOException e){
 			e.printStackTrace();
 		}
-		
+		/*
 		try(FileWriter file = new FileWriter("src/main/webapp/json/plannedData.json")){
 			file.write(table.toJSONString());
 		} catch (IOException e){
 			e.printStackTrace();
 		}
+		*/
+		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/webapp/json/plannedData.json"), "UTF-8"));
+	    try{
+	    	out.write(table.toJSONString());
+	    } finally {
+	    	out.close();
+	    }
 
 		System.out.println("peale json kirjutamist");
 		try(FileWriter file = new FileWriter("src/main/webapp/ready.txt")){
@@ -310,7 +323,7 @@ public class Writer {
 		JSONObject defenseCommitee = new JSONObject();
 		Commitee[] commiteeArray = defense.getCommission2();
 		String commiteeNames = "";
-		System.out.println("commiteearrays on: " + commiteeArray);
+		//System.out.println("commiteearrays on: " + commiteeArray);
 		if(commiteeArray == null) {
 			defenseCommitee.put("defense commitee members", "null");
 			return defenseCommitee;

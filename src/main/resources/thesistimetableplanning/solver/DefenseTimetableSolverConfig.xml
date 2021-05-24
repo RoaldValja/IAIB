@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solver>
+<solver xmlns="https://www.optaplanner.org/xsd/solver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.optaplanner.org/xsd/solver https://www.optaplanner.org/xsd/solver/solver.xsd">
   <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
   <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
 
@@ -7,7 +8,7 @@
   <entityClass>thesistimetableplanning.domain.Defense</entityClass>
 
   <scoreDirectorFactory>
-    <scoreDrl>thesistimetableplanning/solver/defenseTimetableScoreRules.drl</scoreDrl>
+    <scoreDrl>thesistimetableplanning/solver/DefenseTimetableScoreRules.drl</scoreDrl>
   </scoreDirectorFactory>
 
   <termination>
@@ -24,4 +25,30 @@
 <!--   <localSearch>
     <localSearchType>TABU_SEARCH</localSearchType>
   </localSearch> -->
+  <!--
+   <constructionHeuristic>
+  	<constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+  </constructionHeuristic>
+  <constructionHeuristic>
+  	<constructionHeuristicType>ALLOCATE_ENTITY_FROM_QUEUE</constructionHeuristicType>
+  </constructionHeuristic>
+  -->
+<!--   <localSearch>
+    <localSearchType>HILL_CLIMBING</localSearchType>
+  </localSearch>
+  <localSearch>
+    <localSearchType>TABU_SEARCH</localSearchType>
+  </localSearch>
+  <localSearch>
+    <localSearchType>LATE_ACCEPTANCE</localSearchType>
+  </localSearch>
+  -->
+
+   <constructionHeuristic>
+  	<constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+  </constructionHeuristic>
+  <localSearch>
+    <localSearchType>HILL_CLIMBING</localSearchType>
+  </localSearch>
+  
 </solver>

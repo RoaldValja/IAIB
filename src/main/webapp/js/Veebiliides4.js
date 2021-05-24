@@ -83,6 +83,26 @@ async function planProjectAlt(){
 	 });
 }
 
+function sendPlannerConfigData(){
+	let hours = document.getElementById("configHours").value;
+	let minutes = document.getElementById("configMinutes").value;
+	let seconds = document.getElementById("configSeconds").value;
+	let algorithm = document.getElementById("configAlgorithm").value;
+	
+	let jsonData = '{ "hours":"' + hours + '", "minutes":"' + minutes + '", "seconds":"' + seconds + '", "algorithm":"' + algorithm + '"}';
+	let data = JSON.stringify(jsonData);
+	
+	$.ajax({
+	      type: 'POST',
+	      url: "ServletConfig",
+	      data: data,
+	      dataType: "json",
+	      contentType: 'application/json; charset=utf-8',
+	      mimeType: 'application/json',
+	      success: function(resultData) { alert("Save Complete") }
+	});
+}
+
 async function planProject(){
 	var i;
 	var JSON_Data;
@@ -93,15 +113,12 @@ async function planProject(){
 	var tableName, tableID;
 	//setTimeout(addJSONPlanData, 10000);
 	addJSONPlanData();
+	sendPlannerConfigData();
 	let timer = 0;
 	let lastTime = (new Date).getTime();
-	$.get("ServletHello", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+	
+	$.get("ServletPlan", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
         $("#javaFinished").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-        /*
-        $.get("ready.txt", function(data){
-        	let fileData = data;
-        	console.log(data);
-        });*/
         
         var textFileInterval = setInterval(function(){
     		console.log("10 sekundit läbi")
@@ -122,11 +139,37 @@ async function planProject(){
     				clearInterval(textFileInterval);
     			}
     	    });
-    		$("#javaTimer").text(deltaTime / 1000);
+    		let totalTime = Math.ceil(deltaTime / 1000);
+    		let hourTime = Math.floor(totalTime / 3600);
+    		if(totalTime >= 3600){
+    			totalTime = totalTime - hourTime * 3600;
+    		}
+    		let minuteTime = Math.floor(totalTime / 60);
+    		if(totalTime >= 60){
+    			totalTime = totalTime - minuteTime * 60;
+    		}
+    		let secondTime = totalTime;
+    		if(hourTime > 0){
+    			let hoursElement = document.getElementById("javaTimerHours");
+    			hoursElement.innerHTML = "Tundi <br>" + hourTime;
+    			hoursElement.style.visibility = "visible";
+    		}
+    		if(minuteTime > 0){
+    			let minutesElement = document.getElementById("javaTimerMinutes");
+    			minutesElement.innerHTML = "Minutit <br>" + minuteTime;
+    			minutesElement.style.visibility = "visible";
+    		}
+    		if(secondTime > 0){
+    			let secondsElement = document.getElementById("javaTimerSeconds");
+    			secondsElement.innerHTML = "Sekundit <br>" + secondTime;
+    			secondsElement.style.visibility = "visible";
+    		}
+    		//$("#javaTimer").text("hours: " + hourTime + " minutes: " + minuteTime + " seconds: " + secondTime);
     	}, 10000);
     	
         //planProjectAlt();
 	});
+	
 	var loc = window.location.pathname;
 	console.log("current location: " + loc);
 	//await sleep(1000);
@@ -176,22 +219,63 @@ function addJSONPlanData(){
 	}
 	jsonTable = jsonTable.concat(' ] }');
 	
+	/*
+	$.post("ServletHello", data, function(responseText, status) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+        alert("Data: " + responseText + "\nStatus: " + status)           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+	});
+	*/
 	//var fs = require('fs');
-	//fs.writeFile('json/planData2.json', json, 'utf8', callback);
+	//fs.writeFile('json/planData.json', json, 'utf8', callback);
+	/*
 	var xhr = new XMLHttpRequest();
 	var url = "submit.php";
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-Type", "application/json; charset = utf-8");
 	xhr.onreadystatechange = function () { 
 		if (xhr.readyState === 4 && xhr.status === 200) { 
-			document.getElementById("result").innerHTML = this.responseText; 
+			//document.getElementById("result").innerHTML = this.responseText; 
+			console.log("xhr teeb midagi");
 		} 
-	}; 
+	}; */
 	var data = JSON.stringify(jsonTable);
 	
-	xhr.send(data);
+//	xhr.send(data);
+	/*
+	$.post("ServletHello", data, function(responseText, status) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+        alert("Data: " + responseText + "\nStatus: " + status)           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+	});
+	*/
+
+	/*var saveData = */
 	
+	$.ajax({
+	      type: 'POST',
+	      url: "ServletPlan",
+	      data: data,
+	      dataType: "json",
+	      contentType: 'application/json; charset=utf-8',
+	      mimeType: 'application/json',
+	      success: function(resultData) { alert("Save Complete") }
+	});
+	
+	//$.post("json.php", {json: JSON.stringify(jsonTable)});
+	
+	//saveData.error(function() { alert("Something went wrong"); });
+	
+	
+	/*
+	$.post("submit.php", data).done(function( data ) {
+	    alert( "Data Loaded: " + data );
+	  });     // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+	*/
+	
+	//const fs = require('fs');
+	/*
+	const {fs} = require(['fs']);
+	fs.writeFileSync('planData.json', data);
+	*/
 	console.log(jsonTable);
+	return data;
 	
 }
 
@@ -670,7 +754,8 @@ var tabsArray = [];
 
 function addTab(tabName, tabArea){
 	var tabValue, i;
-	var getTab = document.getElementsByName('tabName');
+	//var getTab = document.getElementsByName('tabName');
+	var getTab = [""];
 	console.log("tabs arrays on: " + tabsArray.length);
 	if(tabName == ""){
 		tabValue = getTab[0].value;
@@ -1063,7 +1148,7 @@ function generateTemplateTable(){
 	newProject('tab');
 	addTab('Configuration', 'tabs');
 	showTab('tableConfiguration');
-	generateTable(26,4,1);
+	generateTable(23,4,1);
 	addTab('Timeslot', 'tabs');
 	showTab('tableTimeslot');
 	generateTable(6,6,1);
@@ -1093,7 +1178,7 @@ function generateExampleTable2(){
 	newProject('tab');
 	addTab('Configuration', 'tabs');
 	showTab('tableConfiguration');
-	generateTable(29,4,1);
+	generateTable(23,4,1);
 	addTab('Timeslot', 'tabs');
 	showTab('tableTimeslot');
 	generateTable(1,6,1);
@@ -1112,21 +1197,24 @@ function generateExampleTable2(){
 
 	generateConfigurationTable();
 	showTab('tableTimeslot');
-	generateTimeslotTable2("6", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "5", "20", "60", "yes");
+//	generateTimeslotTable2("6", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "5", "20", "60", "yes");	// 100 kaitsja omad
+	generateTimeslotTable2("1", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "2", "20", "60", "yes");	// 10 kaitsja omad
 	showTab('tableSupervisor');
 	document.querySelector('#tabSupervisor').click();
-	generateSupervisorTable2("20");
-	//generateSupervisorTable();
+//	generateSupervisorTable2("20");	// 100 kaitsja omad
+	generateSupervisorTable2("10"); // 10 kaitsja omad
 	showTab('tableAuthor');
 	document.querySelector('#tabAuthor').click();
-	generateAuthorTable2("100");
+//	generateAuthorTable2("100");	// 100 kaitsja omad
+	generateAuthorTable2("10");		// 10 kaitsja omad
 	
 	showTab('tableCommitee');
 	document.querySelector('#tabCommitee').click();
 	generateCommiteeTable2("6");
 	showTab('tableDefense');
 	document.querySelector('#tabDefense').click();
-	generateDefenseTable2("100");
+//	generateDefenseTable2("100");	// 100 kaitsja omad
+	generateDefenseTable2("10");	// 10 kaitsja omad	
 }
 
 function generateExampleTable(){
@@ -1244,7 +1332,7 @@ function generateTable(row, column, header){
 	console.log("row on " + row + " " + activeTable);
 	console.log(column);
 	document.getElementsByName('getTableRow')[0].value = "";
-	document.getElementsByName('getTableColumn')[0].value = "";
+	//document.getElementsByName('getTableColumn')[0].value = "";
 	
 	var thead = document.createElement('thead');
 	var tbody = document.createElement('tbody');
@@ -1827,7 +1915,7 @@ function removeRow(){
 }
 
 function addColumn(){
-	var tableColumnValue = document.getElementById("tableColumn").value;
+	var tableColumnValue = 1; //document.getElementById("tableColumn").value; -------------- see nupp on kaotatud
 	var newColumns = parseInt(tableColumnValue, 10);
 	if(activeTable == null){
 		errorMessage('Ei saa lisada tabeli veergu tabelisse, mida pole olemas!', "addColumn");
@@ -1916,7 +2004,7 @@ function addColumn(){
 				}
 			}*/
 		}
-		document.getElementById("tableColumn").value = "";
+		//document.getElementById("tableColumn").value = ""; -------------- see nupp on kaotatud
 	}
 	else {
 		console.log("Sisestati mittenumbriline sisend");

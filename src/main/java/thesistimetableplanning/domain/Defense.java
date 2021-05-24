@@ -107,8 +107,9 @@ public class Defense extends AbstractPersistable {
 	
 	public boolean hasSameCommiteeOnSameSession(Defense other) {
 		int sameMembers = 0;
+		boolean sameSession = true;
 		if(timeslot.getSession() != other.getTimeslot().getSession()) {
-			return true;
+			sameSession = false;
 		}
 		Commitee[] otherCommission = other.getCommission2();
 		for(Commitee commiteeMember : commissionArray) {
@@ -118,9 +119,37 @@ public class Defense extends AbstractPersistable {
 				}
 			}
 		}
-		if(sameMembers == commissionSize) {
-			return true;
+		if(sameMembers != commissionSize) {
+			if(sameSession) {
+				return false;
+			} else {
+				return true;
+			}
 		}
+		return true;
+	}
+
+	public boolean hasSameSupervisorOnSameSession(Defense other) {
+		boolean sameSession = true;
+		boolean sameSupervisor = false;
+		if(timeslot.getSession() != other.getTimeslot().getSession()) {
+			sameSession = false;
+		}
+		for(ThesisSupervisor supervisor : thesisAuthor.getThesisSupervisorSet()) {
+			for(ThesisSupervisor supervisorNew : other.getThesisAuthor().getThesisSupervisorSet()) {
+				if(supervisor == supervisorNew) {
+					sameSupervisor = true;
+				}
+			}
+		}
+		if(sameSupervisor) {
+			if(sameSession) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
 		return false;
 	}
 	
@@ -142,6 +171,7 @@ public class Defense extends AbstractPersistable {
 		}
 		return false;
 	}
+	
 	
 	// proov lahendus
 /*	@ValueRangeProvider(id = "commiteeArrayRange")
@@ -697,12 +727,17 @@ public class Defense extends AbstractPersistable {
 		Timeslot valueTimeslot;
 		while(value.hasNext()) {
 			valueTimeslot = value.next();
+			if(valueTimeslot == timeslot) {
+				return true;
+			}
+			/*
 			int startTime = valueTimeslot.getStartTime().compareTo(timeslot.getStartTime());
 			int endTime = valueTimeslot.getEndTime().compareTo(timeslot.getEndTime());
 			int date = valueTimeslot.getDate().compareTo(timeslot.getDate());
 			if(startTime == 0 && endTime == 0 && date == 0) {
 				return true;
 			}
+			*/
 			/*
 			if(valueTimeslot.equals(timeslot)) {
 				return true;
@@ -865,6 +900,7 @@ public class Defense extends AbstractPersistable {
 				supervisor = null;
 			}*/
 		}
+		System.out.println("Autori peamine juhendaja on: " + supervisor.getName());
 		return supervisor;
 	}
 	
@@ -924,9 +960,16 @@ public class Defense extends AbstractPersistable {
 		while(timeslotTagIterator.hasNext()) {
 			timeslotTag = timeslotTagIterator.next();
 			//System.out.println("timeslotil on tag : " + timeslotTag);
-			if(tagSet.contains(timeslotTag) && timeslotTag != "") {
-				System.out.println("Leiti tag : " + timeslotTag);
-				return true;
+			while(checkedTagIterator.hasNext()) {
+				checkedTag = checkedTagIterator.next();
+				//if(tagSet.contains(timeslotTag) && timeslotTag != "") {
+				if(timeslotTag.equals(checkedTag) && !timeslotTag.equals("") && !checkedTag.equals("")) {
+					if(timeslotTag.equals("")) {
+						System.out.println("Tühi tag");
+					}
+					System.out.println("Leiti tag : " + timeslotTag);
+					return true;
+				}
 			}
 		}
 		return false;
