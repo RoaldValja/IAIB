@@ -90,7 +90,7 @@ async function planProject(){
 			}	
 		}
         
-        var textFileInterval = setInterval(function(){
+        let textFileInterval = setInterval(function(){
     		let now = (new Date).getTime();
     		let deltaTime = now - lastTime;
     		
@@ -150,9 +150,9 @@ async function planProject(){
 }
 
 function addJSONPlanData(){
-	var tableData, tableName, tableLength;
-	var table = document.getElementsByClassName("table");
-	var jsonTable = '{ "table": [ ';
+	let tableData, tableName, tableLength;
+	let table = document.getElementsByClassName("table");
+	let jsonTable = '{ "table": [ ';
 	for(i = 0; i < table.length; i++){
 		tableName = table[i].id;
 		tableData = getTableData(tableName);
@@ -165,7 +165,7 @@ function addJSONPlanData(){
 	}
 	jsonTable = jsonTable.concat(' ] }');
 
-	var data = JSON.stringify(jsonTable);
+	let data = JSON.stringify(jsonTable);
 	$.ajax({
 	      type: 'POST',
 	      url: "ServletPlan",
@@ -183,8 +183,6 @@ function writeJSONObject(name, lengthRow, lengthColumn, data){
 	jsonTable = '{ "name":"';
 	jsonTable = jsonTable.concat(name);
 	jsonTable = jsonTable.concat('", "tableSlot": [');
-	//console.log(lengthRow-1);
-	//console.log(lengthColumn-1);
 	for(i = 0; i < lengthRow; i++){
 		for(j = 0; j < lengthColumn; j++){
 			jsonTable = jsonTable.concat(' { "row":"');
@@ -194,9 +192,6 @@ function writeJSONObject(name, lengthRow, lengthColumn, data){
 			jsonTable = jsonTable.concat('", "data":"');
 			jsonTable = jsonTable.concat(data[i][j]);
 			jsonTable = jsonTable.concat('" }');
-			//console.log(i);
-			//console.log(j);
-			//console.log((lengthRow-1)*(lengthColumn-1));
 			if(i*j != (lengthRow-1)*(lengthColumn-1)){
 				jsonTable = jsonTable.concat(',');
 			}
@@ -207,39 +202,29 @@ function writeJSONObject(name, lengthRow, lengthColumn, data){
 }
 
  function loadJSON(callback) {   
-
-    var xobj = new XMLHttpRequest();
-	
-        xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'json/plannedData.json', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
+   var xobj = new XMLHttpRequest();
+   xobj.overrideMimeType("application/json");
+   xobj.open('GET', 'json/plannedData.json', true);
+   xobj.onreadystatechange = function () {
           if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-         }
+        	  callback(xobj.responseText);
+          }
    };
    xobj.setRequestHeader("Cache-Control", "max-age=0");
    xobj.send(null);  
 }
 
-
 function fillTableFromInput(table, row, column, ID){
-	//console.log("fillTable sees");
 	var i, j, repeat = 0;
 	var index1, index2;
 	var data;
 	for(i = 1; i <= row; i++){
 		for(j = 1; j <= column; j++){
-			//console.log(k);
-			//console.log(ID.concat('-').concat(i).concat('-').concat(j));
-			//console.log(repeat);
 			repeat = table.indexOf('<td', repeat);
 			index1 = table.indexOf('>', repeat) + 1;
 			index2 = table.indexOf('</td>');
 			repeat = index2 + 5;
 			data = table.substring(index1, index2);
-			//console.log(data);
-			//console.log(repeat);
 			table = table.substring(repeat-1);
 			var domElement = document.getElementById(ID.concat('-').concat(i).concat('-').concat(j));
 			if(ID == "tableConfiguration"){
@@ -355,7 +340,6 @@ function fillTableFromJSON(data, row, column, ID, table){
 	for(i = 0; i < row; i++){
 		tableSlotNum = column * i;
 		for(j = 0; j < column; j++){
-			//slot = data.table[table].tableSlot[tableSlotNum+j];
 			slot = data.dateList[j];
 			console.log("testing, siin on json slot" + slot);
 			tableRow = slot.row;
@@ -367,67 +351,54 @@ function fillTableFromJSON(data, row, column, ID, table){
 }
 
 function getInputFile(input){
-	//console.log("kutsuti välja");
-	//console.log(input);
 	var i;
 	var reader = new FileReader();
 	reader.readAsArrayBuffer(input.target.files[0]);
 	reader.onload = function(input) {
                         var data = new Uint8Array(reader.result);
                         var wb = XLSX.read(data,{type:'array'});
-						//console.log(wb.SheetNames[0]);
 						var numOfSheets = wb.SheetNames.length;
 						newProject('tab');
+						newProject('tab2');
+						tabsArray.splice(0, tabsArray.length);
 						for(i = 0; i < numOfSheets; i++){
 							var sheetName = wb.SheetNames[i];
 							var htmlstr = XLSX.write(wb,{sheet:sheetName, type:'string',bookType:'html'});
-							addTab(sheetName, 'tabs');
+							if(sheetName == "Planned Data"){
+								addTab(sheetName, 'tabs2');
+							} else {
+								addTab(sheetName, 'tabs');
+							}
 							var sheetID = 'table'.concat(sheetName);
 							showTab(sheetID);
 							var trCount = (htmlstr.match(new RegExp("<tr>", "g")) || []).length;
 							var tdCount = (htmlstr.match(new RegExp("<td ", "g")) || []).length;
 							var columnCount = tdCount / trCount;
-							//console.log(trCount);
-							//console.log(tdCount);
-							//console.log(columnCount);
 							generateTable(trCount,columnCount,1);
 							fillTableFromInput(htmlstr, trCount, columnCount, sheetID);
-							//console.log(htmlstr);
-							//document.getElementById('tableRows').innerHTML += htmlstr;
-						}
-						
-						
+						}					
 	}
 }
 
-
-
-
-
-
 function saveProject(){
-	/*var exportData = TableExport(document.getElementsByTagName("table"));
-	TableExport.prototype.defaultFilename = "myDownload";
-	exportData;
-	*/
-	//var exportData = new TableExport(document.getElementsByTagName("table"));
-	var exportData = new TableExport(document.getElementsByTagName("table"), {
-	  headers: true,                      // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
-	  footers: true,                      // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
-	  formats: ["xlsx"],    // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
-	  filename: "id",                     // (id, String), filename for the downloaded file, (default: 'id')
-	  bootstrap: false,                   // (Boolean), style buttons using bootstrap, (default: true)
-	  exportButtons: true,                // (Boolean), automatically generate the built-in export buttons for each of the specified formats (default: true)
-	  position: "top",                 // (top, bottom), position of the caption element relative to table, (default: 'bottom')
-	  ignoreRows: null,                   // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
-	  ignoreCols: null,                   // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
-	  trimWhitespace: true,               // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: false)
-	  RTL: false,                         // (Boolean), set direction of the worksheet to right-to-left (default: false)
-	  sheetname: "id"                     // (id, String), sheet name for the exported spreadsheet, (default: 'id')
-	});
-	//TableExport.prototype.defaultFilename = "myDownload";
-	//var exportData = TableExport(document.getElementsByTagName("table"));
-	console.log("tegi midagi");
+	var i;
+	var wb = XLSX.utils.book_new();
+	wb.Props = {
+	Title: "Example Excel",
+	Subject: "Test file",
+	Author: "Roald Välja",
+	CreatedDate: new Date(2020,01,10)
+	};
+	var tableName = document.getElementsByClassName("table");
+	for(i = 0; i < tableName.length; i++){
+		wb.SheetNames.push(tableName[i].id.substring(5));
+		var ws_data = getTableData(tableName[i].id);
+		var ws = XLSX.utils.aoa_to_sheet(ws_data);
+		wb.Sheets[tableName[i].id.substring(5)] = ws;
+	}
+	var wbout = XLSX.write(wb, {bookType:'xlsx', type:'binary'});
+	var projectName = document.getElementById("inputProjectName").value + ".xlsx";
+	saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), projectName);
 }
 
 function s2ab(s){
@@ -575,26 +546,6 @@ function getTableData(name){
 	return table;
 }
 
-function saveSheetJSProject(){
-	var i;
-	var wb = XLSX.utils.book_new();
-	wb.Props = {
-	Title: "Example Excel",
-	Subject: "Test file",
-	Author: "Roald Välja",
-	CreatedDate: new Date(2020,01,10)
-	};
-	var tableName = document.getElementsByClassName("table");
-	for(i = 0; i < tableName.length; i++){
-		wb.SheetNames.push(tableName[i].id.substring(5));
-		var ws_data = getTableData(tableName[i].id);
-		var ws = XLSX.utils.aoa_to_sheet(ws_data);
-		wb.Sheets[tableName[i].id.substring(5)] = ws;
-	}
-	var wbout = XLSX.write(wb, {bookType:'xlsx', type:'binary'});
-	var projectName = document.getElementById("inputProjectName").value + ".xlsx";
-	saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), projectName);
-}
 
 var activeTab = "";
 
@@ -1529,18 +1480,45 @@ function addTdInfo(td, row, column){
 			makeNormalTableCell(td, "center", "true", time);
 		}
 		else if(column == 3 && row != 1){
-			var time = "";
+			let time = "";
 			if(row == 2){
 				time = "00:00";
 			}
 			else{
-				var startTime = document.getElementById(activeTable + '-' + (row - 1) + '-' + column).innerHTML;
-				time = startTime;
+				let startTime = document.getElementById(activeTable + '-' + (row - 1) + '-' + column).innerHTML;
+				let lastEndTime = document.getElementById(activeTable + '-' + (row - 1) + '-' + (column - 1)).innerHTML;
+				let startTimeInt = parseInt(startTime.substr(0, 2)) * 60 + parseInt(startTime.substr(3,2));
+				let lastEndTimeInt = parseInt(lastEndTime.substr(0, 2)) * 60 + parseInt(lastEndTime.substr(3,2));
+				let newTime = startTimeInt - lastEndTimeInt;
+				let hours = 0, minutes = 0;
+				if(newTime >= 60){
+					hours = Math.round(newTime / 60);
+					minutes = newTime - hours*60;
+				} else {
+					minutes = newTime;
+				}
+				console.log("tunnid: " + startTime.substr(0,2));
+				let startTimeHours = parseInt(startTime.substr(0,2));
+				let startTimeMinutes = parseInt(startTime.substr(3,2));
+				console.log("tunnid2: " + startTimeHours);
+				console.log("tunnid3: " + hours);
+				startTimeHours += hours;
+				if(startTimeMinutes + minutes >= 60){
+					startTimeHours += 1;
+					startTimeMinutes = startTimeMinutes + (minutes-60);
+				} else {
+					startTimeMinutes += minutes;
+				}
+				if(startTimeMinutes == 0){
+					startTimeMinutes = "00";
+				}
+				let result = startTimeHours + ":" + startTimeMinutes;
+				time = result;
 			}
 			makeNormalTableCell(td, "center", "true", time);
 		}
 		else if(column == 4 && row != 1){
-			var optionArray = ["", "Lahtine", "Kinnine", "Vaheaeg"];
+			var optionArray = ["Lahtine", "Kinnine", "Vaheaeg"];
 			makeSelectTableCell(td, activeTable, row, column, "defenseType", optionArray, "true");
 		}
 		else if(column == 5 && row != 1){

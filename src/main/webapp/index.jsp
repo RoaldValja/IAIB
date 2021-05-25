@@ -74,7 +74,7 @@
 				</div>
 				<div id="tableInputArea" style="height:80%; background-color: gray; float:left;">
 					<div class="tableInputArea" style="width:96.5%; height:50%; float:left;">
-						<input type="text" class="tableInput" id="tableRow" name="getTableRow" placeholder="Tabeli rida" style="width:97.5%; height:87%">
+						<input type="number" class="tableInput" id="tableRow" name="getTableRow" placeholder="Tabeli rida" style="width:97.5%; height:87%" min="0">
 						<span class="tooltipText" id="tooltipTablerow">Siia kirjuta mitu tabeli rida tahad korraga luua. Seda sisendit kasutab nupp "lisa rida".</span>
 					</div>
 					<br>
@@ -99,7 +99,7 @@
 							<span class="singleLineLarge" id="spanCheckProject" style="top:20%;">Kontrolli projekt</span>
 							<span class="tooltipText" id="tooltipCheckProject">Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.</span>
 						</div>
-						<div class="menuButtonEnding" id="saveProject" style="width:45%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveSheetJSProject()"><!-- width oli 45.85%-->
+						<div class="menuButtonEnding" id="saveProject" style="width:45%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveProject()">
 							<span class="singleLineLarge" id="spanSaveProject" style="top:20%;">Salvesta projekt</span>
 							<span class="tooltipText" id="tooltipSaveProject">Selle nupuga saad salvestada oma hetkest projekti. Salvestatakse planeeritavad ja planeeritud tabelid.</span>
 						</div>
