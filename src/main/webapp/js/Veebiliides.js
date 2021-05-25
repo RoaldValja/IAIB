@@ -709,7 +709,7 @@ function addTab(tabName, tabArea){
 function languageDropdown(){
 	console.log(document.getElementById("roaldDropdown"));
 	document.getElementById("roaldDropdown").classList.toggle("show");
-	document.getElementById('tableTimeslot-7-6').childNodes[1].click();
+	//document.getElementById('tableTimeslot-7-6').childNodes[1].click();
 }
 
 function helpTutorial(){
@@ -823,11 +823,13 @@ function languageChoice(language){
 		document.getElementById("spanLanguage").innerHTML = "Keel";
 		//document.getElementById("spanLanguage").style.fontSize = "100%";
 		document.getElementById("spanHelp").innerHTML = "Abi";
-		document.getElementById("spanPlanProject").innerHTML = "Planeeri tabel";
-		document.getElementById("spanSaveProject").innerHTML = "Salvesta tabel";
+		document.getElementById("spanCheckProject").innerHTML = "Kontrolli projekt";
+		document.getElementById("spanPlanProject").innerHTML = "Planeeri projekt";
+		document.getElementById("spanSaveProject").innerHTML = "Salvesta projekt";
 		document.getElementById("spanDeleteRow").innerHTML = "Kustuta rida";
 		document.getElementById("spanAddRow").innerHTML = "Lisa rida";
 		document.getElementById("tableRow").placeholder = "Tabeli rida";
+		document.getElementById("spanDisplayPlan").innerHTML = "Kuva plaan";
 		
 		document.getElementById("spanCreateNewProject").innerHTML = "Loo uus projekt";
 		document.getElementById("spanCreateNewProject").style.top = "30%";
@@ -851,14 +853,9 @@ function languageChoice(language){
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Loo näidistabelid";
 		document.getElementById("tutorialGenerateTemplateTable").innerHTML = "Loo tabelite mallid";
 		document.getElementById("tutorialAddRow").innerHTML = "Lisa rida";
-		document.getElementById("tutorialAddColumn").innerHTML = "Lisa veerg";
 		document.getElementById("tutorialDeleteRow").innerHTML = "Kustuta rida";
-		document.getElementById("tutorialDeleteColumn").innerHTML = "Kustuta veerg";
-		document.getElementById("tutorialAddTable").innerHTML = "Lisa tabel";
-		document.getElementById("tutorialAddTab").innerHTML = "Lisa lipik";
-		document.getElementById("tutorialDeleteTab").innerHTML = "Kustuta lipik";
-		document.getElementById("tutorialSaveProject").innerHTML = "Salvesta tabel";
-		document.getElementById("tutorialPlanProject").innerHTML = "Planeeri tabel";
+		document.getElementById("tutorialSaveProject").innerHTML = "Salvesta projekt";
+		document.getElementById("tutorialPlanProject").innerHTML = "Planeeri projekt";
 		document.getElementById("tutorialErrorMessageArea").innerHTML = "Veateated";
 		document.getElementById("tutorialNext").innerHTML = "Järgmine";
 		document.getElementById("tutorialPrevious").innerHTML = "Eelmine";
@@ -882,17 +879,23 @@ function languageChoice(language){
 		document.getElementById("tooltipLanguage").innerHTML = "Selle nupuga saad valida programmi keele.";
 		document.getElementById("tooltipHelp").innerHTML = "Selle nupuga saad kuvada abiinfot nuppude kohta.";
 		
+		let javaFinished = document.getElementById("javaFinished");
+		if(javaFinished.innerHTML == "Not being planned"){
+			javaFinished.innerHTML = "Pole planeerimisel";
+		}
 		
 	} else if (language == "English"){
 		chosenLanguage = "English";
 		document.getElementById("spanLanguage").innerHTML = "Language";
 		//document.getElementById("spanLanguage").style.fontSize = "90%";
 		document.getElementById("spanHelp").innerHTML = "Help";
+		document.getElementById("spanCheckProject").innerHTML = "Check table";
 		document.getElementById("spanPlanProject").innerHTML = "Plan table";
 		document.getElementById("spanSaveProject").innerHTML = "Save table";
 		document.getElementById("spanDeleteRow").innerHTML = "Delete row";
 		document.getElementById("spanAddRow").innerHTML = "Add row";
 		document.getElementById("tableRow").placeholder = "Table row";
+		document.getElementById("spanDisplayPlan").innerHTML = "Display plan";
 		
 		document.getElementById("spanCreateNewProject").innerHTML = "Create new project";
 		document.getElementById("spanCreateNewProject").style.top = "15%";
@@ -916,14 +919,9 @@ function languageChoice(language){
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Create example tables";
 		document.getElementById("tutorialGenerateTemplateTable").innerHTML = "Create table templates";
 		document.getElementById("tutorialAddRow").innerHTML = "Add row";
-		document.getElementById("tutorialAddColumn").innerHTML = "Add column";
 		document.getElementById("tutorialDeleteRow").innerHTML = "Delete row";
-		document.getElementById("tutorialDeleteColumn").innerHTML = "Delete column";
-		document.getElementById("tutorialAddTable").innerHTML = "Add table";
-		document.getElementById("tutorialAddTab").innerHTML = "Add tab";
-		document.getElementById("tutorialDeleteTab").innerHTML = "Delete tab";
-		document.getElementById("tutorialSaveProject").innerHTML = "Save table";
-		document.getElementById("tutorialPlanProject").innerHTML = "Plan table";
+		document.getElementById("tutorialSaveProject").innerHTML = "Save project";
+		document.getElementById("tutorialPlanProject").innerHTML = "Plan project";
 		document.getElementById("tutorialErrorMessageArea").innerHTML = "Error messages";
 		document.getElementById("tutorialNext").innerHTML = "Next";
 		document.getElementById("tutorialPrevious").innerHTML = "Previous";
@@ -947,6 +945,11 @@ function languageChoice(language){
 		document.getElementById("tooltipDisplayPlan").innerHTML = "This button retrieves planned data from the last plan.";
 		document.getElementById("tooltipLanguage").innerHTML = "This button lets you choose applications language.";
 		document.getElementById("tooltipHelp").innerHTML = "This button displays what each button does.";
+		
+		let javaFinished = document.getElementById("javaFinished");
+		if(javaFinished.innerHTML == "Pole planeerimisel"){
+			javaFinished.innerHTML = "Not being planned";
+		}
 	}
 }
 
@@ -1628,6 +1631,9 @@ function addTdInfo(td, row, column){
 	}
 	else if(activeTable == "tableDefense"){
 		if(column == 1 && row != 1){
+			makeNormalTableCell(td, "left", "true", "");
+		}
+		else if(column == 2 && row != 1){
 			var uniqueCode = "D";
 			if(defenseCode < 9){
 				defenseCode++;
@@ -1642,9 +1648,6 @@ function addTdInfo(td, row, column){
 				uniqueCode += defenseCode;
 			}
 			makeNormalTableCell(td, "left", "false", uniqueCode);
-		}
-		else if(column == 2 && row != 1){
-			makeNormalTableCell(td, "left", "true", "");
 		}
 		else if(column == 3 && row != 1){
 			var optionArray = ["Lahtine", "Kinnine"];

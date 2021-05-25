@@ -96,7 +96,7 @@
 				<div id="finishingButtonsArea" style="width:100%; height:80%; background-color: gray; float:left;">
 					<div id="finishingButtonsFrontArea" style="width:24%; height:100%; background-color: gray; float:left;">
 						<div class="menuButtonEnding" id="checkProject" style="width:45%; height:100%; border-left:1px solid black;" onclick="validate()">
-							<span class="singleLineLarge" id="spanSaveProject" style="top:20%;">Kontrolli projekt</span>
+							<span class="singleLineLarge" id="spanCheckProject" style="top:20%;">Kontrolli projekt</span>
 							<span class="tooltipText" id="tooltipCheckProject">Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.</span>
 						</div>
 						<div class="menuButtonEnding" id="saveProject" style="width:45%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveSheetJSProject()"><!-- width oli 45.85%-->

@@ -771,8 +771,8 @@ function generateCommiteeTable2(amount){
 
 function generateDefenseTable2(amount){
 	// add first and second row first
-	document.getElementById('tableDefense-1-1').innerHTML = "Kood";
-	document.getElementById('tableDefense-1-2').innerHTML = "Lõputöö pealkiri";
+	document.getElementById('tableDefense-1-1').innerHTML = "Lõputöö pealkiri";
+	document.getElementById('tableDefense-1-2').innerHTML = "Kood";
 	document.getElementById('tableDefense-1-3').innerHTML = "Kaitsmise tüüp";
 	document.getElementById('tableDefense-1-4').innerHTML = "Lõputöö kraad";
 	document.getElementById('tableDefense-1-5').innerHTML = "Lõputöö autor";
@@ -784,13 +784,13 @@ function generateDefenseTable2(amount){
 	for(let i = 0; i < amount; i++){
 		addRow();
 		if(i < 9) {
-			document.querySelector('#tableDefense-' + (i+2) + '-1').innerHTML = "D00" + (i+1);
+			document.querySelector('#tableDefense-' + (i+2) + '-2').innerHTML = "D00" + (i+1);
 		} else if(i < 99){
-			document.querySelector('#tableDefense-' + (i+2) + '-1').innerHTML = "D0" + (i+1);
+			document.querySelector('#tableDefense-' + (i+2) + '-2').innerHTML = "D0" + (i+1);
 		} else{
-			document.querySelector('#tableDefense-' + (i+2) + '-1').innerHTML = "D" + (i+1);
+			document.querySelector('#tableDefense-' + (i+2) + '-2').innerHTML = "D" + (i+1);
 		}
-		document.querySelector('#tableDefense-' + (i+2) + '-2').innerHTML = "Kaitsmine-" + (i+1);
+		document.querySelector('#tableDefense-' + (i+2) + '-1').innerHTML = "Kaitsmine-" + (i+1);
 
 		let randomChance = Math.floor((Math.random() * 100) + 1);
 		if(randomChance == 1){
