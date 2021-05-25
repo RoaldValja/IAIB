@@ -663,7 +663,7 @@ function helpTutorial(){
 	let rect = document.getElementById("helpMenu");
 	let rect2 = rect.getBoundingClientRect();
 }
-
+/*
 let tutorialTextArrayEstonian = {
 	inputFile: "'Sisendfail' nupu ala on ära värvitud punase värviga. Projekti sisendfaili valimiseks vajutage nupule nimega 'Vali fail' ning otsige üles oma tabelite fail. Lubatud failid on Exceli failid või LibreOffice versiooni Calc failid. Nende failide lühendid on: .xlsx, .xls, .ods",
 	newProject: "'Loo uus projekt' nupp kustutab kõik endised tabelid ja lipikud ära vanas projektis. Kui täidad nupu kohal oleva 'Projekti nimi' lahtri, siis vajutades 'Salvesta tabel' nupp loob Exceli faili, mille nime on 'Projekti nimi' lahtrist võetud nimi.",
@@ -679,9 +679,9 @@ let tutorialTextArrayEstonian = {
 	saveProject: "'Salvesta tabel' nupp loob uue Exceli faili ja võtab nimeks 'Projekti nimi' lahtrist nime või kasutab programmi poolt valitud nime.",
 	planProject: "'Planeeri tabel' nupp võtab veebiliideses olevad tabelite andmed ning saadab selle planeerijasse. Planeerija kirjutab saadud tulemused tagasi veebiliidesesse, lisades veebiliidesesse uued lipikud ja nende tabelid. Planeeritud lipikud asuvad veebiliideses all oleval ribal paremal pool.",
 	errorMessageArea: "'Veateated' alal lisatakse uusi veateateid igakord kui kasutaja teeb midagi valesti. Veateated kirjeldavad probleemi lahti ning kui nende peale vajutada, siis värvitakse ära ala või nupp, kus oli tehtud viga. Olemasolevaid veateateid saab ära kustutada vajutades veateatel üleval paremal olevale ristile."
-}
-
-let tutorialTextArrayEnglish = {
+}*/
+/*
+var tutorialTextArrayEnglish = {
 	inputFile: "'Input file' button allows you to import a table file. The button allows you to import Excel files or LibreOffice Calc files. Those files suffixes are: .xlsx, .xls, .ods",
 	newProject: "'Create new project' button deletes all of the current tables and tabs from the project. If you fill in 'Project name', then when you press 'Save table' button, the added project name will be put as the save files name.",
 	generateExampleTable: "'Create example table' button deletes all of the current tables and tabs from the project and replaces them with new tables and tabs, that already contain sufficient sample data. Use this button to get to know the structure and what kinds of data are sufficient for the planner.",
@@ -696,7 +696,27 @@ let tutorialTextArrayEnglish = {
 	saveProject: "'Save table' button creates a new Excel file and gives its name from the field 'Project file' or if you havent filled out the field, then it gives the file the programs chosen name.",
 	planProject: "'Plan table' button takes the data from the project tables and sends them to the planner. Planner then writes new tables for the project by adding new tables and tabs and filling them out with planned data. Planned tabs are located at the bottom of the screen on the right side.",
 	errorMessageArea: "'Error messages' area gets added new error messages everytime the user makes any mistakes. Error messages describe the problem and if you click on them, then it will highlight where you made the mistake. The existing error messages can be dismissed by clicking on the small X at the top right corner of the error message."
-}
+}*/
+var tutorialTextArrayEstonian = [
+	"'Sisendfail' nupu ala on ära värvitud punase värviga. Projekti sisendfaili valimiseks vajutage nupule nimega 'Vali fail' ning otsige üles oma tabelite fail. Lubatud failid on Exceli failid või LibreOffice versiooni Calc failid. Nende failide lühendid on: .xlsx, .xls, .ods"
+];
+/*
+let tutorialTextArrayEnglish = [
+		"'Input file' button allows you to import a table file. The button allows you to import Excel files or LibreOffice Calc files. Those files suffixes are: .xlsx, .xls, .ods",
+		"'Create new project' button deletes all of the current tables and tabs from the project. If you fill in 'Project name', then when you press 'Save table' button, the added project name will be put as the save files name.",
+		"'Create example table' button deletes all of the current tables and tabs from the project and replaces them with new tables and tabs, that already contain sufficient sample data. Use this button to get to know the structure and what kinds of data are sufficient for the planner.",
+		"'Create table templates' button deletes all of the current tables and tabs from the project and replaces them with new tables and tabs, that contain only the sufficient column names and a few empty rows. Use this button to generate a sufficient template for your project.",
+		"'Add row' button creates a new row into the currently active table. If you want to add more than 1 row, you must fill out the 'table row' field to the left of the 'Add row' button. If you want to add rows after a specific row, then you have to activate the above row and then press 'add row' button. If you want to add rows to the end of the table, then deactivate your current active slot by clicking on the empty table field or by clicking anywhere on the gray background area.",
+		"'Add column' button creates a new column into the currently active table. If you want to add more than 1 row, you must fill out the 'table column' field to the left of the 'Add row' button. If you want to add columns after a specific column, then you have to activate the left column and then press 'add column' button. If you want to add columns to the end of the table, then deactivate your current active slot by clicking on the empty table field or by clicking anywhere on the gray background area.",
+		"'Delete row' button deletes the current active row. Activated slots color is beige. The button only works when you have activated a table slot.",
+		"'Delete column' button deletes the current active column. Activated slots color is beige. The button only works when you have activated a table slot.",
+		"'Add table' button deletes the current active table and creates a new one to replace it. To give the table a certain amount of rows, fill out the 'Table row' field and to give the table a certain amount of columns, fill out the 'Table column' field. The button only works when you have writted row and column numbers in their fields.",
+		"'Add tab' button adds a new tab where you can create a new table. Tabs are located at the bottom row of the screen.",
+		"'Delete tab' button deletes the current active table and its tab.",
+		"'Save table' button creates a new Excel file and gives its name from the field 'Project file' or if you havent filled out the field, then it gives the file the programs chosen name.",
+		"'Plan table' button takes the data from the project tables and sends them to the planner. Planner then writes new tables for the project by adding new tables and tabs and filling them out with planned data. Planned tabs are located at the bottom of the screen on the right side.",
+		"'Error messages' area gets added new error messages everytime the user makes any mistakes. Error messages describe the problem and if you click on them, then it will highlight where you made the mistake. The existing error messages can be dismissed by clicking on the small X at the top right corner of the error message."
+		];*/
 
 let tutorialTextKeysArray = ["inputFile", "newProject", "generateExampleTable", "generateTemplateTable", "addRow", "addColumn", "deleteRow", "deleteColumn", "addTable", "addTab", "deleteTab", "saveProject", "planProject", "errorMessageArea"];
 
@@ -717,10 +737,12 @@ function getTutorialPosition(id, position){
 		document.getElementById(lastTutorialHelpButton).style.backgroundColor = null;
 	}
 	if(chosenLanguage == "Estonian"){
-		let tutorialText = tutorialTextArrayEstonian[id];
+		let tutorialText = tutorialTextArrayEstonian[position].toString();
 	} else if(chosenLanguage == "English"){
-		let tutorialText = tutorialTextArrayEnglish[id];
+		let tutorialText = tutorialTextArrayEnglish[position];
 	}
+	console.log("id: " + id + " position: " + position);
+	console.log("text: " + tutorialText);
 	document.getElementById("tutorialText").innerHTML = tutorialText;
 	lastTutorialButton = id;
 	lastTutorialHelpButton = helpButtonId;
@@ -766,7 +788,7 @@ function languageChoice(language){
 		chosenLanguage = "Estonian";
 		document.getElementById("spanLanguage").innerHTML = "Keel";
 		document.getElementById("spanHelp").innerHTML = "Abi";
-		document.getElementById("spanCheckProject").innerHTML = "Kontrolli projekt";
+		//document.getElementById("spanCheckProject").innerHTML = "Kontrolli projekt";
 		document.getElementById("spanPlanProject").innerHTML = "Planeeri projekt";
 		document.getElementById("spanSaveProject").innerHTML = "Salvesta projekt";
 		document.getElementById("spanDeleteRow").innerHTML = "Kustuta rida";
@@ -811,7 +833,7 @@ function languageChoice(language){
 		document.getElementById("tooltipTablerow").innerHTML = 'Siia kirjuta mitu tabeli rida tahad korraga luua. Seda sisendit kasutab nupp "lisa rida".';
 		document.getElementById("tooltipAddRow").innerHTML = "Selle nupuga saad lisada aktiivsele tabelile ridu juurde.";
 		document.getElementById("tooltipDeleteRow").innerHTML = "Selle nupuga saad kustutada aktiivselt tabelilt ühe rea korraga.";
-		document.getElementById("tooltipCheckProject").innerHTML = "Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.";
+		//document.getElementById("tooltipCheckProject").innerHTML = "Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.";
 		document.getElementById("tooltipSaveProject").innerHTML = "Selle nupuga saad salvestada oma hetkest projekti. Salvestatakse planeeritavad ja planeeritud tabelid.";
 		document.getElementById("tooltipConfigHours").innerHTML = "Siia saad kirjutada planeerimise konfigureerimise aja tundides.";
 		document.getElementById("tooltipConfigMinutes").innerHTML = "Siia saad kirjutada planeerimise konfigureerimise aja minutites.";
@@ -831,7 +853,7 @@ function languageChoice(language){
 		chosenLanguage = "English";
 		document.getElementById("spanLanguage").innerHTML = "Language";
 		document.getElementById("spanHelp").innerHTML = "Help";
-		document.getElementById("spanCheckProject").innerHTML = "Check table";
+		//document.getElementById("spanCheckProject").innerHTML = "Check table";
 		document.getElementById("spanPlanProject").innerHTML = "Plan table";
 		document.getElementById("spanSaveProject").innerHTML = "Save table";
 		document.getElementById("spanDeleteRow").innerHTML = "Delete row";
@@ -877,7 +899,7 @@ function languageChoice(language){
 		document.getElementById("tooltipTablerow").innerHTML = 'Here you write how many table rows you want to create. This input is used by "Add row" button.';
 		document.getElementById("tooltipAddRow").innerHTML = "This button adds new rows to current visible table.";
 		document.getElementById("tooltipDeleteRow").innerHTML = "This button deletes a row from the current visible table.";
-		document.getElementById("tooltipCheckProject").innerHTML = "This button validates projects data.";
+		//document.getElementById("tooltipCheckProject").innerHTML = "This button validates projects data.";
 		document.getElementById("tooltipSaveProject").innerHTML = "This button saves current project. It saves planning and planned tables.";
 		document.getElementById("tooltipConfigHours").innerHTML = "Here you can write how many hours you want the project to plan for.";
 		document.getElementById("tooltipConfigMinutes").innerHTML = "Here you can write how many minutes you want the project to plan for.";
@@ -1682,6 +1704,7 @@ function removeColumn(){
 	
 }
 
+// validate ja sellega seotud meetodid pole vaja, kuna veebiliides garanteerib sisendandmete õigsuse.
 function validate(){
 	let i, table, tableRowCount;
 	if(document.getElementById("tabConfiguration") != null){
@@ -2464,7 +2487,6 @@ function tableareaScroll(){
 		rowNum.style.width = "2.45%";
 		el.style.width = "97.55%";
 	}
-	console.log(activeTable);
 	let table = document.getElementById(activeTable);
 	let row = document.getElementById(activeTable + "-rows");
 	let tableLength = table.childNodes[0].childElementCount;
@@ -2473,7 +2495,6 @@ function tableareaScroll(){
 		let data = table.childNodes[0].childNodes[i].childNodes[0].innerHTML;
 		row.childNodes[0].childNodes[i].childNodes[0].innerHTML = data;
 	}
-	console.log(tableLength);
 	let elementCount = "";
 	let y = el.scrollTop;
 	if(y != oldY){

@@ -55,18 +55,7 @@ public class Reader {
 	private List<Commitee[]> commiteeArrays = new ArrayList<Commitee[]>();
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
-		// TODO Auto-generated method stub
-		System.out.println("hello world2");
-		Reader reader = new Reader();
-		//reader.readJSON();
-		//reader.read("PlanDataTest.json");
-		reader.read("PlanData5.json");
-		System.out.println("here");
-		System.out.println(reader.getConfigurationTable());
-		System.out.println(reader.fixDottedLetters("SÃµber"));
-		System.out.println(reader.fixDottedLetters("Ã¼ritus"));
-		System.out.println(reader.fixDottedLetters("Ã¤ratus"));
-		System.out.println(reader.fixDottedLetters("TÃ¶Ã¶"));
+		
 	}
 	
 	public void setSolution(TimetableSolution solution){
@@ -103,31 +92,13 @@ public class Reader {
 
 	public TimetableSolution read(String fileName) throws FileNotFoundException, IOException, ParseException{
 		solution = new TimetableSolution();
-		//readJSON();
 		readJSON(fileName);
 		totalDefenseTypeMap = new HashMap<>();
 		totalTimeslotTagSet = new HashSet<>();
 		totalThesisSupervisorMap = new HashMap<>();
 		readConfiguration();
-		//System.out.println(solution.getConstraintConfiguration().getCommissionAtLeastThreeMembers());
-		//System.out.println(solution.getConstraintConfiguration().getDefenseAuthorsSupervisorUnavailableDate());
-		//System.out.println(solution.getConstraintConfiguration().getAuthorPrerequisitesDone());
-		//System.out.println(solution.getConstraintConfiguration().getDefenseHasOneChairman());
-		//System.out.println(solution.getConstraintConfiguration().getDefenseOnAuthorsPreferredTime());
-		
 		
 		readTimeslotList();
-		/*
-		System.out.println(totalDefenseTypeMap);
-		System.out.println(solution.getDefenseTypeList());
-		System.out.println(solution.getDefenseTypeList().get(0).getType());
-		System.out.println(solution.getDefenseTypeList().get(1).getType());
-		System.out.println(solution.getDefenseTypeList().get(2).getType());
-		System.out.println(solution.getDefenseTypeList().get(0).getCompatibleTimeslotSet());
-		System.out.println(solution.getDefenseTypeList().get(1).getCompatibleTimeslotSet());
-		System.out.println(solution.getDefenseTypeList().get(2).getCompatibleTimeslotSet());
-		System.out.println(solution.getDefenseTypeList().get(2).getId());
-		*/
 		
 		readSupervisorList();
 		
@@ -178,16 +149,6 @@ public class Reader {
 		commiteeArrays.add(e);
 		
 		readDefenseList();
-		/*LocalDate date = LocalDate.now();
-		for(int i = 0; i < solution.getTimeslotList().size(); i++) {
-			System.out.println("timeslot listis: " + solution.getTimeslotList().get(i).getDate() + " - " + solution.getTimeslotList().get(i).getStartTime() + " - " + solution.getTimeslotList().get(i).getEndTime());
-			if(date.isBefore(solution.getTimeslotList().get(i).getDate())) {
-				System.out.println("On suurem kuupäev");
-			}
-			date = solution.getTimeslotList().get(i).getDate();
-		}
-		*/
-		//solution.setCommiteeArraysList(commiteeArrays);
 		return solution;
 		
 	}
@@ -226,7 +187,6 @@ public class Reader {
 		} else {
 			for(int j = 0; j < countCommas; j++){
 				String getTag = timeTag.substring(0, timeTag.indexOf(","));
-				//String leftover = timeTag.substring(timeTag.indexOf(",")+2);
 				String leftover = timeTag.substring(timeTag.indexOf(",")+1);
 				timeTag = leftover;
 				timeTagList.add(getTag);
@@ -311,7 +271,6 @@ public class Reader {
 	public void formatTime(int lowerLimit, int upperLimit, ArrayList<ArrayList<String>> dataList, List<LocalTime> startTimeList, List<LocalTime> endTimeList) {
 		for(int k = lowerLimit; k < upperLimit; k++){
 			String time = dataList.get(upperLimit+k).get(3);
-			//timeSetString.add(time);
 			String startTimeString = timeCheck(time.substring(0, time.indexOf("-")));
 			String endTimeString = timeCheck(time.substring(time.indexOf("-")+1));
 			LocalTime startTime = LocalTime.parse(startTimeString, TIME_FORMATTER);
@@ -325,14 +284,7 @@ public class Reader {
 			List<LocalDate> dayList, List<LocalTime> startTimeList, List<LocalTime> endTimeList,
 			Set<Timeslot> preferredTimeslotSet, Set<Timeslot> notPreferredTimeslotSet, Set<Timeslot> unavailableTimeslotSet) {
 		for(int l = lowerLimit; l < upperLimit; l++){
-			//String preference = supervisorDataList.get(i+l).get(3);
-			
 			String preference = fixDottedLetters(dataList.get(loopIndex+l).get(3));
-			/*
-			LocalDate preferredDay = dayList.get(l-5);
-			LocalTime preferredStartTime = startTimeList.get(l-5);
-			LocalTime preferredEndTime = endTimeList.get(l-5);
-			*/
 			LocalDate preferredDay = dayList.get(l-lowerLimit);
 			LocalTime preferredStartTime = startTimeList.get(l-lowerLimit);
 			LocalTime preferredEndTime = endTimeList.get(l-lowerLimit);
@@ -357,12 +309,6 @@ public class Reader {
 		ArrayList<ArrayList<String>> configurationDataList = tableConfigurationDataList;
 		TimetableConstraintConfiguration constraintConfiguration = new TimetableConstraintConfiguration();
 		constraintConfiguration.setId(0L);
-		/*
-		String constraint = configurationDataList.get(0).get(3);
-		String weight = configurationDataList.get(1).get(3);
-		String description = configurationDataList.get(2).get(3);
-		String type = configurationDataList.get(3).get(3);
-		*/
 		String constraint = fixDottedLetters(configurationDataList.get(0).get(3));
 		String weight = fixDottedLetters(configurationDataList.get(1).get(3));
 		String description = fixDottedLetters(configurationDataList.get(2).get(3));
@@ -374,44 +320,24 @@ public class Reader {
 		titleCheck(type, "Tüüp");
 		
 		for(int i = 4; i < configurationDataList.size(); i += 4){
-			//String constraintName = configurationDataList.get(i).get(3);
 			
 			String constraintName = fixDottedLetters(configurationDataList.get(i).get(3));
 			
-			System.out.println("i on :" + i);
-			
 			int constraintWeight = Integer.parseInt(configurationDataList.get(i+1).get(3));
 			
-			System.out.println("weight on :" + constraintWeight);
-			
 			switch (constraintName) {
-		//		case "Commission at least three members":
-		//			constraintConfiguration.setCommissionAtLeastThreeMembers(HardSoftScore.ofHard(constraintWeight));
-		//			break;
-		//		case "Author prerequisites done":
-		//			constraintConfiguration.setAuthorPrerequisitesDone(HardSoftScore.ofHard(constraintWeight));
-		//			break;
 				case "Defense not on authors unavailable timeslot":
 					constraintConfiguration.setDefenseNotOnAuthorsUnavailableTimeslot(HardSoftScore.ofHard(constraintWeight));
 					break;
 				case "Defense not on commission members unavailable timeslot":
 					constraintConfiguration.setDefenseNotOnCommissionMembersUnavailableTimeslot(HardSoftScore.ofHard(constraintWeight));
 					break;
-		//		case "Defense has one chairman":
-		//			constraintConfiguration.setDefenseHasOneChairman(HardSoftScore.ofHard(constraintWeight));
-		//			break;
 				case "Defense timeslot only for single author":
 					constraintConfiguration.setDefenseTimeslotOnlyForSingleAuthor(HardSoftScore.ofHard(constraintWeight));
 					break;
-		//		case "Defense grouped by same thesis theme":
-		//			constraintConfiguration.setDefenseGroupedBySameThesisTheme(HardSoftScore.ofSoft(constraintWeight));
-		//			break;
 				case "Defense authors grouped by common supervisor":
 					constraintConfiguration.setDefenseAuthorsGroupedByCommonSupervisor(HardSoftScore.ofSoft(constraintWeight));
 					break;
-		//		case "Closed defenses at start or end day or at before or after lunch":
-		//			constraintConfiguration.setClosedDefensesAtStartOrEndDayOrAtBeforeOrAfterLunch(HardSoftScore.ofSoft(constraintWeight));
-		//			break;
 				case "Defense on authors preferred timeslot":
 					constraintConfiguration.setDefenseOnAuthorsPreferredTimeslot(HardSoftScore.ofSoft(constraintWeight));
 					break;
@@ -460,9 +386,6 @@ public class Reader {
 				case "Defense not on authors supervisors unavailable timeslot tag":
 					constraintConfiguration.setDefenseNotOnAuthorsSupervisorsUnavailableTimeslotTag(HardSoftScore.ofSoft(constraintWeight));
 					break;
-	//			case "Commission member does not swap with a new member on the same day":
-	//				constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberOnTheSameDay(HardSoftScore.ofSoft(constraintWeight));
-	//				break;
 				case "Commission member does not swap with a new member in the same session":
 					constraintConfiguration.setCommissionMemberDoesNotSwapWithANewMemberInTheSameSession(HardSoftScore.ofSoft(constraintWeight));
 					break;
@@ -481,13 +404,6 @@ public class Reader {
 		
 		long id = 0L;
 		long defenseTypeId = 0L;
-		/*
-		String timeslotDay = timeslotDataList.get(0).get(3);
-		String timeslotStart = timeslotDataList.get(1).get(3);
-		String timeslotEnd = timeslotDataList.get(2).get(3);
-		String timeslotDefenseType = timeslotDataList.get(3).get(3);
-		String timeslotTags = timeslotDataList.get(4).get(3);
-		*/
 		String timeslotDay = fixDottedLetters(timeslotDataList.get(0).get(3));
 		String timeslotStart = fixDottedLetters(timeslotDataList.get(1).get(3));
 		String timeslotEnd = fixDottedLetters(timeslotDataList.get(2).get(3));
@@ -517,17 +433,11 @@ public class Reader {
                 throw new IllegalStateException(": The startTime (" + startTime
                         + ") must be less than the endTime (" + endTime + ").");
             }
-			/*
-			String defenseTypeName = timeslotDataList.get(i+3).get(3);
-			*/
 			String defenseTypeName = fixDottedLetters(timeslotDataList.get(i+3).get(3));
 			
 			timeslot.setDate(day);
 			timeslot.setStartTime(startTime);
 			timeslot.setEndTime(endTime);
-			
-			System.out.println("Lisatud timeslot on: " + timeslot.getDate() + " - " + timeslot.getStartTime() + " - " + timeslot.getEndTime() + " - " + timeslot);
-			
 			DefenseType defenseType = totalDefenseTypeMap.get(defenseTypeName);
 			if(defenseType == null){
 				defenseType = new DefenseType(defenseTypeId);
@@ -537,9 +447,6 @@ public class Reader {
 				totalDefenseTypeMap.put(defenseTypeName, defenseType);
 				defenseTypeList.add(defenseType);
 			}
-			
-			
-			//String timeTag = timeslotDataList.get(i+4).get(3);
 			int session = Integer.parseInt(timeslotDataList.get(i+4).get(3));
 			timeslot.setSession(session);
 			String timeTag = fixDottedLetters(timeslotDataList.get(i+5).get(3));
@@ -566,13 +473,6 @@ public class Reader {
 		long id = 0L;
 		
 		for(int i = 0; i < supervisorDataList.size(); i+=rowLength){
-			/*
-			String name = supervisorDataList.get(i).get(3);
-			String role = supervisorDataList.get(i+1).get(3);
-			String preferred = supervisorDataList.get(i+2).get(3);
-			String notPreferred = supervisorDataList.get(i+3).get(3);
-			String unavailable = supervisorDataList.get(i+4).get(3);
-			*/
 			String name = fixDottedLetters(supervisorDataList.get(i).get(3));
 			String role = fixDottedLetters(supervisorDataList.get(i+1).get(3));
 			String preferred = fixDottedLetters(supervisorDataList.get(i+2).get(3));
@@ -591,17 +491,6 @@ public class Reader {
 				titleCheck(preferred, "Eelistatud märksõnad");
 				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
 				titleCheck(unavailable, "Sobimatud märksõnad");
-				/*
-				for(int k = 5; k < rowLength; k++){
-					String time = supervisorDataList.get(rowLength+k).get(3);
-					timeSetString.add(time);
-					String startTimeString = timeCheck(time.substring(0, time.indexOf("-")));
-					String endTimeString = timeCheck(time.substring(time.indexOf("-")+1));
-					LocalTime startTime = LocalTime.parse(startTimeString, TIME_FORMATTER);
-					LocalTime endTime = LocalTime.parse(endTimeString, TIME_FORMATTER);
-					startTimeList.add(startTime);
-					endTimeList.add(endTime);
-				}*/
 				formatTime(5, rowLength, supervisorDataList, startTimeList, endTimeList);
 			}
 			if(i > rowLength){
@@ -612,45 +501,11 @@ public class Reader {
 				Set<Timeslot> unavailableTimeslotSet = new LinkedHashSet<>();
 				Set<Timeslot> preferredTimeslotSet = new LinkedHashSet<>();
 				Set<Timeslot> notPreferredTimeslotSet = new LinkedHashSet<>();
-				/*
-				for(int l = 5; l < rowLength; l++){
-					//String preference = supervisorDataList.get(i+l).get(3);
-					
-					String preference = fixDottedLetters(supervisorDataList.get(i+l).get(3));
-					
-					LocalDate preferredDay = dayList.get(l-5);
-					LocalTime preferredStartTime = startTimeList.get(l-5);
-					LocalTime preferredEndTime = endTimeList.get(l-5);
-					for(int o = 0; o < solution.getTimeslotList().size(); o++){
-						Timeslot preferredTimeslot = solution.getTimeslotList().get(o);
-						if(preferredTimeslot.getDate().isEqual(preferredDay) 
-								&& preferredTimeslot.getStartTime().equals(preferredStartTime)
-								&& preferredTimeslot.getEndTime().equals(preferredEndTime)){
-							if(preference.equals("Eelistab")){
-								preferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei eelista")){
-								notPreferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei sobi")){
-								unavailableTimeslotSet.add(preferredTimeslot);
-							}
-						}	
-					}
-				}*/
 				setTimeslotPreferences(5, rowLength, supervisorDataList, i, dayList, startTimeList, endTimeList,
 						preferredTimeslotSet, notPreferredTimeslotSet, unavailableTimeslotSet);
 				thesisSupervisor.setPreferredTimeslotSet(preferredTimeslotSet);
 				thesisSupervisor.setNotPreferredTimeslotSet(notPreferredTimeslotSet);
 				thesisSupervisor.setUnavailableTimeslotSet(unavailableTimeslotSet);
-				/*
-				String tagPreferred = supervisorDataList.get(i+2).get(3);
-				String tagNotPreferred = supervisorDataList.get(i+3).get(3);
-				String tagUnavailable = supervisorDataList.get(i+4).get(3);
-				*/
-				
-				/*String tagPreferred = fixDottedLetters(supervisorDataList.get(i+2).get(3));
-				String tagNotPreferred = fixDottedLetters(supervisorDataList.get(i+3).get(3));
-				String tagUnavailable = fixDottedLetters(supervisorDataList.get(i+4).get(3));*/
-				
 				thesisSupervisor.setPreferredTimeslotTagSet(seperateCommasSet(preferred));
 				thesisSupervisor.setNotPreferredTimeslotTagSet(seperateCommasSet(notPreferred));
 				thesisSupervisor.setUnavailableTimeslotTagSet(seperateCommasSet(unavailable));
@@ -671,22 +526,11 @@ public class Reader {
 		long id = 0L;
 		
 		for(int i = 0; i < authorDataList.size(); i+=rowLength){
-			/*
-			String name = authorDataList.get(i).get(3);
-			String prerequisite = authorDataList.get(i+1).get(3);
-			*/
 			String name = fixDottedLetters(authorDataList.get(i).get(3));
 			String prerequisite = fixDottedLetters(authorDataList.get(i+1).get(3));
 			
 			Set<ThesisSupervisor> supervisorsSet = new LinkedHashSet<>();
 			List<String> thesisSupervisorNameList = new ArrayList<>();
-			/*
-			String supervisorNames = authorDataList.get(i+2).get(3);
-			String preferred = authorDataList.get(i+3).get(3);
-			String notPreferred = authorDataList.get(i+4).get(3);
-			String unavailable = authorDataList.get(i+5).get(3);
-			*/
-			
 			String supervisorNames = fixDottedLetters(authorDataList.get(i+2).get(3));
 			String preferred = fixDottedLetters(authorDataList.get(i+3).get(3));
 			String notPreferred = fixDottedLetters(authorDataList.get(i+4).get(3));
@@ -708,17 +552,6 @@ public class Reader {
 				titleCheck(preferred, "Eelistatud märksõnad");
 				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
 				titleCheck(unavailable, "Sobimatud märksõnad");
-				/*
-				for(int k = 6; k < rowLength; k++){
-					String time = authorDataList.get(rowLength+k).get(3);
-					timeSetString.add(time);
-					String startTimeString = timeCheck(time.substring(0, time.indexOf("-")));
-					String endTimeString = timeCheck(time.substring(time.indexOf("-")+1));
-					LocalTime startTime = LocalTime.parse(startTimeString, TIME_FORMATTER);
-					LocalTime endTime = LocalTime.parse(endTimeString, TIME_FORMATTER);
-					startTimeList.add(startTime);
-					endTimeList.add(endTime);
-				}	*/
 				formatTime(6, rowLength, authorDataList, startTimeList, endTimeList);
 			}
 			if(i > rowLength){
@@ -728,14 +561,10 @@ public class Reader {
 				if(prerequisite.equals("Jah")){
 					thesisAuthor.hasPreconditionsFulfilled();
 				}
-				//System.out.println("authoris supervisorid listis on mitu: " + thesisSupervisorNameList.size());
 				for(int o = 0; o < solution.getThesisSupervisorList().size(); o++){
 					ThesisSupervisor thesisSupervisor = solution.getThesisSupervisorList().get(o);
-					//System.out.println("size ja supervisor listis: " + solution.getThesisSupervisorList().size() + " - " + solution.getThesisSupervisorList().get(o).getName());
 					for(int k = 0; k < thesisSupervisorNameList.size(); k++){
-						//System.out.println("supervisor uues listis: " + thesisSupervisorNameList.get(k) + " - vanas: " + thesisSupervisor.getName());
 						if(thesisSupervisorNameList.get(k).equals(thesisSupervisor.getName())){
-							//System.out.println("Lisati supervisor: " + thesisSupervisor.getName());
 							supervisorsSet.add(thesisSupervisor);
 						}
 					}
@@ -744,52 +573,12 @@ public class Reader {
 				Set<Timeslot> preferredTimeslotSet = new LinkedHashSet<>();
 				Set<Timeslot> notPreferredTimeslotSet = new LinkedHashSet<>();
 				thesisAuthor.setThesisSupervisorSet(supervisorsSet);
-				/*
-				for(int l = 6; l < rowLength; l++){
-					//String preference = authorDataList.get(i+l).get(3);
-					
-					String preference = fixDottedLetters(authorDataList.get(i+l).get(3));
-					
-					LocalDate preferredDay = dayList.get(l-6);
-					LocalTime preferredStartTime = startTimeList.get(l-6);
-					LocalTime preferredEndTime = endTimeList.get(l-6);
-					
-					for(int o = 0; o < solution.getTimeslotList().size(); o++){
-						Timeslot preferredTimeslot = solution.getTimeslotList().get(o);
-						if(preferredTimeslot.getDate().isEqual(preferredDay) 
-								&& preferredTimeslot.getStartTime().equals(preferredStartTime)
-								&& preferredTimeslot.getEndTime().equals(preferredEndTime)){
-							if(preference.equals("Eelistab")){
-								preferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei eelista")){
-								notPreferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei sobi")){
-								unavailableTimeslotSet.add(preferredTimeslot);
-							}
-						}	
-					}	
-				}*/
 				setTimeslotPreferences(6, rowLength, authorDataList, i, dayList, startTimeList, endTimeList,
 						preferredTimeslotSet, notPreferredTimeslotSet, unavailableTimeslotSet);
 				thesisAuthor.setPreferredTimeslotSet(preferredTimeslotSet);
 				thesisAuthor.setNotPreferredTimeslotSet(notPreferredTimeslotSet);
 				thesisAuthor.setUnavailableTimeslotSet(unavailableTimeslotSet);
-				
-				//System.out.println("author: " + thesisAuthor.getName());
-				//System.out.println("authori preferred timeslotid: " + thesisAuthor.getPreferredTimeslotSet());
-				//System.out.println("authori not preferred timeslotid: " + thesisAuthor.getNotPreferredTimeslotSet());
-				//System.out.println("authori unavailable timeslotid: " + thesisAuthor.getUnavailableTimeslotSet());
-				
-				/*
-				String tagPreferred = authorDataList.get(i+3).get(3);
-				String tagNotPreferred = authorDataList.get(i+4).get(3);
-				String tagUnavailable = authorDataList.get(i+5).get(3);
-				*/
-				
-				/*String tagPreferred = fixDottedLetters(authorDataList.get(i+3).get(3));
-				String tagNotPreferred = fixDottedLetters(authorDataList.get(i+4).get(3));
-				String tagUnavailable = fixDottedLetters(authorDataList.get(i+5).get(3));*/
-				
+
 				thesisAuthor.setPreferredTimeslotTagSet(seperateCommasSet(preferred));
 				thesisAuthor.setNotPreferredTimeslotTagSet(seperateCommasSet(notPreferred));
 				thesisAuthor.setUnavailableTimeslotTagSet(seperateCommasSet(unavailable));
@@ -811,15 +600,6 @@ public class Reader {
 		long id = 0L;
 		
 		for(int i = 0; i < commiteeDataList.size(); i+=rowLength){
-			/*
-			String name = commiteeDataList.get(i).get(3);
-			String degree = commiteeDataList.get(i+1).get(3);
-			String chairman = commiteeDataList.get(i+2).get(3);
-			String preferred = commiteeDataList.get(i+3).get(3);
-			String notPreferred = commiteeDataList.get(i+4).get(3);
-			String unavailable = commiteeDataList.get(i+5).get(3);
-			*/
-			
 			String name = fixDottedLetters(commiteeDataList.get(i).get(3));
 			String degree = fixDottedLetters(commiteeDataList.get(i+1).get(3));
 			String chairman = fixDottedLetters(commiteeDataList.get(i+2).get(3));
@@ -840,17 +620,6 @@ public class Reader {
 				titleCheck(preferred, "Eelistatud märksõnad");
 				titleCheck(notPreferred, "Mitte-eelistatud märksõnad");
 				titleCheck(unavailable, "Sobimatud märksõnad");
-				/*
-				for(int k = 6; k < rowLength; k++){
-					String time = commiteeDataList.get(rowLength+k).get(3);
-					timeSetString.add(time);
-					String startTimeString = timeCheck(time.substring(0, time.indexOf("-")));
-					String endTimeString = timeCheck(time.substring(time.indexOf("-")+1));
-					LocalTime startTime = LocalTime.parse(startTimeString, TIME_FORMATTER);
-					LocalTime endTime = LocalTime.parse(endTimeString, TIME_FORMATTER);
-					startTimeList.add(startTime);
-					endTimeList.add(endTime);
-				}*/
 				formatTime(6, rowLength, commiteeDataList, startTimeList, endTimeList);
 			}
 			if(i > rowLength){
@@ -867,48 +636,11 @@ public class Reader {
 				Set<Timeslot> unavailableTimeslotSet = new LinkedHashSet<>();
 				Set<Timeslot> preferredTimeslotSet = new LinkedHashSet<>();
 				Set<Timeslot> notPreferredTimeslotSet = new LinkedHashSet<>();
-				/*
-				for(int l = 6; l < rowLength; l++){
-					//String preference = commiteeDataList.get(i+l).get(3);
-					
-					String preference = fixDottedLetters(commiteeDataList.get(i+l).get(3));
-					
-					LocalDate preferredDay = dayList.get(l-6);
-					LocalTime preferredStartTime = startTimeList.get(l-6);
-					LocalTime preferredEndTime = endTimeList.get(l-6);
-					
-					for(int o = 0; o < solution.getTimeslotList().size(); o++){
-						Timeslot preferredTimeslot = solution.getTimeslotList().get(o);
-						if(preferredTimeslot.getDate().isEqual(preferredDay) 
-								&& preferredTimeslot.getStartTime().equals(preferredStartTime)
-								&& preferredTimeslot.getEndTime().equals(preferredEndTime)){
-							if(preference.equals("Eelistab")){
-								preferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei eelista")){
-								notPreferredTimeslotSet.add(preferredTimeslot);
-							} else if(preference.equals("Ei sobi")){
-								unavailableTimeslotSet.add(preferredTimeslot);
-							}
-						}
-						
-					}
-					
-				}*/
 				setTimeslotPreferences(6, rowLength, commiteeDataList, i, dayList, startTimeList, endTimeList,
 						preferredTimeslotSet, notPreferredTimeslotSet, unavailableTimeslotSet);
 				commitee.setPreferredTimeslotSet(preferredTimeslotSet);
 				commitee.setNotPreferredTimeslotSet(notPreferredTimeslotSet);
 				commitee.setUnavailableTimeslotSet(unavailableTimeslotSet);
-				/*
-				String tagPreferred = commiteeDataList.get(i+3).get(3);
-				String tagNotPreferred = commiteeDataList.get(i+4).get(3);
-				String tagUnavailable = commiteeDataList.get(i+5).get(3);
-				*/
-				
-				/*String tagPreferred = fixDottedLetters(commiteeDataList.get(i+3).get(3));
-				String tagNotPreferred = fixDottedLetters(commiteeDataList.get(i+4).get(3));
-				String tagUnavailable = fixDottedLetters(commiteeDataList.get(i+5).get(3));*/
-				
 				commitee.setPreferredTimeslotTagSet(seperateCommasSet(preferred));
 				commitee.setNotPreferredTimeslotTagSet(seperateCommasSet(notPreferred));
 				commitee.setUnavailableTimeslotTagSet(seperateCommasSet(unavailable));
@@ -926,18 +658,8 @@ public class Reader {
 		long id = 0L;
 		
 		for(int i = 0; i < defenseDataList.size(); i+=rowLength){
-			/*
-			String code = defenseDataList.get(i).get(3);
-			String title = defenseDataList.get(i+1).get(3);
-			String defenseTypeName = defenseDataList.get(i+2).get(3);
-			String degree = defenseDataList.get(i+3).get(3);
-			String defenseAuthorName = defenseDataList.get(i+4).get(3);
-			String thesisTheme = defenseDataList.get(i+5).get(3);
-			String roomNumber = defenseDataList.get(i+6).get(3);
-			*/
-			
-			String code = fixDottedLetters(defenseDataList.get(i).get(3));
-			String title = fixDottedLetters(defenseDataList.get(i+1).get(3));
+			String title = fixDottedLetters(defenseDataList.get(i).get(3));
+			String code = fixDottedLetters(defenseDataList.get(i+1).get(3));
 			String defenseTypeName = fixDottedLetters(defenseDataList.get(i+2).get(3));
 			String degree = fixDottedLetters(defenseDataList.get(i+3).get(3));
 			String defenseAuthorName = fixDottedLetters(defenseDataList.get(i+4).get(3));
@@ -949,11 +671,6 @@ public class Reader {
 			int roomCapacity = 0;
 			int commissionSize = 0;
 			if(i == 0){
-				/*
-				roomCapacityName = defenseDataList.get(i+7).get(3);
-				commissionSizeName = defenseDataList.get(i+8).get(3);
-				*/
-				
 				roomCapacityName = fixDottedLetters(defenseDataList.get(i+7).get(3));
 				commissionSizeName = fixDottedLetters(defenseDataList.get(i+8).get(3));
 				
@@ -996,8 +713,6 @@ public class Reader {
 						defense.setThesisAuthor(thesisAuthor);
 					}
 				}
-				//defense.setCommission2();
-				//defense.setCommiteeArrays(commiteeArrays);
 				defenseList.add(defense);
 			}
 		}

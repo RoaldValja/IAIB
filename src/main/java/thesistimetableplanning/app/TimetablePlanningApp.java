@@ -50,6 +50,7 @@ public class TimetablePlanningApp {
 		
 		TimetableSolution solvedTimetable = solver.solve(unsolvedTimetable);
 		
+		System.out.println("Skoor on :" + solvedTimetable.getScore());
 		Writer writer = new Writer();
 		writer.write(solvedTimetable);
 	}

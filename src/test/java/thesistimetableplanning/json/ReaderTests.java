@@ -60,7 +60,7 @@ public class ReaderTests {
 		reader = new Reader();
 		solution = new TimetableSolution();
 		reader.setSolution(solution);
-		reader.readJSON("PlanDataTest3.json");
+		reader.readJSON("src/main/webapp/json/PlanDataTest.json");
 		totalDefenseTypeMap = new HashMap();
 		totalTimeslotTagSet = new HashSet();
 		totalThesisSupervisorMap = new HashMap();
@@ -306,7 +306,7 @@ public class ReaderTests {
 	public void testReadJSON() {
 		System.out.println("Running: testReadJSON");
 		try {
-			reader.readJSON("PlanDataTest.json");
+			reader.readJSON("src/main/webapp/json/PlanDataTest.json");
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
@@ -318,10 +318,10 @@ public class ReaderTests {
 	public void testReadJSONFileNotFoundException() {
 		System.out.println("Running: testReadJSONFileNotFoundException");
 		try {
-			reader.readJSON("PlanDataTest.jsona");
+			reader.readJSON("src/main/webapp/json/PlanDataTest.jsona");
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
-			assertEquals("PlanDataTest.jsona (The system cannot find the file specified)", e.getMessage());
+			assertEquals("src\\main\\webapp\\json\\PlanDataTest.jsona (The system cannot find the file specified)", e.getMessage());
 		}
 	}
 	/*

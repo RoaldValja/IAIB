@@ -13,6 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SeleniumTableButtonsTests {
+	/**
+	 * Testid on välja lülitatud, kuna ChromeDriverit on vaja uuendada tihtipeale ja kui draiver jääb vanaks, siis testid kukuvad läbi.
+	 */
 	
 	// Seleniumi kood
 	private static SeleniumTableButtons seleniumTableButtons;

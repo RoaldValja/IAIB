@@ -13,6 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SeleniumIOAndExamplesTests {
+	/**
+	 * Testid on välja lülitatud, kuna ChromeDriverit on vaja uuendada tihtipeale ja kui draiver jääb vanaks, siis testid kukuvad läbi.
+	 */
 	
 	// Seleniumi kood
 	private static SeleniumIOAndExamples seleniumIOAndExamples;

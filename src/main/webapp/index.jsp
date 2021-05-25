@@ -95,11 +95,11 @@
 				</div>
 				<div id="finishingButtonsArea" style="width:100%; height:80%; background-color: gray; float:left;">
 					<div id="finishingButtonsFrontArea" style="width:24%; height:100%; background-color: gray; float:left;">
-						<div class="menuButtonEnding" id="checkProject" style="width:45%; height:100%; border-left:1px solid black;" onclick="validate()">
+					<!--	<div class="menuButtonEnding" id="checkProject" style="width:45%; height:100%; border-left:1px solid black;" onclick="validate()">
 							<span class="singleLineLarge" id="spanCheckProject" style="top:20%;">Kontrolli projekt</span>
 							<span class="tooltipText" id="tooltipCheckProject">Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.</span>
-						</div>
-						<div class="menuButtonEnding" id="saveProject" style="width:45%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveProject()">
+						</div> -->
+						<div class="menuButtonEnding" id="saveProject" style="width:90%; height:100%; border-left:1px solid black; border-right:1px solid black;" onclick="saveProject()">
 							<span class="singleLineLarge" id="spanSaveProject" style="top:20%;">Salvesta projekt</span>
 							<span class="tooltipText" id="tooltipSaveProject">Selle nupuga saad salvestada oma hetkest projekti. Salvestatakse planeeritavad ja planeeritud tabelid.</span>
 						</div>
@@ -148,7 +148,7 @@
 								<a href="#English">English</a>
 							</div> 
 						</div>-->
-						<div class="languageDropdown" style="width:100%; height:49.3%; float:left; position: relative; display: inline-block;">
+						<div class="languageDropdown" style="width:100%; height:100%; float:left; position: relative; display: inline-block;">
 							<div id="languageButton" class="menuButtonExtra" onclick="languageDropdown()" style="width:100%; height:100%; position: relative; display: inline-block;">
 								<span class="singleLine" id="spanLanguage">Keel</span>
 								<span class="tooltipText" id="tooltipLanguage">Selle nupuga saad valida programmi keele.</span>
@@ -166,6 +166,7 @@
 								<a href="#English">English</a>-->
 							</div>
 						</div>
+						<!--
 						<div class="buttonBorder" style="width:100%; height:1%; background-color: black; float:left;"></div>
 						<div class="helpArea" style="width:100%; height:49.4%; position: relative; display: inline-block">
 							<div id="helpButton" class="menuButtonExtra" onclick="helpTutorial()" style="width:100%; height:100%; position: relative; display: inline-block;">
@@ -186,7 +187,7 @@
 									</div>
 									<div class="tutorialDivideBorder" style="background-color: black; width: 0.2%; height: 14%; position: absolute; z-index: 1; left: 122%">
 									</div>
-									<div id="tutorialNewProject" class="helpButton" onclick="getTutorialPosition('newProject', '1')" style="display: block; width: 22%; height: 14%; position: absolute; left: 122.2%; z-index: 1; text-align: center;">Loo uus projekt
+									<div id="tutorialNewProject" class="helpButton" onclick="getTutorialPosition('newProject', '1')" style="display: block; width: 22%; height: 14%; position: absolute; left: 122.2%; z-index: 1; text-align: center;">Kustuta projekt
 									</div>
 									<div class="tutorialDivideBorder" style="background-color: black; width: 44.2%; height: 0.5%; position: absolute; left: 100%; z-index: 1; top: 14%">
 									</div>
@@ -242,7 +243,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
+							
+						</div>-->
 					</div>
 				</div>
 			</div>
