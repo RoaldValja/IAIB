@@ -254,7 +254,7 @@
 	</div>
 	<div id="content" style="width:100%; height:81%; background-color: white; float:left;">
 		<div id="tableArea" style="width:85%; height:100%; background-color: gray; float:left; overflow: hidden;">
-			<div id="rowCounter" class="emptySpace" style="width:2.45%; height:96.5%; background-color: gray; float:left; overflow: hidden;">
+			<div id="rowCounter" class="emptySpace" style="width:2.45%; height:96.5%; background-color: gray; float:left; overflow: hidden; visibility:hidden; z-index:1; position:relative;">
 			</div>
 			<div id="tableRows" style="width:97.55%; height:100%; float:left;" onscroll="tableareaScroll()">
 			</div>
@@ -262,7 +262,26 @@
 		<div id="errorMessages" style="width:13%; height:100%; background-color: white; float:left;">
 			<div id="errorTopBorder" style="width:100%; height:0.4%; background-color: black; float:left;">
 			</div>
-			<div id="errorLeftBorder" style="width:2%; height:99.2%; background-color: black; float:left;">
+			<div id="errorLeftBorder" style="width:2%; height:99.2%; background-color: black; float:left; position: relative;">
+				<div id="timeslotCustomCreate" style="position:absolute; width:200px; height:350px; background-color:gray; z-index: 1; right:500%; visibility:hidden;">
+					<label for="timeslotDays">Mitu päeva</label>
+					<input type="number" class="tableInput" id="timeslotDays" name="timeslotDays" placeholder="5" style="width:90%; float:left;" min="0"><br>
+					<label for="timeslotTimeslotsPerDay">Mitu aega päevas</label>
+					<input type="number" class="tableInput" id="timeslotTimeslotsPerDay" name="timeslotTimeslotsPerDay" placeholder="20" style="width:90%; float:left;" min="0"><br>
+					<label for="timeslotSessions">Mitu sessiooni päevas</label>
+					<input type="number" class="tableInput" id="timeslotSessions" name="timeslotSessions" placeholder="2" style="width:90%; float:left;" min="0"><br>
+					<label for="timeslotStartTime">Mis kellast päev algab</label>
+					<input type="text" class="tableInput" id="timeslotStartTime" name="timeslotStartTime" placeholder="10:00" style="width:90%; float:left;"><br>
+					<label for="timeslotStartDate">Mis päevast algab</label>
+					<input type="text" class="tableInput" id="timeslotStartDate" name="timeslotStartDate" placeholder="04.06.2021" style="width:90%; float:left;"><br>
+					<label for="timeslotClosedTimeslots">Mitu kinnist kaitsmist</label>
+					<input type="number" class="tableInput" id="timeslotClosedTimeslots" name="timeslotClosedTimeslots" placeholder="5" style="width:90%; float:left;" min="0"><br>
+					<label for="timeslotTimeLength">Kaitsmiste pikkus minutites</label>
+					<input type="number" class="tableInput" id="timeslotTimeLength" name="timeslotTimeLength" placeholder="20" style="width:90%; float:left;" min="0"><br>
+					<label for="timeslotBreakLength">Puhkeaegade pikkus minutites</label>
+					<input type="number" class="tableInput" id="timeslotBreakLength" name="timeslotBreakLength" placeholder="60" style="width:90%; float:left;" min="0"><br>
+					<input type="submit" onclick="generateNewTimeslotTable()" value="Genereeri aegasid">
+				</div>
 			</div>
 			<div id="errorMessageArea" class="errors" style="width:96%; height:99.2%; background-color: white; float:left; overflow-y: scroll; position: relative;">
 				<div id="javaFinished">Pole planeerimisel</div>

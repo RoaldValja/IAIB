@@ -24,6 +24,20 @@ function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
    }
 
+function generateNewTimeslotTable(){
+	let days = document.getElementById("timeslotDays").value;
+	let timeslotsPerDay = document.getElementById("timeslotTimeslotsPerDay").value;
+	let sessions = document.getElementById("timeslotSessions").value;
+	let startTime = document.getElementById("timeslotStartTime").value;
+	let startDate = document.getElementById("timeslotStartDate").value;
+	let closedTimeslots = document.getElementById("timeslotClosedTimeslots").value;
+	let timeLength = document.getElementById("timeslotTimeLength").value;
+	let breakLength = document.getElementById("timeslotBreakLength").value;
+	generateTimeslotTable(days, timeslotsPerDay, sessions, startTime, startDate, "viimasel päeval", closedTimeslots, timeLength, breakLength, "ei");
+	
+}
+
+
 function checkTabAndDelete(tabName){
 	let i;
 	if(tabsArray.includes(tabName)){
@@ -631,6 +645,8 @@ function addTab(tabName, tabArea){
 		table.className = "rowTable";
 		table.id = tableId + "-rows"
 		table.style.display = "none";
+		table.style.position = "absolute";
+		table.style.zIndex = "3";
 		document.getElementById("rowCounter").appendChild(table);
 		
 		getTab[0].value = "";
@@ -942,6 +958,7 @@ function newProject(tab){
 	let tabs = document.getElementsByClassName(tab);
 	let i;
 	let tabsName;
+	document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 	if(tab == "tab"){
 		tabsName = "tabs";
 	} else if(tab == "button"){
@@ -965,7 +982,7 @@ function generateTemplateTable(){
 	generateTable(23,4,1);
 	addTab('Timeslot', 'tabs');
 	showTab('tableTimeslot');
-	generateTable(2,6,1);
+	generateTable(1,6,1);
 	addTab('Supervisor', 'tabs');
 	showTab('tableSupervisor');
 	generateTable(7,6,2);
@@ -1055,11 +1072,11 @@ function generateTable(row, column, header){
 		if(row >= 2){
 			for(i = 0; i < 2; i++){
 				let tr = document.createElement('tr');
+				let getI = i+1;
+				let rowId = getI.toString();
 					for(j = 0; j < column; j++){
 						let td;
-						let getI = i+1;
 						let getJ = j+1;
-						let rowId = getI.toString();
 						if(i < header){
 							bold = true;
 						} else {
@@ -1081,7 +1098,8 @@ function generateTable(row, column, header){
 				
 				tr = document.createElement('tr');
 				let td = document.createElement('td');
-				td.className = "rowForTableClass";
+				//td.className = "rowForTableClass";
+				td.className = "tableRowClass";
 				td.id = activeTable + "-" + rowId;
 				td.innerHTML = rowId;
 				td.style.height = "22px";
@@ -1105,11 +1123,11 @@ function generateTable(row, column, header){
 		if(row >= 1){
 			for(i = 0; i < 1; i++){
 				let tr = document.createElement('tr');
+				let getI = i+1;
+				let rowId = getI.toString();
 					for(j = 0; j < column; j++){
 						let td;
-						let getI = i+1;
 						let getJ = j+1;
-						let rowId = getI.toString();
 						if(i < header){
 							bold = true;
 						} else {
@@ -1605,6 +1623,7 @@ function addColumn(){
 				activeNode = tdArray[j];
 				tbody[0].childNodes[j].appendChild(activeNode);
 			}
+		}
 	}
 	else {
 		errorMessage('Tabeli veeruks sisestati "' + tableColumnValue + '", mis pole täisarvuline sisend!', "tableColumn");	
@@ -2220,6 +2239,7 @@ window.onclick = function(event){
 		}
 		errorDOM.style.backgroundColor = "#f07d5d";
 	} else {
+		let i;
 		for(i = 0; i < errorMessageTarget.length; i++){
 			document.getElementById(errorMessageTarget[i]).style.backgroundColor = "white";
 		}
@@ -2248,8 +2268,10 @@ window.onclick = function(event){
 	
 	// Kui vajutatakse Autori tabeli peale.
 	if(event.target.matches('#tabAuthor')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 		let nodesSupervisor = document.getElementById("tableSupervisor-1-1").parentNode.parentNode.childElementCount;
 		supervisorArray = [];
+		
 		for(i = 3; i <= nodesSupervisor; i++){
 			let supervisorName = document.getElementById('tableSupervisor-' + i + '-1').innerHTML;
 			if(!supervisorArray.includes(supervisorName)){
@@ -2280,7 +2302,7 @@ window.onclick = function(event){
 		let nodeTimeslotChildCount = nodeTimeslot.childElementCount;
 		let columnChangedCount = 0;
 		let authorTimeslotCount = nodesAuthor.childNodes[0].childElementCount - 6;
-		let i;
+		
 		for(i = 2; i <= nodeTimeslotChildCount; i++){
 			let timeslotDate = nodeTimeslot.childNodes[i-1].childNodes[0].innerHTML;
 			let timeslotStartTime = nodeTimeslot.childNodes[i-1].childNodes[1].innerHTML;
@@ -2299,6 +2321,7 @@ window.onclick = function(event){
 		}
 	}
 	if(event.target.matches('#tabSupervisor')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 		let nodesSupervisor = document.getElementById("tableSupervisor-1-3").parentNode.parentNode;
 		let nodesSupervisorChildCount = nodesSupervisor.childElementCount;
 		let nodeTimeslot = document.getElementById("tableTimeslot-1-1").parentNode.parentNode;
@@ -2324,6 +2347,7 @@ window.onclick = function(event){
 		}
 	}
 	if(event.target.matches('#tabCommitee')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 		let nodesSupervisor = document.getElementById("tableCommitee-1-3").parentNode.parentNode;
 		let nodesSupervisorChildCount = nodesSupervisor.childElementCount;
 		let nodeTimeslot = document.getElementById("tableTimeslot-1-1").parentNode.parentNode;
@@ -2348,7 +2372,14 @@ window.onclick = function(event){
 			}
 		}
 	}
+	if(event.target.matches('#tabTimeslot')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "visible";
+	}
+	if(event.target.matches('#tabPlanned Data')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
+	}
 	if(event.target.matches('#tabDefense')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 		let nodesAuthor = document.getElementById("tableAuthor-1-1").parentNode.parentNode.childElementCount;
 		authorArray = [];
 		let i, j;
@@ -2419,6 +2450,31 @@ function tableareaScroll(){
 	let el = document.getElementById("tableRows");
 	let rowNum = document.getElementById("rowCounter");
 	let x = el.scrollLeft;
+	if(x >= 100){
+		rowNum.style.visibility = "visible";
+		if(activeTable == "tableDefense"){
+			rowNum.style.width = "20%";
+			el.style.width = "85%";
+		} else {
+			rowNum.style.width = "10%";
+			el.style.width = "90%";
+		}
+	} else if(x < 100){
+		rowNum.style.visibility = "hidden";
+		rowNum.style.width = "2.45%";
+		el.style.width = "97.55%";
+	}
+	console.log(activeTable);
+	let table = document.getElementById(activeTable);
+	let row = document.getElementById(activeTable + "-rows");
+	let tableLength = table.childNodes[0].childElementCount;
+	let i;
+	for(i = 0; i < tableLength; i++){
+		let data = table.childNodes[0].childNodes[i].childNodes[0].innerHTML;
+		row.childNodes[0].childNodes[i].childNodes[0].innerHTML = data;
+	}
+	console.log(tableLength);
+	let elementCount = "";
 	let y = el.scrollTop;
 	if(y != oldY){
 		rowNum.scrollTop = y;
