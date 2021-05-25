@@ -8,37 +8,21 @@ function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
    }
 
-async function planProjectAlt(){
-	/*var loc = window.location.pathname;
-	console.log("current location: " + loc);
-	var textFileInterval = setInterval(function(){
-		console.log("5 sekundit läbi")
-		let fileData
-		$.get("ready.txt", function(data){
-	    	fileData = data;
-	    	console.log("file data: " + data);
-			if(fileData == "x"){
-				clearInterval(textFileInterval);
+function checkTabAndDelete(tabName){
+	if(tabsArray.includes(tabName)){
+		for(let i = 0; i < tabsArray.length; i++){
+			if(tabsArray[i] == tabName){
+				tabsArray.splice(i, i+1);
 			}
-	    });
-	}, 5000);
-	*/
-	/*
-	$.get("../../../ready.txt", function(data){
-    	fileData = data;
-    	console.log("file data: " + data);
-		if(fileData == "x"){
-			clearInterval(textFileInterval);
 		}
-    });
-    */
+	}
+}
+
+async function displayPlan(){
 	loadJSON(function(response) {
-	  // Parse JSON string into object
-		console.log("on loadjsonis");
 		JSON_Data = JSON.parse(response);
-		console.log(JSON_Data);
-		//numOfTables = JSON_Data.table.length;
 		newProject('tab2');
+		checkTabAndDelete("Planned Data");
 		tableID = "Planned Data";
 		addTab(tableID, 'tabs2');
 		showTab("table"+tableID);
@@ -74,11 +58,6 @@ async function planProjectAlt(){
 			document.getElementById("tablePlanned Data").childNodes[0].childNodes[i+1].childNodes[11].innerHTML = JSON_Data.defenseCommentsSupervisorList[i]["defense comments supervisor"];
 			document.getElementById("tablePlanned Data").childNodes[0].childNodes[i+1].childNodes[12].innerHTML = JSON_Data.defenseCommentsCommissionList[i]["defense comments commission"];
 			document.getElementById("tablePlanned Data").childNodes[0].childNodes[i+1].childNodes[13].innerHTML = JSON_Data.defenseCommentsUniqueList[i]["defense comments unique"];
-			//0hard-36042soft
-			//Score: 0hard/-35960soft
-			//Score: -98hard/-35246soft
-			//Score: -122hard/-34549soft
-			//Score: -156hard/-10770soft
 		}
 	 });
 }
@@ -104,102 +83,76 @@ function sendPlannerConfigData(){
 }
 
 async function planProject(){
-	var i;
-	var JSON_Data;
-	var numOfTables;
-	var numOfTableSlots;
-	var numOfRows;
-	var numOfColumns;
-	var tableName, tableID;
-	//setTimeout(addJSONPlanData, 10000);
 	addJSONPlanData();
 	sendPlannerConfigData();
-	let timer = 0;
 	let lastTime = (new Date).getTime();
 	
-	$.get("ServletPlan", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-        $("#javaFinished").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+	$.get("ServletPlan", function(responseText) {
+		if(responseText == "Planeerimisel"){
+			if(chosenLanguage == "Estonian"){
+				$("#javaFinished").text("Planeerimisel");
+			} else if(chosenLanguage == "English"){
+				$("#javaFinished").text("Being planned");
+			}	
+		}
         
         var textFileInterval = setInterval(function(){
-    		console.log("10 sekundit läbi")
-    		timer += 10;
-    		console.log("timer: " + timer);
     		let now = (new Date).getTime();
-    		let deltaTime = now - lastTime; //amount of time elapsed since last tick
-    		//lastTime = now;
+    		let deltaTime = now - lastTime;
     		
     		let fileData
     		$.get("ready.txt", function(data){
     	    	fileData = data;
     	    	console.log("file data: " + data);
     			if(fileData == "x"){
-    				console.log("Leiti et failis on x");
-    				$("#javaFinished").text("Planeeritud");
-    				planProjectAlt();
+    				if(chosenLanguage == "Estonian"){
+        				$("#javaFinished").text("Planeeritud");
+    				} else if(chosenLanguage == "English"){
+        				$("#javaFinished").text("Planned");
+    				}
+    				displayPlan();
     				clearInterval(textFileInterval);
     			}
     	    });
     		let totalTime = Math.ceil(deltaTime / 1000);
     		let hourTime = Math.floor(totalTime / 3600);
-    		if(totalTime >= 3600){
+    		if(totalTime > 3600){
     			totalTime = totalTime - hourTime * 3600;
     		}
     		let minuteTime = Math.floor(totalTime / 60);
-    		if(totalTime >= 60){
+    		if(totalTime > 60){
     			totalTime = totalTime - minuteTime * 60;
     		}
     		let secondTime = totalTime;
     		if(hourTime > 0){
     			let hoursElement = document.getElementById("javaTimerHours");
-    			hoursElement.innerHTML = "Tundi <br>" + hourTime;
+				if(chosenLanguage == "Estonian"){
+	    			hoursElement.innerHTML = "Tundi <br>" + hourTime;
+				} else if(chosenLanguage == "English"){
+	    			hoursElement.innerHTML = "Hours <br>" + hourTime;
+				}
     			hoursElement.style.visibility = "visible";
     		}
     		if(minuteTime > 0){
     			let minutesElement = document.getElementById("javaTimerMinutes");
-    			minutesElement.innerHTML = "Minutit <br>" + minuteTime;
+				if(chosenLanguage == "Estonian"){
+	    			minutesElement.innerHTML = "Minutit <br>" + minuteTime;
+				} else if(chosenLanguage == "English"){
+	    			minutesElement.innerHTML = "Minutes <br>" + minuteTime;
+				}
     			minutesElement.style.visibility = "visible";
     		}
     		if(secondTime > 0){
     			let secondsElement = document.getElementById("javaTimerSeconds");
-    			secondsElement.innerHTML = "Sekundit <br>" + secondTime;
+				if(chosenLanguage == "Estonian"){
+	    			secondsElement.innerHTML = "Sekundit <br>" + secondTime;
+				} else if(chosenLanguage == "English"){
+	    			secondsElement.innerHTML = "Seconds <br>" + secondTime;
+				}
     			secondsElement.style.visibility = "visible";
     		}
-    		//$("#javaTimer").text("hours: " + hourTime + " minutes: " + minuteTime + " seconds: " + secondTime);
     	}, 10000);
-    	
-        //planProjectAlt();
 	});
-	
-	var loc = window.location.pathname;
-	console.log("current location: " + loc);
-	//await sleep(1000);
-/*	
-	loadJSON(function(response) {
-	  // Parse JSON string into object
-		console.log("on loadjsonis");
-		JSON_Data = JSON.parse(response);
-		console.log(JSON_Data);
-		//numOfTables = JSON_Data.table.length;
-		newProject('tab2');
-		for(i = 0; i < 1; i++){														*/
-			/*numOfTableSlots = JSON_Data.table[i].tableSlot.length;
-			numOfRows = JSON_Data.table[i].tableSlot[numOfTableSlots-1].row;
-			numOfColumns = JSON_Data.table[i].tableSlot[numOfTableSlots-1].column;
-			tableID = JSON_Data.table[i].name.concat('Planned');
-			tableName = tableID.substring(5);
-			addTab(tableName, 'tabs2');
-			showTab(tableID);
-			generateTable(numOfRows, numOfColumns, 1);
-			fillTableFromJSON(JSON_Data, numOfRows, numOfColumns, tableID, i);*/
-/*			numOfRows = JSON_Data.startTimeList.length;
-			numOfColumns = 10;
-			tableID = "Planned Data";
-			addTab(tableID, 'tabs2');
-			showTab(tableID);
-			generateTable(numOfRows, numOfColumns, 1);
-			fillTableFromJSON(JSON_Data, numOfRows, numOfColumns, tableID, i);
-		}																								
-	 });												*/
 }
 
 function addJSONPlanData(){
@@ -207,7 +160,6 @@ function addJSONPlanData(){
 	var table = document.getElementsByClassName("table");
 	var jsonTable = '{ "table": [ ';
 	for(i = 0; i < table.length; i++){
-		//jsonTable = jsonTable.concat("{ ");
 		tableName = table[i].id;
 		tableData = getTableData(tableName);
 		tableLengthRow = tableData.length;
@@ -218,36 +170,8 @@ function addJSONPlanData(){
 		}
 	}
 	jsonTable = jsonTable.concat(' ] }');
-	
-	/*
-	$.post("ServletHello", data, function(responseText, status) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-        alert("Data: " + responseText + "\nStatus: " + status)           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-	});
-	*/
-	//var fs = require('fs');
-	//fs.writeFile('json/planData.json', json, 'utf8', callback);
-	/*
-	var xhr = new XMLHttpRequest();
-	var url = "submit.php";
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-Type", "application/json; charset = utf-8");
-	xhr.onreadystatechange = function () { 
-		if (xhr.readyState === 4 && xhr.status === 200) { 
-			//document.getElementById("result").innerHTML = this.responseText; 
-			console.log("xhr teeb midagi");
-		} 
-	}; */
-	var data = JSON.stringify(jsonTable);
-	
-//	xhr.send(data);
-	/*
-	$.post("ServletHello", data, function(responseText, status) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-        alert("Data: " + responseText + "\nStatus: " + status)           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-	});
-	*/
 
-	/*var saveData = */
-	
+	var data = JSON.stringify(jsonTable);
 	$.ajax({
 	      type: 'POST',
 	      url: "ServletPlan",
@@ -257,26 +181,6 @@ function addJSONPlanData(){
 	      mimeType: 'application/json',
 	      success: function(resultData) { alert("Save Complete") }
 	});
-	
-	//$.post("json.php", {json: JSON.stringify(jsonTable)});
-	
-	//saveData.error(function() { alert("Something went wrong"); });
-	
-	
-	/*
-	$.post("submit.php", data).done(function( data ) {
-	    alert( "Data Loaded: " + data );
-	  });     // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-	*/
-	
-	//const fs = require('fs');
-	/*
-	const {fs} = require(['fs']);
-	fs.writeFileSync('planData.json', data);
-	*/
-	console.log(jsonTable);
-	return data;
-	
 }
 
 function writeJSONObject(name, lengthRow, lengthColumn, data){
@@ -765,7 +669,7 @@ function addTab(tabName, tabArea){
 	if(tabValue.length == 0){
 		errorMessage('Ei saa lisada lipikut, kui pole talle antud nime!', "addTab");
 	} else if (tabsArray.includes(tabValue)){
-		errorMessage('Ei saa panna lipiku nimeks, kuna selle nimeline lipik on juba olemas!', "addTab");
+		errorMessage('Ei saa panna lipiku nimeks ' + tabValue + ', kuna selle nimeline lipik on juba olemas!', "addTab");
 	} else {
 		var tabClickHandler = function(arg){
 			return function() {showTab(arg);};
@@ -927,18 +831,8 @@ function languageChoice(language){
 		document.getElementById("spanHelp").innerHTML = "Abi";
 		document.getElementById("spanPlanProject").innerHTML = "Planeeri tabel";
 		document.getElementById("spanSaveProject").innerHTML = "Salvesta tabel";
-		document.getElementById("spanDeleteTab").innerHTML = "Kustuta lipik";
-		document.getElementById("spanAddTab").innerHTML = "Lisa lipik";
-		document.getElementById("spanAddTable").innerHTML = "Lisa tabel";
-		document.getElementById("spanDeleteColumn").innerHTML = "Kustuta veerg";
 		document.getElementById("spanDeleteRow").innerHTML = "Kustuta rida";
-		document.getElementById("spanAddColumn").innerHTML = "Lisa veerg";
-		//document.getElementById("spanAddColumn").style.fontSize = "100%";
 		document.getElementById("spanAddRow").innerHTML = "Lisa rida";
-		
-		document.getElementById("tabName").placeholder = "Tabeli nimi";
-		document.getElementById("tableColumn").placeholder = "Tabeli veerg";
-		//document.getElementById("tableColumn").style.fontSize = "75%";
 		document.getElementById("tableRow").placeholder = "Tabeli rida";
 		
 		document.getElementById("spanCreateNewProject").innerHTML = "Loo uus projekt";
@@ -958,16 +852,6 @@ function languageChoice(language){
 		document.getElementById("spanPlannedTables").innerHTML = "Planeeritud tabelid";
 		document.getElementById("spanPlannedTables").style.top = "15%";
 		
-		document.getElementById("buttonEmptyArea2").style.width = "4%";
-		document.getElementById("tableEditing").style.width = "35%";
-		document.getElementById("buttonEmptyArea3").style.width = "3%";
-		document.getElementById("endingArea").style.width = "20%";
-		document.getElementById("finishingButtonsFrontArea").style.width = "79.6%";
-		document.getElementById("finishingButtonsBackArea").style.width = "19.6%";
-		
-		document.getElementById("helpMenu").style.right = null;
-		document.getElementById("helpMenu").style.width = null;
-		
 		document.getElementById("tutorialInputFile").innerHTML = "Sisendfail";
 		document.getElementById("tutorialNewProject").innerHTML = "Loo uus projekt";
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Loo näidistabelid";
@@ -985,6 +869,26 @@ function languageChoice(language){
 		document.getElementById("tutorialNext").innerHTML = "Järgmine";
 		document.getElementById("tutorialPrevious").innerHTML = "Eelmine";
 		
+		document.getElementById("tooltipFile").innerHTML = "Nupp, millega saad laadida peale planeerija andmed Excel failist.";
+		document.getElementById("tooltipNameArea").innerHTML = "Planeerija projekti nimi, mida kasutatakse faili loomisel.";
+		document.getElementById("tooltipNewProject").innerHTML = "Kustutab olemasoleva projekti tabelid ja lipikud.";
+		document.getElementById("tooltipExamples").innerHTML = "Loob näidistabelid planeerija jaoks.";
+		document.getElementById("tooltipTemplates").innerHTML = "Loob tabelite mallid planeerija jaoks.";
+		document.getElementById("tooltipTablerow").innerHTML = 'Siia kirjuta mitu tabeli rida tahad korraga luua. Seda sisendit kasutab nupp "lisa rida".';
+		document.getElementById("tooltipAddRow").innerHTML = "Selle nupuga saad lisada aktiivsele tabelile ridu juurde.";
+		document.getElementById("tooltipDeleteRow").innerHTML = "Selle nupuga saad kustutada aktiivselt tabelilt ühe rea korraga.";
+		document.getElementById("tooltipCheckProject").innerHTML = "Selle nupuga saad valideerid oma projekti andmeid, et kas neil on vigu sees.";
+		document.getElementById("tooltipSaveProject").innerHTML = "Selle nupuga saad salvestada oma hetkest projekti. Salvestatakse planeeritavad ja planeeritud tabelid.";
+		document.getElementById("tooltipConfigHours").innerHTML = "Siia saad kirjutada planeerimise konfigureerimise aja tundides.";
+		document.getElementById("tooltipConfigMinutes").innerHTML = "Siia saad kirjutada planeerimise konfigureerimise aja minutites.";
+		document.getElementById("tooltipConfigSeconds").innerHTML = "Siia saad kirjutada planeerimise konfigureerimise aja sekundites.";
+		document.getElementById("tooltipConfigAlgorithm").innerHTML = "Siit saad valida planeerimise algoritmi.";
+		document.getElementById("tooltipPlanProject").innerHTML = "Selle nupuga paned planeerija tööle.";
+		document.getElementById("tooltipDisplayPlan").innerHTML = "Selle nupuga kuvad hetkel mälus oleva plaani veebiliidesesse.";
+		document.getElementById("tooltipLanguage").innerHTML = "Selle nupuga saad valida programmi keele.";
+		document.getElementById("tooltipHelp").innerHTML = "Selle nupuga saad kuvada abiinfot nuppude kohta.";
+		
+		
 	} else if (language == "English"){
 		chosenLanguage = "English";
 		document.getElementById("spanLanguage").innerHTML = "Language";
@@ -992,18 +896,8 @@ function languageChoice(language){
 		document.getElementById("spanHelp").innerHTML = "Help";
 		document.getElementById("spanPlanProject").innerHTML = "Plan table";
 		document.getElementById("spanSaveProject").innerHTML = "Save table";
-		document.getElementById("spanDeleteTab").innerHTML = "Delete tab";
-		document.getElementById("spanAddTab").innerHTML = "Add tab";
-		document.getElementById("spanAddTable").innerHTML = "Add table";
-		document.getElementById("spanDeleteColumn").innerHTML = "Delete column";
 		document.getElementById("spanDeleteRow").innerHTML = "Delete row";
-		document.getElementById("spanAddColumn").innerHTML = "Add column";
-		//document.getElementById("spanAddColumn").style.fontSize = "90%";
 		document.getElementById("spanAddRow").innerHTML = "Add row";
-		
-		document.getElementById("tabName").placeholder = "Table name";
-		document.getElementById("tableColumn").placeholder = "Table column";
-		//document.getElementById("tableColumn").style.fontSize = "70%";
 		document.getElementById("tableRow").placeholder = "Table row";
 		
 		document.getElementById("spanCreateNewProject").innerHTML = "Create new project";
@@ -1023,16 +917,6 @@ function languageChoice(language){
 		document.getElementById("spanPlannedTables").innerHTML = "Planned tables";
 		document.getElementById("spanPlannedTables").style.top = "30%";
 		
-		document.getElementById("buttonEmptyArea2").style.width = "2%";
-		document.getElementById("tableEditing").style.width = "37%";
-		document.getElementById("buttonEmptyArea3").style.width = "2%";
-		document.getElementById("endingArea").style.width = "21%";
-		document.getElementById("finishingButtonsFrontArea").style.width = "74.6%";
-		document.getElementById("finishingButtonsBackArea").style.width = "24.6%";
-		
-		document.getElementById("helpMenu").style.right = "1150%";
-		document.getElementById("helpMenu").style.width = "750%";
-		
 		document.getElementById("tutorialInputFile").innerHTML = "Input file";
 		document.getElementById("tutorialNewProject").innerHTML = "Create new project";
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Create example tables";
@@ -1049,6 +933,26 @@ function languageChoice(language){
 		document.getElementById("tutorialErrorMessageArea").innerHTML = "Error messages";
 		document.getElementById("tutorialNext").innerHTML = "Next";
 		document.getElementById("tutorialPrevious").innerHTML = "Previous";
+		
+
+		document.getElementById("tooltipFile").innerHTML = "This button lets you import Excel file input data.";
+		document.getElementById("tooltipNameArea").innerHTML = "Write the planning project name here, which will be used when creating save file.";
+		document.getElementById("tooltipNewProject").innerHTML = "Deletes existing project tables and tabs.";
+		document.getElementById("tooltipExamples").innerHTML = "Creates example tables for the planner.";
+		document.getElementById("tooltipTemplates").innerHTML = "Creates template tables for the planner.";
+		document.getElementById("tooltipTablerow").innerHTML = 'Here you write how many table rows you want to create. This input is used by "Add row" button.';
+		document.getElementById("tooltipAddRow").innerHTML = "This button adds new rows to current visible table.";
+		document.getElementById("tooltipDeleteRow").innerHTML = "This button deletes a row from the current visible table.";
+		document.getElementById("tooltipCheckProject").innerHTML = "This button validates projects data.";
+		document.getElementById("tooltipSaveProject").innerHTML = "This button saves current project. It saves planning and planned tables.";
+		document.getElementById("tooltipConfigHours").innerHTML = "Here you can write how many hours you want the project to plan for.";
+		document.getElementById("tooltipConfigMinutes").innerHTML = "Here you can write how many minutes you want the project to plan for.";
+		document.getElementById("tooltipConfigSeconds").innerHTML = "Here you can write how many seconds you want the project to plan for.";
+		document.getElementById("tooltipConfigAlgorithm").innerHTML = "Here you choose the planning algorithm.";
+		document.getElementById("tooltipPlanProject").innerHTML = "This button initiates the planner.";
+		document.getElementById("tooltipDisplayPlan").innerHTML = "This button retrieves planned data from the last plan.";
+		document.getElementById("tooltipLanguage").innerHTML = "This button lets you choose applications language.";
+		document.getElementById("tooltipHelp").innerHTML = "This button displays what each button does.";
 	}
 }
 
@@ -1197,24 +1101,24 @@ function generateExampleTable2(){
 
 	generateConfigurationTable();
 	showTab('tableTimeslot');
-//	generateTimeslotTable2("6", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "5", "20", "60", "yes");	// 100 kaitsja omad
-	generateTimeslotTable2("1", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "2", "20", "60", "yes");	// 10 kaitsja omad
+	generateTimeslotTable2("6", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "5", "20", "60", "yes");	// 100 kaitsja omad
+//	generateTimeslotTable2("1", "20", "2", "9:00", "13.04.2021", "viimasel päeval", "2", "20", "60", "yes");	// 10 kaitsja omad
 	showTab('tableSupervisor');
 	document.querySelector('#tabSupervisor').click();
-//	generateSupervisorTable2("20");	// 100 kaitsja omad
-	generateSupervisorTable2("10"); // 10 kaitsja omad
+	generateSupervisorTable2("20");	// 100 kaitsja omad
+//	generateSupervisorTable2("10"); // 10 kaitsja omad
 	showTab('tableAuthor');
 	document.querySelector('#tabAuthor').click();
-//	generateAuthorTable2("100");	// 100 kaitsja omad
-	generateAuthorTable2("10");		// 10 kaitsja omad
+	generateAuthorTable2("100");	// 100 kaitsja omad
+//	generateAuthorTable2("10");		// 10 kaitsja omad
 	
 	showTab('tableCommitee');
 	document.querySelector('#tabCommitee').click();
 	generateCommiteeTable2("6");
 	showTab('tableDefense');
 	document.querySelector('#tabDefense').click();
-//	generateDefenseTable2("100");	// 100 kaitsja omad
-	generateDefenseTable2("10");	// 10 kaitsja omad	
+	generateDefenseTable2("100");	// 100 kaitsja omad
+//	generateDefenseTable2("10");	// 10 kaitsja omad	
 }
 
 function generateExampleTable(){
