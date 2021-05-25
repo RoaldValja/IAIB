@@ -9,9 +9,8 @@
 	<script src="js/xlsx.core.min.js"></script>
 	<script src="js/FileSaver.js"></script>
 	<script src="js/tableexport.js"></script>
-<!--	<script data-main="js/Veebiliides4.js" src="js/require.js"></script>  -->
-	<script src="js/Veebiliides4.js" defer></script>
-	<script src="js/Examples3.js" defer></script>
+	<script src="js/Veebiliides.js" defer></script>
+	<script src="js/Examples.js" defer></script>
 	
 </head>
 <body style="height:100%; background-color: gray; overflow: hidden;">
@@ -113,19 +112,17 @@
 						</div>
 						<div class="tableInputArea" style="width:15%; height:50%; float:left;">
 							<input type="number" class="tableInput" id="configMinutes" name="ConfigMinutes" placeholder="Minutid" style="width:80%; height:87%; float:left;" value="0" min="0" max="59">
-								<option value="TABU_SEARCH">Tabu Search</option>
-							</select>
 							<span class="tooltipText">Siia saad kirjutada planeerimise konfigureerimise aja minutites.</span>
 						</div>
 						<div class="tableInputArea" style="width:15%; height:50%; float:left;">
 							<input type="number" class="tableInput" id="configSeconds" name="ConfigSeconds" placeholder="Sekundid" style="width:80%;height:87%; float:left;" value="0" min="0" max="59">
-								<option value="TABU_SEARCH">Tabu Search</option>
-							</select>
 							<span class="tooltipText">Siia saad kirjutada planeerimise konfigureerimise aja sekundites.</span>
 						</div>
 						<div class="tableInputArea" style="width:55%; height:50%; float:left;">
 							<select id="configAlgorithm" name="ConfigAlgorithm" style="width:100%; height:100%; float:left;">
 								<option value="TABU_SEARCH">Tabu Search</option>
+								<option value="FIRST_FIT">First Fit</option>
+								<option value="HILL_CLIMBING">Hill Climbing</option>
 							</select>
 							<span class="tooltipText">Siit saad valida planeerimise algoritmi.</span>
 						</div>

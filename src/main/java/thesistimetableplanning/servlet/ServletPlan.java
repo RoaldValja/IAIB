@@ -38,12 +38,7 @@ public class ServletPlan extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		System.out.println("JSON kirjutamisel");
-		//System.out.println(request.getAttributeNames());
-		//request.getParameter("cmd");
 		
-		
-		
-		//System.out.println(request.toString());
 		StringBuffer sb = new StringBuffer();
 	    BufferedReader reader = request.getReader();
 	    try {
@@ -54,30 +49,10 @@ public class ServletPlan extends HttpServlet {
 	    } finally {
 	        reader.close();
 	    }
-	    //System.out.println(sb.toString());
 	    
 	    String jsonString = sb.toString();
-	    /*
-	    JsonObject body = Json.createReader(new StringReader(jsonString)).readObject();
-	    System.out.println(body);
-	    
-	    try(FileWriter fw = new FileWriter("src/main/webapp/planData.json"); 
-	    		JsonWriter jsonWriter = Json.createWriter(fw)){
-	    	jsonWriter.writeObject(body);
-	    }
-	    */
-	    
-	   // JSONObject json = new JSONObject(jsonString);
-	    
 	    jsonString = jsonString.replaceAll("\\\\", "");	
 	    jsonString = jsonString.substring(1, jsonString.length()-1);
-/*	    JSONParser parser = new JSONParser();
-	    JSONObject json = new JSONObject();*/
-	    
-	//	json = (JSONObject) parser.parse(jsonString);
-	    
-	    
-	    //System.out.println(jsonString);
 	    
 	    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/webapp/json/planData.json"), "UTF-8"));
 	    try{
@@ -85,18 +60,9 @@ public class ServletPlan extends HttpServlet {
 	    } finally {
 	    	out.close();
 	    }
-	    /*
-		try(FileWriter file = new FileWriter("src/main/webapp/planData.json")){
-			file.write(jsonString);
-			file.close();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
-		*/
-		response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-	    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-	    response.getWriter().write(request.toString());       // Write response body.
-	    
+		response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(request.toString());    
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -115,16 +81,13 @@ public class ServletPlan extends HttpServlet {
 			processBuilder.redirectErrorStream();
 			processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 			processBuilder.start();
-			
-			
-		}
-		if(SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_UNIX) {
+		} else if(SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_UNIX) {
 			System.out.println("On linux OS");
 			Runtime.getRuntime().exec("sh start.sh");
 		}
-	    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-	    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-	    response.getWriter().write(text);       // Write response body.
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(text);
 	}
 	
 	private void printLines(String cmd, InputStream ins) throws Exception {
@@ -134,14 +97,5 @@ public class ServletPlan extends HttpServlet {
         while ((line = in.readLine()) != null) {
             System.out.println(cmd + " " + line);
         }
-      }
-	
-	private void runProcess(String command) throws Exception {
-		System.out.println("runprocess kestab: " + command);
-        Process pro = Runtime.getRuntime().exec(command);
-        printLines(command + " stdout:", pro.getInputStream());
-        printLines(command + " stderr:", pro.getErrorStream());
-        pro.waitFor();
-        System.out.println(command + " exitValue() " + pro.exitValue());
       }
 }

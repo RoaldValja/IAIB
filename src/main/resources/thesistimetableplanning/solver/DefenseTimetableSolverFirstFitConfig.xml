@@ -12,43 +12,11 @@
   </scoreDirectorFactory>
 
   <termination>
-    <!--<minutesSpentLimit>1</minutesSpentLimit>-->
     <secondsSpentLimit>300</secondsSpentLimit>
   </termination>
-
-  <!-- Tabu Search performs much better than Late Acceptance (default algo) on this use case -->
-  <!-- <constructionHeuristic>
-      
-  </constructionHeuristic>
-  -->
-  <!--<constructionHeuristic/>-->
-<!--   <localSearch>
-    <localSearchType>TABU_SEARCH</localSearchType>
-  </localSearch> -->
-  <!--
+  
    <constructionHeuristic>
   	<constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
   </constructionHeuristic>
-  <constructionHeuristic>
-  	<constructionHeuristicType>ALLOCATE_ENTITY_FROM_QUEUE</constructionHeuristicType>
-  </constructionHeuristic>
-  -->
-<!--   <localSearch>
-    <localSearchType>HILL_CLIMBING</localSearchType>
-  </localSearch>
-  <localSearch>
-    <localSearchType>TABU_SEARCH</localSearchType>
-  </localSearch>
-  <localSearch>
-    <localSearchType>LATE_ACCEPTANCE</localSearchType>
-  </localSearch>
-  -->
-
-   <constructionHeuristic>
-  	<constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
-  </constructionHeuristic>
-  <localSearch>
-    <localSearchType>HILL_CLIMBING</localSearchType>
-  </localSearch>
   
 </solver>

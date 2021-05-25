@@ -24,11 +24,23 @@ public class TimetablePlanningApp {
 		Reader reader = new Reader();
 		String configText = reader.readJSONConfig("src/main/webapp/json/planConfig.json");
 		String configTime = configText.substring(0, configText.indexOf("-"));
-		String configAlgorithm = configText.substring(configTime.indexOf("-")+1);
-
-		//SolverFactory<TimetableSolution> solverFactory = SolverFactory.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverConfig.xml");
-		//Solver<TimetableSolution> solver = solverFactory.buildSolver();
-		SolverConfig solverConfig = SolverConfig.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverConfig.xml");
+		String configAlgorithm = configText.substring(configText.indexOf("-")+1);
+		SolverConfig solverConfig = null; 
+				
+		
+		if(configAlgorithm.equals("TABU_SEARCH")) {
+			System.out.println("Tabu search config");
+			solverConfig = SolverConfig.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverTabuSearchConfig.xml");
+		} else if(configAlgorithm.equals("FIRST_FIT")) {
+			System.out.println("First fit config");
+			solverConfig = SolverConfig.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverFirstFitConfig.xml");
+		} else if(configAlgorithm.equals("HILL_CLIMBING")) {
+			System.out.println("Hill climbing config");
+			solverConfig = SolverConfig.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverHillClimbingConfig.xml");
+		} else {
+			System.out.println("Tabu search config, kuna polnud valitud");
+			solverConfig = SolverConfig.createFromXmlResource("thesistimetableplanning/solver/DefenseTimetableSolverTabuSearchConfig.xml");
+		}
 		solverConfig.withTerminationConfig(new TerminationConfig()
 				.withSecondsSpentLimit(Long.parseLong(configTime)));
 		SolverFactory<TimetableSolution> solverFactory = SolverFactory.create(solverConfig);
