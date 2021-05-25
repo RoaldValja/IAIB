@@ -787,7 +787,7 @@ function languageChoice(language){
 	if(language == "Estonian"){
 		chosenLanguage = "Estonian";
 		document.getElementById("spanLanguage").innerHTML = "Keel";
-		document.getElementById("spanHelp").innerHTML = "Abi";
+		//document.getElementById("spanHelp").innerHTML = "Abi";
 		//document.getElementById("spanCheckProject").innerHTML = "Kontrolli projekt";
 		document.getElementById("spanPlanProject").innerHTML = "Planeeri projekt";
 		document.getElementById("spanSaveProject").innerHTML = "Salvesta projekt";
@@ -812,7 +812,7 @@ function languageChoice(language){
 		document.getElementById("spanPlanningTables").style.top = "15%";
 		document.getElementById("spanPlannedTables").innerHTML = "Planeeritud tabelid";
 		document.getElementById("spanPlannedTables").style.top = "15%";
-		
+		/*
 		document.getElementById("tutorialInputFile").innerHTML = "Sisendfail";
 		document.getElementById("tutorialNewProject").innerHTML = "Loo uus projekt";
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Loo näidistabelid";
@@ -824,7 +824,7 @@ function languageChoice(language){
 		document.getElementById("tutorialErrorMessageArea").innerHTML = "Veateated";
 		document.getElementById("tutorialNext").innerHTML = "Järgmine";
 		document.getElementById("tutorialPrevious").innerHTML = "Eelmine";
-		
+		*/
 		document.getElementById("tooltipFile").innerHTML = "Nupp, millega saad laadida peale planeerija andmed Excel failist.";
 		document.getElementById("tooltipNameArea").innerHTML = "Planeerija projekti nimi, mida kasutatakse faili loomisel.";
 		document.getElementById("tooltipNewProject").innerHTML = "Kustutab olemasoleva projekti tabelid ja lipikud.";
@@ -842,7 +842,7 @@ function languageChoice(language){
 		document.getElementById("tooltipPlanProject").innerHTML = "Selle nupuga paned planeerija tööle.";
 		document.getElementById("tooltipDisplayPlan").innerHTML = "Selle nupuga kuvad hetkel mälus oleva plaani veebiliidesesse.";
 		document.getElementById("tooltipLanguage").innerHTML = "Selle nupuga saad valida programmi keele.";
-		document.getElementById("tooltipHelp").innerHTML = "Selle nupuga saad kuvada abiinfot nuppude kohta.";
+		//document.getElementById("tooltipHelp").innerHTML = "Selle nupuga saad kuvada abiinfot nuppude kohta.";
 		
 		let javaFinished = document.getElementById("javaFinished");
 		if(javaFinished.innerHTML == "Not being planned"){
@@ -852,7 +852,7 @@ function languageChoice(language){
 	} else if (language == "English"){
 		chosenLanguage = "English";
 		document.getElementById("spanLanguage").innerHTML = "Language";
-		document.getElementById("spanHelp").innerHTML = "Help";
+		//document.getElementById("spanHelp").innerHTML = "Help";
 		//document.getElementById("spanCheckProject").innerHTML = "Check table";
 		document.getElementById("spanPlanProject").innerHTML = "Plan table";
 		document.getElementById("spanSaveProject").innerHTML = "Save table";
@@ -877,7 +877,7 @@ function languageChoice(language){
 		document.getElementById("spanPlanningTables").style.top = "30%";
 		document.getElementById("spanPlannedTables").innerHTML = "Planned tables";
 		document.getElementById("spanPlannedTables").style.top = "30%";
-		
+		/*
 		document.getElementById("tutorialInputFile").innerHTML = "Input file";
 		document.getElementById("tutorialNewProject").innerHTML = "Create new project";
 		document.getElementById("tutorialGenerateExampleTable").innerHTML = "Create example tables";
@@ -889,7 +889,7 @@ function languageChoice(language){
 		document.getElementById("tutorialErrorMessageArea").innerHTML = "Error messages";
 		document.getElementById("tutorialNext").innerHTML = "Next";
 		document.getElementById("tutorialPrevious").innerHTML = "Previous";
-		
+		*/
 
 		document.getElementById("tooltipFile").innerHTML = "This button lets you import Excel file input data.";
 		document.getElementById("tooltipNameArea").innerHTML = "Write the planning project name here, which will be used when creating save file.";
@@ -908,7 +908,7 @@ function languageChoice(language){
 		document.getElementById("tooltipPlanProject").innerHTML = "This button initiates the planner.";
 		document.getElementById("tooltipDisplayPlan").innerHTML = "This button retrieves planned data from the last plan.";
 		document.getElementById("tooltipLanguage").innerHTML = "This button lets you choose applications language.";
-		document.getElementById("tooltipHelp").innerHTML = "This button displays what each button does.";
+		//document.getElementById("tooltipHelp").innerHTML = "This button displays what each button does.";
 		
 		let javaFinished = document.getElementById("javaFinished");
 		if(javaFinished.innerHTML == "Pole planeerimisel"){
@@ -2279,10 +2279,10 @@ window.onclick = function(event){
 		addKeywordsToArray(nodesAuthor, 3, 4, 6, 'tableAuthor');
 		addKeywordsToArray(nodesSupervisor, 3, 3, 5, 'tableSupervisor');
 		addKeywordsToArray(nodesCommitee, 3, 4, 6, 'tableCommitee');
-		updateKeywordDatalists(nodesTimeslot, 2, 6, 6, 'tableTimeslot', td);
+		updateKeywordDatalists(nodesTimeslot, 2, 6, 6, 'tableTimeslot');
 		updateKeywordDatalists(nodesAuthor, 3, 4, 6, 'tableAuthor');
-		updateKeywordDatalists(nodesSupervisor, 3, 3, 5, 'tableSupervisor', td);
-		updateKeywordDatalists(nodesCommitee, 3, 4, 6, 'tableCommitee', td);
+		updateKeywordDatalists(nodesSupervisor, 3, 3, 5, 'tableSupervisor');
+		updateKeywordDatalists(nodesCommitee, 3, 4, 6, 'tableCommitee');
 		let input = event.target.id;
 		let datalist = input.substring(0, (input.length - 5)) + "datalist";
 		document.getElementById(event.target.id).focus();

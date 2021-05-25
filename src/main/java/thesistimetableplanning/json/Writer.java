@@ -101,11 +101,11 @@ public class Writer {
 		table.put("defenseCommentsSupervisorList", defenseCommentsSupervisorList);
 		table.put("defenseCommentsCommissionList", defenseCommentsCommissionList);
 		System.out.println("enne json kirjutamist");
-		try(FileWriter file = new FileWriter("veebiliides/json/plannedData.json")){
+		/*try(FileWriter file = new FileWriter("veebiliides/json/plannedData.json")){
 			file.write(table.toJSONString());
 		} catch (IOException e){
 			e.printStackTrace();
-		}
+		}*/
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/webapp/json/plannedData.json"), "UTF-8"));
 	    try{
 	    	out.write(table.toJSONString());
@@ -192,7 +192,9 @@ public class Writer {
 		}
 		for(Commitee commiteeMember : commiteeArray) {
 			//System.out.println("CommiteeMember: " + commiteeMember);
-			commiteeNames += commiteeMember.getName() + ", ";
+			if(commiteeMember != null) {
+				commiteeNames += commiteeMember.getName() + ", ";
+			}
 		}
 		commiteeNames = commiteeNames.substring(0, commiteeNames.length() - 2);
 		defenseCommitee.put("defense commitee members", commiteeNames);

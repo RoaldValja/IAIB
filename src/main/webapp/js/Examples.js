@@ -504,7 +504,7 @@ function generateAuthorTableTemplate(){
 	document.getElementById('tableAuthor-2-3').innerHTML = "Juhendajad";
 	document.getElementById('tableAuthor-2-4').innerHTML = "Eelistatud märksõnad";
 	document.getElementById('tableAuthor-2-5').innerHTML = "Mitte-eelistatud märksõnad";
-	document.getElementById('tableAuthor-2-6').innerHTML = "Sobumatud märksõnad";
+	document.getElementById('tableAuthor-2-6').innerHTML = "Sobimatud märksõnad";
 }
 
 function generateSupervisorTableTemplate(){
@@ -517,7 +517,7 @@ function generateSupervisorTableTemplate(){
 	document.getElementById('tableSupervisor-2-2').innerHTML = "Roll";
 	document.getElementById('tableSupervisor-2-3').innerHTML = "Eelistatud märksõnad";
 	document.getElementById('tableSupervisor-2-4').innerHTML = "Mitte-eelistatud märksõnad";
-	document.getElementById('tableSupervisor-2-5').innerHTML = "Sobumatud märksõnad";
+	document.getElementById('tableSupervisor-2-5').innerHTML = "Sobimatud märksõnad";
 }
 
 function generateCommiteeTableTemplate(){
@@ -532,7 +532,7 @@ function generateCommiteeTableTemplate(){
 	document.getElementById('tableCommitee-2-3').innerHTML = "Esimees";
 	document.getElementById('tableCommitee-2-4').innerHTML = "Eelistatud märksõnad";
 	document.getElementById('tableCommitee-2-5').innerHTML = "Mitte-eelistatud märksõnad";
-	document.getElementById('tableCommitee-2-6').innerHTML = "Sobumatud märksõnad";
+	document.getElementById('tableCommitee-2-6').innerHTML = "Sobimatud märksõnad";
 }
 
 function generateDefenseTableTemplate(){
