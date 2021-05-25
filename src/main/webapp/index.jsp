@@ -57,7 +57,7 @@
 						<span class="singleLine" id="spanCreateNewProject">Kustuta projekt</span>
 						<span class="tooltipText" id="tooltipNewProject">Kustutab olemasoleva projekti tabelid ja lipikud.</span>
 					</div>
-					<div class="menuButtonTable" id="generateExampleTable" style="width:31%; height:100%; border-left: 1px solid black; padding-left:1%; padding-right:1%;" onclick="generateExampleTable2()">
+					<div class="menuButtonTable" id="generateExampleTable" style="width:31%; height:100%; border-left: 1px solid black; padding-left:1%; padding-right:1%;" onclick="generateExampleTable()">
 						<span class="singleLine" id="spanCreateExampleTables">Loo näidistabelid</span>
 						<span class="tooltipText" id="tooltipExamples">Loob näidistabelid planeerija jaoks.</span>
 					</div>
