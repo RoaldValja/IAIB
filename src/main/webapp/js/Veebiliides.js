@@ -2401,6 +2401,9 @@ window.onclick = function(event){
 	if(event.target.matches('#tabPlanned Data')){
 		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 	}
+	if(event.target.matches('#tabConfiguration')){
+		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
+	}
 	if(event.target.matches('#tabDefense')){
 		document.getElementById("timeslotCustomCreate").style.visibility = "hidden";
 		let nodesAuthor = document.getElementById("tableAuthor-1-1").parentNode.parentNode.childElementCount;
